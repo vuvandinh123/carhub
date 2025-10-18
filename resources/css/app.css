@@ -1,0 +1,59 @@
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../../node_modules/flowbite";
+@source '../views';
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+    font-family: "DM Sans", sans-serif;
+}
+
+@theme {
+    /* màu chủ đạo */
+    --color-brand-black: #0d0d0d;
+    --color-brand-white: #ffffff;
+    --color-brand-gray: #111827;
+
+    /* xanh dương */
+    --color-brand-blue-500: #2563eb; /* chính */
+    --color-brand-blue-600: #1e40af; /* hover/dark */
+    --color-brand-blue-400: #3b82f6; /* nhạt hơn */
+}
+@layer components {
+    /* nền chính */
+    .bg-main {
+        @apply bg-brand-white dark:bg-brand-black text-brand-black dark:text-brand-white;
+    }
+
+    /* chữ chính */
+    .text-main {
+        @apply text-brand-black dark:text-brand-white;
+    }
+
+    /* chữ phụ */
+    .text-sub {
+        @apply text-brand-gray dark:text-gray-400;
+    }
+
+    .bg-main-gray {
+        @apply bg-gray-200 dark:bg-gray-900 text-brand-black dark:text-brand-white;
+    }
+    /* button chính */
+    .btn-primary {
+        @apply bg-brand-blue-500 text-white font-medium rounded-lg px-5 py-2.5 
+           hover:bg-brand-blue-600 transition-colors;
+    }
+
+    /* button phụ */
+    .btn-secondary {
+        @apply bg-brand-blue-400 text-white font-medium rounded-lg px-5 py-2.5 
+           hover:bg-brand-blue-500 transition-colors;
+    }
+
+    /* card */
+    .card {
+        @apply bg-white dark:bg-brand-gray shadow-md rounded-lg ;
+    }
+}
