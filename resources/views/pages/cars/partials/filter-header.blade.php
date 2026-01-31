@@ -1,41 +1,198 @@
-<div class="flex flex-wrap items-center justify-between mb-6">
-    <div class="flex items-center space-x-2 mb-4 lg:mb-0">
-        <span class="text-sub">Hiển thị 142 kết quả</span>
-        <div class="flex flex-wrap gap-2 ml-4">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-brand-gray text-sub dark:text-white">
-                <i data-lucide="check" class="fas fa-times mr-1 text-xs"></i> Sedan
-            </span>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-brand-gray text-sub dark:text-white">
-                <i data-lucide="check" class="fas fa-times mr-1 text-xs"></i> SUV 
-                <button class="ml-1 group">
-                    <i data-lucide="x" class="w-4 group-hover:text-red-700"></i>
-                </button>
-            </span>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-brand-gray text-sub dark:text-white">
-                <i data-lucide="check" class="fas fa-times mr-1 text-xs"></i> Coupe
-            </span>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-brand-gray text-sub dark:text-white">
-                <i data-lucide="check" class="fas fa-times mr-1 text-xs"></i> Under 2023
-            </span>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-brand-gray text-sub dark:text-white">
-                <i data-lucide="check" class="fas fa-times mr-1 text-xs"></i> $17,000 - $120,000
-            </span>
-        </div>
-        <button class="text-blue-600 hover:text-blue-800 text-sm ml-4">Xóa tất cả</button>
-    </div>
+<div class="bg-main rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+        <!-- Results count and active filters -->
+        <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-3 mb-3">
+                <h2 class="text-lg font-semibold text-main">
+                    Tìm thấy <span class="text-blue-600">{{ $cars->total() }}</span> xe phù hợp với bạn
+                </h2>
+            </div>
+            
+            <!-- Active filters badges -->
+            @if(!empty($activeFilters) && count($activeFilters) > 0)
+                <div class="flex flex-wrap gap-2">
+                    @php
+                        $filterLabels = [
+                            'condition' => [
+                                'new' => 'Xe mới',
+                                'used' => 'Xe cũ'
+                            ],
+                            'brand_id' => 'Hãng: ',
+                            'price_min' => 'Giá từ: ',
+                            'price_max' => 'Giá đến: ',
+                            'year_min' => 'Năm từ: ',
+                            'year_max' => 'Năm đến: ',
+                            'mileage_max' => 'Km tối đa: ',
+                            'seats' => 'Số chỗ: ',
+                            'transmission' => [
+                                'automatic' => 'Tự động',
+                                'manual' => 'Số sàn'
+                            ]
+                        ];
+                        
+                        $colors = ['blue', 'green', 'purple', 'orange', 'pink', 'indigo'];
+                        $colorIndex = 0;
+                        $hasVisibleFilters = false;
+                    @endphp
 
-    <div class="flex items-center space-x-4">
-        <button class="flex items-center space-x-2 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer ">
-            <i data-lucide="compare" class="fas fa-balance-scale"></i>
-            <span>So sánh (1)</span>
-        </button>
-        <div class="flex border border-gray-200 dark:border-gray-700 rounded-lg">
-            <button class="p-2 bg-white dark:bg-gray-800 border-r border-gray-300 dark:border-gray-700">
-                <i data-lucide="grid" class="fas fa-th-large"></i>
+                    @foreach($activeFilters as $key => $value)
+                        @if($key === 'sort_by')
+                            @continue
+                        @endif
+                        
+                        @php
+                            $hasVisibleFilters = true;
+                            $currentColor = $colors[$colorIndex % count($colors)];
+                            $colorIndex++;
+                        @endphp
+
+                        @if($key === 'condition')
+                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-{{ $currentColor }}-50 dark:bg-{{ $currentColor }}-900/30 text-{{ $currentColor }}-700 dark:text-{{ $currentColor }}-300 border border-{{ $currentColor }}-200 dark:border-{{ $currentColor }}-800">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                                <span>{{ $filterLabels['condition'][$value] ?? $value }}</span>
+                                <a href="{{ route('cars.index', array_merge(request()->except('condition'), ['page' => 1])) }}" class="hover:text-red-600 transition">
+                                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </span>
+
+                        @elseif($key === 'brand_id')
+                            @php
+                                $brand = $brands->firstWhere('id', $value);
+                            @endphp
+                            @if($brand)
+                                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-{{ $currentColor }}-50 dark:bg-{{ $currentColor }}-900/30 text-{{ $currentColor }}-700 dark:text-{{ $currentColor }}-300 border border-{{ $currentColor }}-200 dark:border-{{ $currentColor }}-800">
+                                    <i data-lucide="tag" class="w-4 h-4"></i>
+                                    <span>{{ $brand->name }}</span>
+                                    <a href="{{ route('cars.index', array_merge(request()->except('brand_id'), ['page' => 1])) }}" class="hover:text-red-600 transition">
+                                        <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                    </a>
+                                </span>
+                            @endif
+
+                        @elseif($key === 'categories' && is_array($value))
+                            @foreach($value as $catId)
+                                @php
+                                    $category = $categories->firstWhere('id', $catId);
+                                    $currentColor = $colors[$colorIndex % count($colors)];
+                                    $colorIndex++;
+                                @endphp
+                                @if($category)
+                                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-{{ $currentColor }}-50 dark:bg-{{ $currentColor }}-900/30 text-{{ $currentColor }}-700 dark:text-{{ $currentColor }}-300 border border-{{ $currentColor }}-200 dark:border-{{ $currentColor }}-800">
+                                        <i data-lucide="package" class="w-4 h-4"></i>
+                                        <span>{{ $category->name }}</span>
+                                        <a href="{{ route('cars.index', array_merge(request()->all(), ['categories' => array_diff($value, [$catId]), 'page' => 1])) }}" class="hover:text-red-600 transition">
+                                            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                        </a>
+                                    </span>
+                                @endif
+                            @endforeach
+
+                        @elseif($key === 'fuel' && is_array($value))
+                            @foreach($value as $fuel)
+                                @php
+                                    $currentColor = $colors[$colorIndex % count($colors)];
+                                    $colorIndex++;
+                                @endphp
+                                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-{{ $currentColor }}-50 dark:bg-{{ $currentColor }}-900/30 text-{{ $currentColor }}-700 dark:text-{{ $currentColor }}-300 border border-{{ $currentColor }}-200 dark:border-{{ $currentColor }}-800">
+                                    <i data-lucide="fuel" class="w-4 h-4"></i>
+                                    <span>{{ $fuel }}</span>
+                                    <a href="{{ route('cars.index', array_merge(request()->all(), ['fuel' => array_diff($value, [$fuel]), 'page' => 1])) }}" class="hover:text-red-600 transition">
+                                        <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                    </a>
+                                </span>
+                            @endforeach
+
+                        @elseif($key === 'price_min')
+                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-{{ $currentColor }}-50 dark:bg-{{ $currentColor }}-900/30 text-{{ $currentColor }}-700 dark:text-{{ $currentColor }}-300 border border-{{ $currentColor }}-200 dark:border-{{ $currentColor }}-800">
+                                <i data-lucide="dollar-sign" class="w-4 h-4"></i>
+                                <span>Giá từ {{ number_format($value) }}tr</span>
+                                <a href="{{ route('cars.index', array_merge(request()->except('price_min'), ['page' => 1])) }}" class="hover:text-red-600 transition">
+                                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </span>
+
+                        @elseif($key === 'price_max')
+                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-{{ $currentColor }}-50 dark:bg-{{ $currentColor }}-900/30 text-{{ $currentColor }}-700 dark:text-{{ $currentColor }}-300 border border-{{ $currentColor }}-200 dark:border-{{ $currentColor }}-800">
+                                <i data-lucide="dollar-sign" class="w-4 h-4"></i>
+                                <span>Giá đến {{ number_format($value) }}tr</span>
+                                <a href="{{ route('cars.index', array_merge(request()->except('price_max'), ['page' => 1])) }}" class="hover:text-red-600 transition">
+                                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </span>
+
+                        @elseif($key === 'year_min')
+                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-{{ $currentColor }}-50 dark:bg-{{ $currentColor }}-900/30 text-{{ $currentColor }}-700 dark:text-{{ $currentColor }}-300 border border-{{ $currentColor }}-200 dark:border-{{ $currentColor }}-800">
+                                <i data-lucide="calendar" class="w-4 h-4"></i>
+                                <span>Từ năm {{ $value }}</span>
+                                <a href="{{ route('cars.index', array_merge(request()->except('year_min'), ['page' => 1])) }}" class="hover:text-red-600 transition">
+                                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </span>
+
+                        @elseif($key === 'year_max')
+                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-{{ $currentColor }}-50 dark:bg-{{ $currentColor }}-900/30 text-{{ $currentColor }}-700 dark:text-{{ $currentColor }}-300 border border-{{ $currentColor }}-200 dark:border-{{ $currentColor }}-800">
+                                <i data-lucide="calendar" class="w-4 h-4"></i>
+                                <span>Đến năm {{ $value }}</span>
+                                <a href="{{ route('cars.index', array_merge(request()->except('year_max'), ['page' => 1])) }}" class="hover:text-red-600 transition">
+                                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </span>
+
+                        @elseif($key === 'mileage_max')
+                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-{{ $currentColor }}-50 dark:bg-{{ $currentColor }}-900/30 text-{{ $currentColor }}-700 dark:text-{{ $currentColor }}-300 border border-{{ $currentColor }}-200 dark:border-{{ $currentColor }}-800">
+                                <i data-lucide="gauge" class="w-4 h-4"></i>
+                                <span>Tối đa {{ number_format($value) }}km</span>
+                                <a href="{{ route('cars.index', array_merge(request()->except('mileage_max'), ['page' => 1])) }}" class="hover:text-red-600 transition">
+                                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </span>
+
+                        @elseif($key === 'seats')
+                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-{{ $currentColor }}-50 dark:bg-{{ $currentColor }}-900/30 text-{{ $currentColor }}-700 dark:text-{{ $currentColor }}-300 border border-{{ $currentColor }}-200 dark:border-{{ $currentColor }}-800">
+                                <i data-lucide="users" class="w-4 h-4"></i>
+                                <span>{{ $value }} chỗ</span>
+                                <a href="{{ route('cars.index', array_merge(request()->except('seats'), ['page' => 1])) }}" class="hover:text-red-600 transition">
+                                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </span>
+
+                        @elseif($key === 'transmission')
+                            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-{{ $currentColor }}-50 dark:bg-{{ $currentColor }}-900/30 text-{{ $currentColor }}-700 dark:text-{{ $currentColor }}-300 border border-{{ $currentColor }}-200 dark:border-{{ $currentColor }}-800">
+                                <i data-lucide="settings" class="w-4 h-4"></i>
+                                <span>{{ $filterLabels['transmission'][$value] ?? $value }}</span>
+                                <a href="{{ route('cars.index', array_merge(request()->except('transmission'), ['page' => 1])) }}" class="hover:text-red-600 transition">
+                                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </span>
+                        @endif
+                    @endforeach
+
+                    <!-- Clear all filters button - only show if there are visible filters -->
+                    @if($hasVisibleFilters)
+                        <a href="{{ route('cars.index') }}" class="text-sm text-red-600 hover:text-red-700 font-medium px-3 py-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition">
+                            <i data-lucide="x-circle" class="w-4 h-4 inline mr-1"></i>
+                            Xóa tất cả
+                        </a>
+                    @endif
+                </div>
+            @endif
+        </div>
+
+        <!-- View mode and compare -->
+        <div class="flex items-center gap-3">
+            <button class="flex items-center gap-2 px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition group">
+                <i data-lucide="git-compare" class="w-5 h-5 text-blue-600 group-hover:scale-110 transition"></i>
+                <span class="font-medium">So sánh (0)</span>
             </button>
-            <button class="p-2 bg-gray-100 dark:bg-gray-700  dark:border-gray-600">
-                <i data-lucide="list" class="fas fa-list"></i>
-            </button>
+            
+            <div class="flex border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
+                <button class="p-2.5 bg-blue-600 text-white hover:bg-blue-700 transition">
+                    <i data-lucide="layout-grid" class="w-5 h-5"></i>
+                </button>
+                <button class="p-2.5 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <i data-lucide="list" class="w-5 h-5"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>

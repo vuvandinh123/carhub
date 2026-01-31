@@ -1,4 +1,4 @@
-<div class="container text-main mx-auto px-4 py-8">
+<div class="container  text-main mx-auto px-4 py-8">
     <!-- Main Content Section -->
     <div class="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto">
         <!-- Car Images Section -->

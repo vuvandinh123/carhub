@@ -34,6 +34,30 @@ class HomeController extends Controller
     }
 
     /**
+     * Display about page
+     */
+    public function about()
+    {
+        return view('pages.about.index');
+    }
+
+    /**
+     * Display contact page
+     */
+    public function contact()
+    {
+        return view('pages.contact.index');
+    }
+
+    /**
+     * Display loan calculator page
+     */
+    public function loan()
+    {
+        return view('pages.loan.index');
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()

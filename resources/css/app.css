@@ -20,6 +20,31 @@ body {
     --color-brand-blue-500: #2563eb; /* chính */
     --color-brand-blue-600: #1e40af; /* hover/dark */
     --color-brand-blue-400: #3b82f6; /* nhạt hơn */
+
+    /* ===== PRIMARY – Navy Blue ===== */
+  --color-primary-50:  #F0F5FF;
+  --color-primary-100: #E0EAFF;
+  --color-primary-200: #C7D8FF;
+  --color-primary-300: #A5BEFF;
+  --color-primary-400: #7A9EFF;
+  --color-primary-500: #4F7DFF;
+  --color-primary-600: #1D4ED8; /* dùng nhiều */
+  --color-primary-700: #1E40AF;
+  --color-primary-800: #1E3A8A;
+  --color-primary-900: #0F172A; /* Navy đậm – brand chính */
+
+  /* ===== ACCENT – CTA (Đỏ bán hàng) ===== */
+  --color-accent-500: #DC2626;
+  --color-accent-600: #B91C1C;
+
+  /* ===== NEUTRAL ===== */
+  --color-neutral-50:  #F9FAFB;
+  --color-neutral-100: #F3F4F6;
+  --color-neutral-200: #E5E7EB;
+  --color-neutral-300: #D1D5DB;
+  --color-neutral-500: #6B7280;
+  --color-neutral-700: #374151;
+  --color-neutral-900: #111827;
 }
 @layer components {
     /* nền chính */

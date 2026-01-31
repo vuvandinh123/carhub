@@ -1,7 +1,7 @@
-<div class="container mx-auto text-main my-12 px-4">
+<div class="container max-w-7xl mx-auto text-main my-12 px-4">
     <div class="text-center">
         <div class="mb-5">
-            <h2 class="text-3xl font-semibold m-0  mb-2 capitalize">Xe được tìm kiếm nhiều nhất</h2>
+            <h2 class="text-3xl font-semibold m-0  mb-2 capitalize">Tìm kiếm nhiều nhất</h2>
             <p class="text-sub text-sm">Cung cấp cho người dùng nhà tìm kiếm xe mơ ước</p>
 
         </div>
@@ -17,11 +17,11 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
         @foreach ($cars as $car)
             <x-card-car :carid="$car['id']" :image="$car['thumbnail']" :title="$car['title']" :year="$car['year']" :price="$car['price']" :date="date('d M Y', strtotime($car['created_at']))"
-                :location="$car->origin?->name" :mileage="$car->transmission?->name" :fuel="$car->fuelType?->name" :gearbox="'12'" 
-                :bodytype="$car->bodyType?->name"
+                :location="'HCM'" :mileage="'60km'" :fuel="$car->fuel" :gearbox="'12'" 
+                :bodytype="'Tự động'"
                 {{-- :badges="$car['badges']" --}} />
             {{-- @include('partials.cards.card') --}}
         @endforeach

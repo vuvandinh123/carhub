@@ -1,5 +1,5 @@
 <!-- Why Choose Us Section -->
-<div class="mt-24  mx-auto bg-gray-50 text-main dark:bg-gray-900 py-16">
+<div class="mt-24 max-w-7xl  mx-auto bg-gray-50 text-main dark:bg-gray-900 py-16">
     <div class="container mx-auto">
         <div class=" mb-16 text-center">
             <h2 class="text-4xl font-bold text-center ">Tại sao chọn chúng tôi?</h2>

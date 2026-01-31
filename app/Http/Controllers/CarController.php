@@ -14,19 +14,49 @@ class CarController extends Controller
     private $brandRepository;
     private $categoryRepository;
 
-    public function __construct(CarRepository $carRepository, CategoryRepository $categoryRepository)
+    public function __construct(CarRepository $carRepository, CategoryRepository $categoryRepository, \App\Repositories\BrandRepository $brandRepository)
     {
         $this->carRepository = $carRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->brandRepository = $brandRepository;
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cars = $this->carRepository->paginate(8);
-        dd($cars);
-        return view('pages.cars.index', compact('cars'));
+        // Get all brands for filter
+        $brands = $this->brandRepository->all();
+        
+        // Get all categories for filter
+        $categories = $this->categoryRepository->all();
+        
+        // Collect filters from request
+        $filters = [
+            'search' => $request->input('search'),
+            'condition' => $request->input('condition'),
+            'brand_id' => $request->input('brand_id'),
+            'categories' => $request->input('categories', []),
+            'price_min' => $request->input('price_min'),
+            'price_max' => $request->input('price_max'),
+            'year_min' => $request->input('year_min'),
+            'year_max' => $request->input('year_max'),
+            'mileage_max' => $request->input('mileage_max'),
+            'fuel' => $request->input('fuel', []),
+            'transmission' => $request->input('transmission'),
+            'seats' => $request->input('seats'),
+            'sort_by' => $request->input('sort_by', 'newest'),
+        ];
+        
+        // Filter and paginate results
+        $cars = $this->carRepository->filterAndPaginate($filters, 12);
+        
+        // Get active filters for display
+        $activeFilters = array_filter($filters, function($value) {
+            return !empty($value) && $value !== '' && $value !== [];
+        });
+        
+        return view('pages.cars.index', compact('cars', 'brands', 'categories', 'filters', 'activeFilters'));
     }
 
     /**
@@ -51,8 +81,30 @@ class CarController extends Controller
     public function show(Car $car)
     {
         $car = $this->carRepository->find($car->id);
-        // dd($car->toArray());
         return view('pages.car-detail.index', compact('car'));
+    }
+
+    /**
+     * Compare multiple cars
+     */
+    public function compare(Request $request)
+    {
+        $ids = explode(',', $request->input('ids', ''));
+        
+        // Validate: must have 2-3 cars
+        if (count($ids) < 2 || count($ids) > 3) {
+            return redirect()->route('cars.index')->with('error', 'Vui lòng chọn từ 2 đến 3 xe để so sánh');
+        }
+        
+        // Get cars with all relationships
+        $cars = $this->carRepository->findMultiple($ids);
+        
+        // Ensure we have the requested cars
+        if ($cars->count() < 2) {
+            return redirect()->route('cars.index')->with('error', 'Không tìm thấy đủ xe để so sánh');
+        }
+        
+        return view('pages.cars.compare', compact('cars'));
     }
 
     /**

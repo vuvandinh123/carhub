@@ -45,7 +45,7 @@ class Car extends Model
         'mileage' => 'integer',
         'seats' => 'integer',
     ];
-    
+
 
     /* ==================== Relationships ==================== */
 
@@ -56,7 +56,7 @@ class Car extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'car_categories', 'car_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'car_category', 'car_id', 'category_id');
     }
 
     public function creator()
@@ -64,31 +64,31 @@ class Car extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    // Thuộc tính dạng CarAttribute
-    public function fuelType()
-    {
-        return $this->belongsTo(CarAttribute::class, 'fuel_type_id');
-    }
+    // // Thuộc tính dạng CarAttribute
+    // public function fuelType()
+    // {
+    //     return $this->belongsTo(CarAttribute::class, 'fuel_type_id');
+    // }
 
-    public function bodyType()
-    {
-        return $this->belongsTo(CarAttribute::class, 'body_type_id');
-    }
+    // public function bodyType()
+    // {
+    //     return $this->belongsTo(CarAttribute::class, 'body_type_id');
+    // }
 
-    public function transmission()
-    {
-        return $this->belongsTo(CarAttribute::class, 'transmission_id');
-    }
+    // public function transmission()
+    // {
+    //     return $this->belongsTo(CarAttribute::class, 'transmission_id');
+    // }
 
-    public function color()
-    {
-        return $this->belongsTo(CarAttribute::class, 'color_id');
-    }
+    // public function color()
+    // {
+    //     return $this->belongsTo(CarAttribute::class, 'color_id');
+    // }
 
-    public function origin()
-    {
-        return $this->belongsTo(CarAttribute::class, 'origin_id');
-    }
+    // public function origin()
+    // {
+    //     return $this->belongsTo(CarAttribute::class, 'origin_id');
+    // }
     public function images()
     {
         return $this->hasMany(CarImage::class);
@@ -98,5 +98,8 @@ class Car extends Model
     {
         return $this->hasOne(CarImage::class)->where('is_primary', true);
     }
-
+    public function specifications()
+    {
+        return $this->hasMany(CarSpecification::class);
+    }
 }

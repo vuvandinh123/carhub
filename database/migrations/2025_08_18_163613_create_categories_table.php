@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('slug')->unique()->comment('Slug dùng cho URL, ví dụ: suv, sedan');
             $table->text('description')->nullable()->comment('Mô tả ngắn gọn về danh mục');
             $table->text('content')->nullable()->comment('Nội dung chi tiết (giới thiệu danh mục)');
+            $table->string('type')->nullable()->comment('Loại');
             $table->string('thumbnail')->nullable()->comment('Ảnh đại diện cho danh mục');
 
             $table->foreignId('parent_id')

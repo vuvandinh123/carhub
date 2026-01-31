@@ -1,5 +1,5 @@
 <div class="bg-gray-100 dark:bg-gray-900">
-    <div class="grid container mx-auto grid-cols-1 md:grid-cols-2 ">
+    <div class="grid container max-w-7xl mx-auto grid-cols-1 md:grid-cols-2 ">
         <!-- Left Side - Form -->
         <div class="flex items-center justify-center ">
             <div class="  p-8 w-full  rounded-3xl bg-white dark:bg-gray-100">

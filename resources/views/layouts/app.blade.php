@@ -28,31 +28,95 @@
     </div>
     @include('partials.footer')
     @include('partials.modals.index')
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    @include('partials.compare-modal')
+    
+    <!-- Compare Floating Button -->
+    <div id="compareFloatingBtn" class="fixed bottom-4 right-4 z-40 hidden">
+        <button 
+            onclick="openCompareModal()"
+            class="bg-blue-600 text-white rounded-full px-3 py-2 shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-3 hover:scale-105">
+            <i data-lucide="git-compare" class="w-5 h-5"></i>
+            <span class="font-semibold">So sánh (<span id="compareCount">0</span>)</span>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const menuItems = document.querySelectorAll(".has-mega");
-
-            menuItems.forEach(item => {
-                const trigger = item.querySelector("a");
-                const megaMenu = item.querySelector(".mega-menu");
-
-                trigger.addEventListener("click", function(e) {
-                    if (window.innerWidth < 768) { // chỉ áp dụng cho mobile
-                        e.preventDefault();
-
-                        // toggle class ẩn/hiện
-                        megaMenu.classList.toggle("hidden");
+            console.log('DOM loaded - initializing mega menu');
+            
+            // Mega Menu Handler
+            const megaMenuItem = document.getElementById('megaMenuItem');
+            const megaMenuContent = document.getElementById('megaMenuContent');
+            
+            console.log('Mega menu elements:', { megaMenuItem, megaMenuContent });
+            
+            if (megaMenuItem && megaMenuContent) {
+                let hideTimeout;
+                
+                console.log('Mega menu initialized successfully');
+                
+                // Show mega menu on hover (desktop only)
+                megaMenuItem.addEventListener('mouseenter', function() {
+                    console.log('Mouse enter on menu item, window width:', window.innerWidth);
+                    if (window.innerWidth >= 768) {
+                        clearTimeout(hideTimeout);
+                        megaMenuContent.classList.remove('hidden');
+                        console.log('Mega menu shown');
                     }
                 });
-
-                // click ra ngoài thì đóng
-                document.addEventListener("click", function(event) {
-                    if (!item.contains(event.target) && window.innerWidth < 768) {
-                        megaMenu.classList.add("hidden");
+                
+                // Hide mega menu when mouse leaves
+                megaMenuItem.addEventListener('mouseleave', function() {
+                    console.log('Mouse leave on menu item');
+                    if (window.innerWidth >= 768) {
+                        hideTimeout = setTimeout(() => {
+                            megaMenuContent.classList.add('hidden');
+                            console.log('Mega menu hidden');
+                        }, 200);
                     }
                 });
-            });
+                
+                // Keep menu open when hovering over the menu itself
+                megaMenuContent.addEventListener('mouseenter', function() {
+                    console.log('Mouse enter on mega menu content');
+                    if (window.innerWidth >= 768) {
+                        clearTimeout(hideTimeout);
+                    }
+                });
+                
+                megaMenuContent.addEventListener('mouseleave', function() {
+                    console.log('Mouse leave on mega menu content');
+                    if (window.innerWidth >= 768) {
+                        hideTimeout = setTimeout(() => {
+                            megaMenuContent.classList.add('hidden');
+                            console.log('Mega menu hidden from content');
+                        }, 200);
+                    }
+                });
+                
+                // Mobile: Click to toggle
+                const menuLink = megaMenuItem.querySelector('a');
+                if (menuLink) {
+                    menuLink.addEventListener('click', function(e) {
+                        console.log('Click on menu link, window width:', window.innerWidth);
+                        if (window.innerWidth < 768) {
+                            e.preventDefault();
+                            megaMenuContent.classList.toggle('hidden');
+                            console.log('Mega menu toggled on mobile');
+                        }
+                    });
+                }
+                
+                // Click outside to close on mobile
+                document.addEventListener('click', function(event) {
+                    if (window.innerWidth < 768 && !megaMenuItem.contains(event.target)) {
+                        megaMenuContent.classList.add('hidden');
+                    }
+                });
+            } else {
+                console.error('Mega menu elements not found!');
+            }
         });
     </script>
     @vite('resources/js/app.js')

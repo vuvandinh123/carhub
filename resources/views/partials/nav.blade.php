@@ -1,72 +1,89 @@
-<ul
-    class="flex overflow-auto md:overflow-hidden max-h-[calc(100vh-4.5rem)]  flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:border-gray-700">
-    <li>
-        <a href="/"
-            class="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
-            aria-current="page">Trang chủ</a>
-    </li>
-    <li>
-        <a href="#"
-            class="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Giới
-            thiệu</a>
-    </li>
-    <li class="has-mega group after:absolute md:after:content-[''] after:w-full after:h-10  after:top-5 after:left-0 after:opacity-0 hover:after:opacity-100 relative">
-        <a href="#"
-            class="flex items-center z-10 gap-1 py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">
-            Sản phẩm 
-            <i data-lucide="chevron-down" class="w-4"></i>
-        </a>
+@php
+$menuItems = [
+    [
+        'label' => 'Trang chủ',
+        'route' => 'home',
+        'url' => '/',
+    ],
+    [
+        'label' => 'Giới thiệu',
+        'route' => 'about',
+        'url' => route('about'),
+    ],
+    [
+        'label' => 'Sản phẩm',
+        'route' => 'cars.*',
+        'url' => route('cars.index'),
+        'has_mega' => true,
+        'icon' => 'chevron-down',
+        'mega_menu' => [
+            [
+                'title' => 'Hãng xe phổ biến',
+                'items' => ['Toyota', 'Honda', 'Mazda', 'Hyundai']
+            ],
+            [
+                'title' => 'Phân khúc',
+                'items' => ['Sedan', 'SUV', 'Hatchback', 'Bán tải']
+            ],
+            [
+                'title' => 'Khoảng giá',
+                'items' => ['Dưới 500 triệu', '500 triệu - 1 tỷ', '1 - 2 tỷ', 'Trên 2 tỷ']
+            ],
+        ]
+    ],
+    [
+        'label' => 'Tin tức',
+        'route' => 'posts.*',
+        'url' => route('posts.index'),
+    ],
+    [
+        'label' => 'Tính vay',
+        'route' => 'loan.calculator',
+        'url' => route('loan.calculator'),
+    ],
+    [
+        'label' => 'Liên hệ',
+        'route' => 'contact',
+        'url' => route('contact'),
+    ],
+];
+@endphp
 
-        <!-- Mega menu -->
-        <div
-            class="mega-menu md:absolute  transition-all rounded-2xl left-1/2 transform md:-translate-x-1/2 top-10  md:group-hover:block hidden md:bg-white md:dark:bg-brand-gray md:shadow-lg md:max-w-4xl">
-            <div class="grid md:grid-cols-3 gap-6 p-6">
+<ul class="flex overflow-visible md:overflow-visible max-h-[calc(100vh-4.5rem)] flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">
+    @foreach($menuItems as $item)
+        <li class="{{ $item['has_mega'] ?? false ? 'has-mega relative' : '' }}" 
+            @if($item['has_mega'] ?? false) id="megaMenuItem" @endif>
+            <a href="{{ $item['url'] }}"
+                class="{{ ($item['has_mega'] ?? false) ? 'flex items-center z-10 gap-1' : 'block' }} py-2 px-3 md:p-0 rounded-sm {{ request()->routeIs($item['route']) ? 'text-white bg-blue-700 md:bg-transparent md:text-primary-800 md:dark:text-blue-500 font-bold md:after:bg-primary-800 after:absolute after:w-1/3 after:h-[1px] transform after:translate-y-[2px] after:bottom-0 after:left-0 after:dark:bg-primary-600 relative ' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700' }}"
+                @if(request()->routeIs($item['route'])) aria-current="page" @endif>
+                {{ $item['label'] }}
+                @if(isset($item['icon']))
+                    <i data-lucide="{{ $item['icon'] }}" class="w-4"></i>
+                @endif
+            </a>
 
-                <!-- Cột 1 -->
-                <div>
-                    <h3 class="md:text-sm text-[13px] font-semibold text-gray-900 dark:text-white uppercase mb-3">Hãng xe phổ biến</h3>
-                    <ul class="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
-                        <li><a href="#" class="hover:text-blue-600">Toyota</a></li>
-                        <li><a href="#" class="hover:text-blue-600">Honda</a></li>
-                        <li><a href="#" class="hover:text-blue-600">Mazda</a></li>
-                        <li><a href="#" class="hover:text-blue-600">Hyundai</a></li>
-                    </ul>
+            @if($item['has_mega'] ?? false)
+                <!-- Mega menu -->
+                <div id="megaMenuContent"
+                    class="mega-menu hidden transition-all duration-300 md:absolute rounded-2xl left-1/2 transform md:-translate-x-1/2 top-full mt-2 md:bg-white md:dark:bg-brand-gray md:shadow-lg md:min-w-5xl z-50">
+                    <div class="grid md:grid-cols-{{ count($item['mega_menu']) }} gap-6 p-6">
+                        @foreach($item['mega_menu'] as $column)
+                            <div>
+                                <h3 class="md:text-sm text-[13px] font-semibold text-gray-900 dark:text-white uppercase mb-3">
+                                    {{ $column['title'] }}
+                                </h3>
+                                <ul class="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+                                    @foreach($column['items'] as $subItem)
+                                        <li>
+                                            <a href="#" class="hover:text-blue-600">{{ $subItem }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-
-                <!-- Cột 2 -->
-                <div>
-                    <h3 class="md:text-sm text-[13px] font-semibold text-gray-900 dark:text-white uppercase mb-3">Phân khúc</h3>
-                    <ul class="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
-                        <li><a href="#" class="hover:text-blue-600">Sedan</a></li>
-                        <li><a href="#" class="hover:text-blue-600">SUV</a></li>
-                        <li><a href="#" class="hover:text-blue-600">Hatchback</a></li>
-                        <li><a href="#" class="hover:text-blue-600">Bán tải</a></li>
-                    </ul>
-                </div>
-
-                <!-- Cột 3 -->
-                <div>
-                    <h3 class="md:text-sm text-[13px] font-semibold text-gray-900 dark:text-white uppercase mb-3">Khoảng giá</h3>
-                    <ul class="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
-                        <li><a href="#" class="hover:text-blue-600">Dưới 500 triệu</a></li>
-                        <li><a href="#" class="hover:text-blue-600">500 triệu - 1 tỷ</a></li>
-                        <li><a href="#" class="hover:text-blue-600">1 - 2 tỷ</a></li>
-                        <li><a href="#" class="hover:text-blue-600">Trên 2 tỷ</a></li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </li>
-
-    <li>
-        <a href="#"
-            class="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Dịch
-            vụ</a>
-    </li>
-    <li>
-        <a href="#"
-            class="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Liên
-            hệ</a>
-    </li>
+            @endif
+        </li>
+    @endforeach
 </ul>

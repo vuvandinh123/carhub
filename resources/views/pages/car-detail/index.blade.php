@@ -117,10 +117,10 @@
 
 @section('content')
     <section>
-        <div class="container mx-auto mt-10 px-4 py-6">
+        <div class="container max-w-7xl mx-auto mt-10 px-4 py-6">
             <x-breadcrumb :items="[['label' => 'Cars', 'url' => route('cars.index')], ['label' => 'Car Details']]" />
         </div>
-        <div class="container mx-auto px-4 py-6">
+        <div class="container max-w-7xl mx-auto px-4 py-6">
             <!-- Car Title -->
             <div class="flex items-center justify-between mb-6">
                 <div>
@@ -140,19 +140,17 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-2">
                     <div class="relative mb-6">
-                        <!-- Main Swiper -->
-                        <div class="swiper mySwiper2 rounded-xl overflow-hidden shadow-2xl">
+                        <div class="swiper mySwiper2 rounded-xl overflow-hidden ">
                             <div class="swiper-wrapper">
-                                @foreach ($car->images as $item)
+                                @for ($i = 0; $i < 5; $i++)
                                     <div class="swiper-slide">
                                         <a href="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/hinh-anh-oto.jpg" data-fancybox="car-gallery"
-                                            data-caption="Ảnh xe {{ $loop->iteration }} - {{ $car->name ?? 'Chi tiết xe' }}"
+                                            data-caption="Ảnh xe {{ $i + 1 }} - {{ $car->name ?? 'Chi tiết xe' }}"
                                             class="block relative group">
-                                            <img src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/hinh-anh-oto.jpg"
-                                                alt="Ảnh xe {{ $loop->iteration }}"
-                                                class="w-full h-96 lg:h-[550px] object-cover transition-transform duration-500 group-hover:scale-105">
+                                            <img src="https://cafefcdn.com/2018/6/16/photo-1-1529146484215497174285.png"
+                                                alt="Ảnh xe {{ $i + 1 }}"
+                                                class="w-full h-96 lg:h-[550px] object-contain  transition-transform duration-500 group-hover:scale-105">
 
-                                            <!-- Overlay hover effect -->
                                             <div
                                                 class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                                                 <div
@@ -169,10 +167,9 @@
                                             </div>
                                         </a>
                                     </div>
-                                @endforeach
+                                @endfor
                             </div>
 
-                            <!-- Custom Navigation Buttons -->
                             <div class="swiper-button-prev-custom">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
@@ -186,10 +183,8 @@
                                 </svg>
                             </div>
 
-                            <!-- Pagination -->
                             <div class="swiper-pagination-custom"></div>
 
-                            <!-- Status Badges -->
                             <div class="absolute top-5 left-5 flex flex-wrap gap-2 z-10">
                                 <span
                                     class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg backdrop-blur-sm flex items-center gap-2">
@@ -209,7 +204,6 @@
                                 </span>
                             </div>
 
-                            <!-- Image Counter -->
                             <div
                                 class="absolute bottom-5 right-5 bg-black bg-opacity-70 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm z-10">
                                 <span class="current-slide">1</span> / <span
@@ -217,27 +211,25 @@
                             </div>
                         </div>
 
-                        <!-- Thumbnail Swiper -->
                         <div class="swiper mySwiperThumbs mt-4">
                             <div class="swiper-wrapper">
-                                @foreach ($car->images as $item)
+                                @for ($i = 0; $i < 5; $i++)
                                     <div class="swiper-slide">
                                         <div
                                             class="relative group cursor-pointer overflow-hidden rounded-lg border-3 border-transparent hover:border-blue-500 transition-all duration-300">
-                                            <img src="{{ asset('storage/' . $item->image_url) }}"
-                                                alt="Thumbnail {{ $loop->iteration }}"
-                                                class="w-full h-20 lg:h-24 object-cover transition-transform duration-300 group-hover:scale-110">
+                                            <img src="https://cafefcdn.com/2018/6/16/photo-1-1529146484215497174285.png"
+                                                alt="Thumbnail {{ $i + 1 }}"
+                                                class="w-full h-20  object-contain transition-transform duration-300 group-hover:scale-110">
                                             <div
-                                                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300">
+                                                class="absolute inset-0 bg-black/30 bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300">
                                             </div>
-                                            <!-- Thumbnail number badge -->
                                             <div
-                                                class="absolute bottom-1 right-1 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                                                {{ $loop->iteration }}
+                                                class="absolute bottom-1 right-1 bg-black/30 bg-opacity-70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                                {{ $i + 1 }}
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                @endfor
                             </div>
                         </div>
                     </div>
@@ -247,83 +239,42 @@
                     <div class="mt-8 bg-main text-main rounded-lg p-6 shadow-sm">
                         <h2 class="text-2xl font-bold mb-6">Thông số kỹ thuật</h2>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Cột trái -->
-                            <div class="space-y-4">
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Năm sản xuất:</span>
-                                    <span class="font-medium">2021</span>
-                                </div>
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Số dặm đã đi:</span>
-                                    <span class="font-medium">60K miles</span>
-                                </div>
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Kiểu dáng thân xe:</span>
-                                    <span class="font-medium">Mui trần (Convertible)</span>
-                                </div>
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Dẫn động:</span>
-                                    <span class="font-medium">Cầu sau (2WD - rear)</span>
-                                </div>
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Động cơ:</span>
-                                    <span class="font-medium">6 xi-lanh tăng áp (Turbo)</span>
-                                </div>
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Hộp số:</span>
-                                    <span class="font-medium">Tự động 7 cấp có thể chuyển số (Shiftable)</span>
-                                </div>
-                            </div>
+                        @if($car->specifications && $car->specifications->count() > 0)
+                            @php
+                                // Chia specifications thành 2 cột đều nhau
+                                $halfCount = ceil($car->specifications->count() / 2);
+                                $columns = $car->specifications->chunk($halfCount);
+                            @endphp
 
-                            <!-- Cột phải -->
-                            <div class="space-y-4">
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Loại nhiên liệu:</span>
-                                    <span class="font-medium">Xăng (Gasoline)</span>
-                                </div>
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Tiêu hao nhiên liệu trong thành phố (MPG):</span>
-                                    <span class="font-medium">20</span>
-                                </div>
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Tiêu hao nhiên liệu đường trường (MPG):</span>
-                                    <span class="font-medium flex items-center">
-                                        28
-                                        <i class="fas fa-info-circle ml-1 text-gray-400 text-sm"></i>
-                                    </span>
-                                </div>
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Màu ngoại thất:</span>
-                                    <span class="font-medium flex items-center">
-                                        Trắng Aspen
-                                        <i class="fas fa-info-circle ml-1 text-gray-400 text-sm"></i>
-                                    </span>
-                                </div>
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Màu nội thất:</span>
-                                    <span class="font-medium">Than (Charcoal)</span>
-                                </div>
-                                <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    <span class="text-sub">Số khung (VIN):</span>
-                                    <span class="font-medium">2VW821AU9JM754284</span>
-                                </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                @foreach($columns as $columnIndex => $columnSpecs)
+                                    <div class="space-y-4">
+                                        @foreach($columnSpecs as $spec)
+                                            <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
+                                                <span class="text-sub">{{ $spec->name }}:</span>
+                                                <span class="font-medium">{{ $spec->value }}</span>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endforeach
                             </div>
-                        </div>
+                        @else
+                            <p class="text-sub text-center py-4">Chưa có thông số kỹ thuật</p>
+                        @endif
+                    </div>
+                    {{-- content --}}
+                    <div class="mt-8 bg-main text-main rounded-lg p-6 shadow-sm">
+                        <h2 class="text-2xl font-bold mb-6">Mô tả</h2>
+                        <p class="text-sub">{!! $car->description !!}</p>
                     </div>
                 </div>
-
-                <!-- Right Column - Price and Contact -->
                 <div class="lg:col-span-1">
                     <div class="bg-brand-white dark:bg-brand-gray text-main rounded-lg p-6 shadow-sm sticky top-18">
-                        <!-- Price -->
                         <div class="mb-6">
                             <h2 class="text-3xl font-bold ">
                                 {{ number_format($car->price) }} đ
                             </h2>
                         </div>
-
-                        <!-- Car Details -->
                         <div class="grid grid-cols-2 gap-4 mb-6 text-sm">
                             <div class="flex items-center text-sub">
                                 <i data-lucide="map-pin" class="fas fa-map-marker-alt mr-2"></i>
@@ -335,15 +286,14 @@
                             </div>
                             <div class="flex items-center text-sub">
                                 <i data-lucide="fuel" class="fas fa-gas-pump mr-2"></i>
-                                <span>{{ $car->fuel_type?->name }}</span>
+                                <span>{{ $car->fuel }}</span>
                             </div>
                             <div class="flex items-center text-sub">
                                 <i data-lucide="settings" class="fas fa-cogs mr-2"></i>
-                                <span>{{ $car->transmission->name }}</span>
+                                <span>Tự động</span>
                             </div>
                         </div>
 
-                        <!-- Seller Info -->
                         <div class="border-t border-gray-200 dark:border-gray-700 pt-6 mb-6">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center">
@@ -365,7 +315,6 @@
                                 </div>
                                 <span class="text-sm text-sub">Nhân viên tư vấn</span>
                             </div>
-                            <!-- Contact Buttons -->
                             <div class="space-y-3">
                                 <button id="revealBtn" onclick="revealPhone()"
                                     class="w-full border-2 border-gray-300  py-3 px-4 rounded-lg font-medium hover:border-gray-400 flex justify-center items-center gap-2 transition">
@@ -408,7 +357,6 @@
                             </div>
                         </div>
 
-                        <!-- Email Subscription -->
                         <div class="border-t border-gray-200 pt-6">
                             <h3 class="font-semibold mb-2">
                                 Đăng ký nhận thông tin khuyến mãi qua email
@@ -466,12 +414,8 @@
             // Initialize main swiper
             var swiper2 = new Swiper(".mySwiper2", {
                 spaceBetween: 10,
-                loop: true,
-                speed: 800,
-                effect: 'fade',
-                fadeEffect: {
-                    crossFade: true
-                },
+                loop: false, // Tắt loop để tránh xung đột với Fancybox
+                speed: 600,
                 navigation: {
                     nextEl: ".swiper-button-next-custom",
                     prevEl: ".swiper-button-prev-custom",
@@ -491,38 +435,45 @@
                 mousewheel: {
                     forceToAxis: true,
                 },
+                allowTouchMove: true, // Cho phép swipe
                 on: {
                     slideChange: function() {
-                        var realIndex = this.realIndex + 1;
+                        var realIndex = this.activeIndex + 1;
                         $('.current-slide').text(realIndex);
                     }
                 }
             });
 
-            // Configure Fancybox with Premium Settings
+            // Configure Fancybox với giao diện đẹp hơn và fullscreen
             Fancybox.bind("[data-fancybox='car-gallery']", {
-                // Animation Settings
-                showClass: "fancybox-zoomIn",
-                hideClass: "fancybox-fadeOut",
-
-                // UI Settings
+                // Animation Settings - mượt mà hơn
+                showClass: "f-fadeIn",
+                hideClass: "f-fadeOut",
+                
+                // UI Settings - fullscreen và minimal
                 Toolbar: {
                     display: {
                         left: ["infobar"],
-                        middle: [],
-                        right: ["slideshow", "thumbs", "close"]
+                        middle: ["zoomIn", "zoomOut", "toggle1to1", "rotateCCW", "rotateCW", "flipX", "flipY"],
+                        right: ["slideshow", "thumbs", "fullscreen", "close"]
+                    },
+                    items: {
+                        fullscreen: {
+                            tpl: '<button class="f-button" title="Toàn màn hình" data-fancybox-fullscreen><svg><path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>',
+                        }
                     }
                 },
 
-                // Thumbnails
+                // Thumbnails với style đẹp hơn
                 Thumbs: {
                     type: "classic",
-                    showOnStart: false
+                    showOnStart: true,
+                    parentEl: null
                 },
 
                 // Touch Gestures
                 touch: {
-                    vertical: false,
+                    vertical: true,
                     momentum: true
                 },
 
@@ -539,14 +490,18 @@
                     ArrowLeft: "prev"
                 },
 
-                // Images
+                // Images - Fullscreen và zoom
                 Images: {
                     zoom: true,
-                    click: "toggleZoom",
+                    click: "close",
                     wheel: "zoom",
                     fit: "contain",
-                    initialSize: "fit",
-                    protected: true
+                    initialSize: "full", // Hiển thị full ngay từ đầu
+                    protected: true,
+                    Panzoom: {
+                        maxScale: 3,
+                        panOnlyZoomed: false
+                    }
                 },
 
                 // Slideshow
@@ -555,25 +510,43 @@
                     timeout: 3000
                 },
 
-                // Additional Settings
+                // Additional Settings - Fullscreen mode
                 animated: true,
                 hideScrollbar: true,
                 trapFocus: true,
                 placeFocusBack: true,
                 autoFocus: true,
                 infinite: true,
-
+                compact: false,
+                idle: false,
+                dragToClose: true,
+                
                 // Custom Events
                 on: {
+                    init: (fancybox) => {
+                        // Auto fullscreen khi mở
+                        if (fancybox.Carousel) {
+                            setTimeout(() => {
+                                if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
+                                    const container = fancybox.$container;
+                                    if (container && container.requestFullscreen) {
+                                        container.requestFullscreen().catch(() => {});
+                                    } else if (container && container.webkitRequestFullscreen) {
+                                        container.webkitRequestFullscreen().catch(() => {});
+                                    }
+                                }
+                            }, 100);
+                        }
+                    },
                     ready: (fancybox) => {
                         console.log('Fancybox is ready!');
                     },
-                    // "Carousel.change": (fancybox, carousel, to, from) => {
-                    //     // Sync with swiper when navigating in fancybox
-                    //     if (swiper2 && !swiper2.destroyed) {
-                    //         swiper2.slideToLoop(to);
-                    //     }
-                    // }
+                    "Carousel.change": (fancybox, carousel, to, from) => {
+                        // Sync Swiper khi di chuyển trong Fancybox
+                        if (swiper2 && !swiper2.destroyed) {
+                            swiper2.slideTo(to, 0);
+                        }
+                    }
                 }
             });
 
@@ -581,15 +554,8 @@
             $('.swiper-button-prev-custom, .swiper-button-next-custom, .swiper-pagination-custom').on('click',
                 function(e) {
                     e.stopPropagation();
+                    e.preventDefault();
                 });
-
-            // Sync swiper with fancybox
-            swiper2.on('slideChange', function() {
-                // Optional: Close fancybox when changing slides in swiper
-                if (Fancybox.getInstance()) {
-                    Fancybox.close();
-                }
-            });
 
             // Add keyboard navigation enhancement
             $(document).on('keydown', function(e) {

@@ -1,5 +1,5 @@
 <!-- Browse by Type Section -->
-<div class="py-16 container mx-auto">
+<div class="py-16 container max-w-7xl mx-auto">
     <h2 class="text-3xl font-bold text-main mb-12 capitalize">Bạn có thể đang kiếm?</h2>
     <div>
         <ul class="flex flex-wrap gap-4 items-center">

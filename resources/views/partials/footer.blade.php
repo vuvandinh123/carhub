@@ -1,5 +1,5 @@
 <footer class="w-full ">
-        <div class="mx-auto container px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto container max-w-7xl">
            
             <div class="flex justify-between flex-col py-14 gap-14 lg:gap-20 min-[1124px]:flex-row">
                 <div class="block  xl:max-w-lg">

@@ -30,44 +30,14 @@ return new class extends Migration {
             $table->integer('quantity')->default(1)->comment('Số lượng');
             $table->integer('mileage')->nullable()->comment('Số km đã đi (nếu xe cũ)');
 
-            // các thuộc tính tham chiếu car_attributes
-            $table->foreignId('fuel_type_id')
-                ->nullable()
-                ->constrained('car_attributes')
-                ->nullOnDelete()
-                ->comment('Loại nhiên liệu, FK -> car_attributes (type=fuel)');
-
-            $table->foreignId('body_type_id')
-                ->nullable()
-                ->constrained('car_attributes')
-                ->nullOnDelete()
-                ->comment('Kiểu dáng, FK -> car_attributes (type=body)');
-
-            $table->foreignId('transmission_id')
-                ->nullable()
-                ->constrained('car_attributes')
-                ->nullOnDelete()
-                ->comment('Hộp số, FK -> car_attributes (type=transmission)');
-
-            $table->foreignId('color_id')
-                ->nullable()
-                ->constrained('car_attributes')
-                ->nullOnDelete()
-                ->comment('Màu xe, FK -> car_attributes (type=color)');
-
-            $table->foreignId('origin_id')
-                ->nullable()
-                ->constrained('car_attributes')
-                ->nullOnDelete()
-                ->comment('Xuất xứ, FK -> car_attributes (type=origin)');
-
             $table->string('engine')->nullable()->comment('Động cơ, ví dụ: 2.0L Turbo, 150kW');
             $table->integer('seats')->nullable()->comment('Số chỗ ngồi');
 
             $table->enum('status', ['available', 'sold', 'coming_soon'])
                 ->default('available')
                 ->comment('Trạng thái: available = còn bán, sold = đã bán, coming_soon = sắp ra mắt');
-
+            $table->string('fuel')->nullable()->comment('Loại nhiên liệu, ví dụ: xăng, dầu, điện');
+            
             $table->text('description')->nullable()->comment('Mô tả ngắn gọn về xe');
             $table->text('content')->nullable()->comment('Nội dung chi tiết (bài viết giới thiệu xe)');
 
@@ -81,8 +51,6 @@ return new class extends Migration {
             $table->timestamps();
             $table->softDeletes()->comment('Thời điểm xóa mềm');
         });
-
-
     }
 
     /**

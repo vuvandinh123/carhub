@@ -13,19 +13,23 @@
     'bodytype' => null,
 ])
 
-<div
-    class="card rounded-xl hover:translate-y-[-5px] transition-all duration-200  border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md ">
-    <div class="relative">
-        <a href="{{ route('cars.show', $carid) }}">
-            <img src="{{ asset('storage/' . $image) ?? $image ?? asset('images/products/default.png') }}" alt="{{ $title }}"
-                class="w-full h-48 object-cover">
+<div class="group relative card rounded-xl hover:translate-y-[-8px] transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl bg-main">
+    <!-- Image Section -->
+    <div class="relative overflow-hidden">
+        <a href="{{ route('cars.show', $carid) }}" class="block">
+            <img src="https://cafefcdn.com/2018/6/16/photo-1-1529146484215497174285.png" 
+                alt="{{ $title }}"
+                class="w-full h-48 object-contain transform group-hover:scale-110 transition-transform duration-500">
+            
+            <!-- Overlay gradient -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </a>
+
         <!-- Badges -->
         @if (!empty($badges))
-            <div class="absolute top-3 left-3 flex gap-2">
+            <div class="absolute top-3 left-3 flex flex-wrap gap-2">
                 @foreach ($badges as $badge)
-                    <span
-                        class="bg-{{ $badge['color'] ?? 'gray' }}-500 text-xs font-semibold px-2 py-1 rounded flex items-center gap-1">
+                    <span class="bg-{{ $badge['color'] ?? 'blue' }}-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg backdrop-blur-sm flex items-center gap-1">
                         <i class="w-3 h-3"></i>
                         {{ $badge['text'] }}
                     </span>
@@ -35,62 +39,86 @@
 
         <!-- Action buttons -->
         <div class="absolute top-3 right-3 flex gap-2">
-            <button
-                class="bg-white/80 backdrop-blur-sm p-1 w-7 h-7 cursor-pointer flex items-center justify-center rounded-full hover:bg-blue-400 transition-colors">
-                <i data-lucide="bookmark" class="text-gray-600 w-4"></i>
+            <button 
+                onclick="addToCompare({{ $carid }}, '{{ addslashes($title) }}', {{ $price }}, {{ $year ?? 'null' }}, '{{ $fuel ?? '' }}', '{{ $mileage ?? '' }}', '{{ $bodytype ?? '' }}', '{{ $image ?? '' }}')"
+                class="compare-btn bg-white/90 backdrop-blur-sm p-2 w-9 h-9 cursor-pointer flex items-center justify-center rounded-full hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-lg group/btn"
+                title="So sánh">
+                <i data-lucide="git-compare" class="text-gray-600 group-hover/btn:text-white w-4 h-4"></i>
+            </button>
+            <button class="bg-white/90 backdrop-blur-sm p-2 w-9 h-9 cursor-pointer flex items-center justify-center rounded-full hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-lg group/btn">
+                <i data-lucide="bookmark" class="text-gray-600 group-hover/btn:text-white w-4 h-4"></i>
             </button>
         </div>
+
+        <!-- Price Badge -->
+        
     </div>
 
-    <div class="p-4">
+    <!-- Content Section -->
+    <div class="p-5">
         @if ($date)
-            <div class="text-sm text-sub mb-2">{{ $date }}</div>
-        @endif
-
-        <h3 class="font-semibold text-lg  mb-1">
-            <a href="{{ route('cars.show', $carid) }}">
-                {{ $title }}
-            </a>
-            @if ($year)
-                <span class="text-sub font-normal">({{ $year }})</span>
-            @endif
-        </h3>
-
-        @if ($price)
-            <div class="text-2xl font-bold  mb-4">{{ number_format($price, 0, ',', '.') }} <small>đ</small>
+            <div class="flex items-center gap-2 text-xs text-sub mb-3">
+                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                <span>{{ $date }}</span>
             </div>
         @endif
 
-        <div class="h-[1px] bg-gray-200 dark:bg-gray-700 my-5"></div>
+        <h3 class="font-bold text-lg text-main mb-1 line-clamp-2 min-h-[56px]">
+            <a href="{{ route('cars.show', $carid) }}" class="hover:text-blue-600 transition-colors">
+                {{ $title }}
+                @if ($year)
+                    <span class="text-sub font-normal text-base">({{ $year }})</span>
+                @endif
+            </a>
+        </h3>
+        @if ($price)
+            <div class="text-xl absolute top-3 left-3  text-red-500 font-bold">{{ number_format($price / 1000000, 0, ',', '.') }} <small class="text-sm">triệu</small></div>
+        @endif
 
-        <div class="grid grid-cols-2 gap-3 text-sm text-gray-600">
+        <!-- Divider -->
+        <div class="h-[1px] bg-gray-200 dark:bg-gray-700 my-4"></div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-2 gap-3 text-sm mb-4">
             @if ($location)
-                <div class="flex items-center gap-2">
-                    <i data-lucide="map-pin" class="fas fa-map-marker-alt text-sub"></i>
-                    <span>{{ $location }}</span>
+                <div class="flex items-center gap-2 text-sub">
+                    <i data-lucide="map-pin" class="w-4 h-4 text-blue-500"></i>
+                    <span class="truncate">{{ $location }}</span>
                 </div>
             @endif
 
             @if ($mileage)
-                <div class="flex items-center gap-2">
-                    <i data-lucide="gauge" class="fas fa-tachometer-alt text-sub"></i>
-                    <span>{{ $mileage }}</span>
+                <div class="flex items-center gap-2 text-sub">
+                    <i data-lucide="gauge" class="w-4 h-4 text-green-500"></i>
+                    <span class="truncate">{{ $mileage }}</span>
                 </div>
             @endif
 
             @if ($fuel)
-                <div class="flex items-center gap-2">
-                    <i data-lucide="fuel" class="fas fa-gas-pump text-sub"></i>
-                    <span>{{ $fuel }}</span>
+                <div class="flex items-center gap-2 text-sub">
+                    <i data-lucide="fuel" class="w-4 h-4 text-orange-500"></i>
+                    <span class="truncate">{{ $fuel }}</span>
                 </div>
             @endif
 
             @if ($bodytype)
-                <div class="flex items-center gap-2">
-                    <i data-lucide="cog" class="fas fa-cog text-sub"></i>
-                    <span>{{ $bodytype }}</span>
+                <div class="flex items-center gap-2 text-sub">
+                    <i data-lucide="cog" class="w-4 h-4 text-purple-500"></i>
+                    <span class="truncate">{{ $bodytype }}</span>
                 </div>
             @endif
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-2 mt-4">
+            <button class="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2.5 px-4 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg">
+                <i data-lucide="calculator" class="w-4 h-4"></i>
+                <span>Báo giá</span>
+            </button>
+            <button class="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-2.5 px-4 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg">
+                <i data-lucide="phone" class="w-4 h-4"></i>
+                <span>Liên hệ</span>
+            </button>
         </div>
     </div>
 </div>
