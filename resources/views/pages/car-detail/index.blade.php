@@ -118,7 +118,7 @@
 @section('content')
     <section>
         <div class="container max-w-7xl mx-auto mt-10 px-4 py-6">
-            <x-breadcrumb :items="[['label' => 'Cars', 'url' => route('cars.index')], ['label' => 'Car Details']]" />
+            <x-breadcrumb :items="[['label' => 'Danh sách xe', 'url' => route('cars.index')], ['label' => $car->title]]" />
         </div>
         <div class="container max-w-7xl mx-auto px-4 py-6">
             <!-- Car Title -->
@@ -187,20 +187,12 @@
 
                             <div class="absolute top-5 left-5 flex flex-wrap gap-2 z-10">
                                 <span
-                                    class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg backdrop-blur-sm flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"></path>
-                                    </svg>
-                                    Đã qua sử dụng
-                                </span>
-                                <span
-                                    class="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg backdrop-blur-sm flex items-center gap-2">
+                                    class="bg-green-600 text-white p-2 rounded-full text-sm font-semibold shadow-lg backdrop-blur-sm flex items-center gap-2">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                             clip-rule="evenodd"></path>
                                     </svg>
-                                    Đã xác minh
                                 </span>
                             </div>
 
@@ -278,7 +270,7 @@
                         <div class="grid grid-cols-2 gap-4 mb-6 text-sm">
                             <div class="flex items-center text-sub">
                                 <i data-lucide="map-pin" class="fas fa-map-marker-alt mr-2"></i>
-                                <span>{{ $car->brand->country }}</span>
+                                <span>{{ $car->brand->country }} VN</span>
                             </div>
                             <div class="flex items-center text-sub">
                                 <i data-lucide="gauge" class="fas fa-road mr-2"></i>
@@ -313,7 +305,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <span class="text-sm text-sub">Nhân viên tư vấn</span>
                             </div>
                             <div class="space-y-3">
                                 <button id="revealBtn" onclick="revealPhone()"
@@ -338,18 +329,18 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div class="">
                                             <input type="text" id="nameInput" placeholder="Tên của bạn"
-                                                class="w-full dark:bg-gray-800 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                                                class="w-full dark:bg-gray-800 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 dark:border-gray-600 focus:ring-primary-800 focus:border-primary-800 outline-none">
                                         </div>
                                         <div>
                                             <input type="text" id="phoneInput" placeholder="Số điện thoại của bạn"
                                                 class="w-full dark:bg-gray-800 px-4 py-2 border border-gray-300 
                                                 dark:border-gray-600
-                                                rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                                                rounded-lg focus:ring-1 focus:ring-primary-800 focus:border-primary-800 outline-none">
                                         </div>
                                     </div>
 
                                     <button
-                                        class="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition">
+                                        class="mt-3 w-full bg-primary-800 hover:bg-primary-700 text-white cursor-pointer py-3 px-4 rounded-lg font-medium transition">
                                         Gửi
                                     </button>
 
@@ -358,23 +349,23 @@
                         </div>
 
                         <div class="border-t border-gray-200 pt-6">
-                            <h3 class="font-semibold mb-2">
-                                Đăng ký nhận thông tin khuyến mãi qua email
+                            <h3 class="text-sm text-gray-800 mb-2">
+                                Đăng ký nhận thông tin khuyến mãi qua email:
                             </h3>
 
                             <div class="flex mb-3">
                                 <input type="email" id="emailInput" placeholder="Email của bạn"
-                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none dark:bg-gray-800 dark:border-gray-600">
+                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-1 focus:ring-primary-800 focus:border-primary-800 outline-none dark:bg-gray-800 dark:border-gray-600">
                                 <button onclick="subscribeEmail()"
-                                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-r-lg font-medium transition">
+                                    class="bg-primary-800 hover:bg-primary-700 text-white px-6 py-2 rounded-r-lg font-medium transition">
                                     Đăng ký
                                 </button>
                             </div>
 
                             <label class="flex items-start text-sm ">
                                 <input type="checkbox"
-                                    class="w-4 h-4 text-blue-600  border-gray-300 rounded focus:ring-blue-500 mt-1 mr-2">
-                                <span class="text-sub">Tôi đồng ý nhận thông báo giảm giá cho xe này và thông tin mua sắm
+                                    class="w-4 h-4 text-primary-800  border-gray-300 rounded focus:ring-primary-800 mt-1 mr-2">
+                                <span class="text-sub ">Tôi đồng ý nhận thông báo giảm giá cho xe này và thông tin mua sắm
                                     hữu ích.</span>
                             </label>
                         </div>

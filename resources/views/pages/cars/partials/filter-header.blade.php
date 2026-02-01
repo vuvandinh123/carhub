@@ -1,9 +1,9 @@
-<div class="bg-main rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+<div class="bg-main rounded-sm hidden md:block shadow-sm border border-gray-200 dark:border-gray-700 p-6 md:mb-6">
     <div class="flex flex-wrap items-center justify-between gap-4">
         <!-- Results count and active filters -->
         <div class="flex-1 min-w-0">
             <div class="flex items-center gap-3 mb-3">
-                <h2 class="text-lg font-semibold text-main">
+                <h2 class="text-lg hidden md:block font-semibold text-main">
                     Tìm thấy <span class="text-blue-600">{{ $cars->total() }}</span> xe phù hợp với bạn
                 </h2>
             </div>
@@ -179,20 +179,56 @@
         </div>
 
         <!-- View mode and compare -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3  ">
             <button class="flex items-center gap-2 px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition group">
                 <i data-lucide="git-compare" class="w-5 h-5 text-blue-600 group-hover:scale-110 transition"></i>
-                <span class="font-medium">So sánh (0)</span>
+                <span class="font-medium hidden md:block">So sánh (0)</span>
             </button>
             
-            <div class="flex border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
-                <button class="p-2.5 bg-blue-600 text-white hover:bg-blue-700 transition">
+            <div class="md:flex border hidden border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
+                <button id="gridViewBtn" class="p-2.5 bg-blue-600 text-white hover:bg-blue-700 transition" title="Dạng lưới">
                     <i data-lucide="layout-grid" class="w-5 h-5"></i>
                 </button>
-                <button class="p-2.5 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                <button id="listViewBtn" class="p-2.5 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition" title="Dạng danh sách">
                     <i data-lucide="list" class="w-5 h-5"></i>
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        const $gridBtn = $('#gridViewBtn');
+        const $listBtn = $('#listViewBtn');
+        const $carContainer = $('#carListContainer');
+        
+        // Load saved view preference
+        const savedView = localStorage.getItem('carViewMode') || 'grid';
+        setViewMode(savedView);
+        
+        // Grid view button click
+        $gridBtn.on('click', function() {
+            setViewMode('grid');
+            localStorage.setItem('carViewMode', 'grid');
+        });
+        
+        // List view button click
+        $listBtn.on('click', function() {
+            setViewMode('list');
+            localStorage.setItem('carViewMode', 'list');
+        });
+        
+        function setViewMode(mode) {
+            if (mode === 'grid') {
+                $carContainer.removeClass('list-view').addClass('grid-view');
+                $gridBtn.addClass('bg-blue-600 text-white').removeClass('bg-white dark:bg-gray-800');
+                $listBtn.removeClass('bg-blue-600 text-white').addClass('bg-white dark:bg-gray-800');
+            } else {
+                $carContainer.removeClass('grid-view').addClass('list-view');
+                $listBtn.addClass('bg-blue-600 text-white').removeClass('bg-white dark:bg-gray-800');
+                $gridBtn.removeClass('bg-blue-600 text-white').addClass('bg-white dark:bg-gray-800');
+            }
+        }
+    });
+</script>

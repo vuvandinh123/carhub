@@ -19,8 +19,8 @@
         </div>
     </div>
 
-    <!-- Car Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <!-- Car Grid/List Container -->
+    <div id="carListContainer" class="grid-view grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         @forelse ($cars as $car)
             <x-card-car 
                 :carid="$car->id" 

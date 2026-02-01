@@ -9,6 +9,7 @@ Route::get('/loan-calculator', [App\Http\Controllers\HomeController::class, 'loa
 Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
 Route::get('/cars/compare', [App\Http\Controllers\CarController::class, 'compare'])->name('cars.compare');
+Route::get('/cars/saved', [App\Http\Controllers\CarController::class, 'saved'])->name('cars.saved');
 Route::resource('cars', App\Http\Controllers\CarController::class);
 
 require __DIR__.'/auth.php';

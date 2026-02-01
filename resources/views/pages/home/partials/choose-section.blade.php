@@ -1,24 +1,24 @@
 <!-- Why Choose Us Section -->
-<div class="mt-24 max-w-7xl  mx-auto bg-gray-50 text-main dark:bg-gray-900 py-16">
+<div class="mt-24 max-w-7xl px-2 md:px-0  mx-auto bg-gray-50 text-main dark:bg-gray-900 py-16">
     <div class="container mx-auto">
         <div class=" mb-16 text-center">
-            <h2 class="text-4xl font-bold text-center ">Tại sao chọn chúng tôi?</h2>
+            <h2 class="text-2xl md:text-4xl font-bold text-center ">Tại sao chọn chúng tôi?</h2>
             <p class="text-sub text-sm mt-3">Chúng tôi cam kết cung cấp cho khách hàng dịch vụ đặc biệt, giá cả cạnh tranh và nhiều loại sản phẩm.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-8">
             <!-- Special Financing Offers -->
             <div
-                class="text-center p-6 card rounded-2xl shadow-lg dark:border dark:dark:border dark:border-gray-700 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <div class="w-16 h-16 mx-auto mb-6 bg-purple-100 rounded-2xl flex items-center justify-center">
+                class="text-center p-6 card rounded-sm shadow-lg dark:border dark:dark:border dark:border-gray-700 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <div class="w-16 h-16 mx-auto mb-6 bg-purple-100 rounded-sm flex items-center justify-center">
                     <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                         </path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold  mb-4">
+                <h3 class="text-md md:text-xl font-semibold  mb-4">
 Ưu đãi tài chính đặc biệt</h3>
-                <p class="text-sub leading-relaxed">Bộ phận tài chính chuyên nghiệp của chúng tôi có thể tìm ra các giải pháp tài chính giúp bạn tiết kiệm tiền.</p>
+                <p class="text-sub text-xs leading-relaxed">Bộ phận tài chính chuyên nghiệp của chúng tôi có thể tìm ra các giải pháp tài chính giúp bạn tiết kiệm tiền.</p>
             </div>
 
             <!-- Trusted Car Dealership -->
@@ -31,8 +31,8 @@
                         </path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold  mb-4">Đại lý xe hơi đáng tin cậy</h3>
-                <p class="text-sub leading-relaxed">Bộ phận tài chính không căng thẳng của chúng tôi có thể tìm ra các giải pháp tài chính giúp bạn tiết kiệm tiền.</p>
+                <h3 class="text-md md:text-xl font-semibold  mb-4">Đại lý xe hơi đáng tin cậy</h3>
+                <p class="text-sub text-xs leading-relaxed">Bộ phận tài chính không căng thẳng của chúng tôi có thể tìm ra các giải pháp tài chính giúp bạn tiết kiệm tiền.</p>
             </div>
 
             <!-- Transparent Pricing -->
@@ -45,8 +45,8 @@
                         </path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold  mb-4">Giá cả minh bạch</h3>
-                <p class="text-sub leading-relaxed">Bộ phận tài chính không căng thẳng của chúng tôi có thể tìm ra các giải pháp tài chính giúp bạn tiết kiệm tiền.</p>
+                <h3 class="text-md md:text-xl font-semibold  mb-4">Giá cả minh bạch</h3>
+                <p class="text-sub text-xs leading-relaxed">Bộ phận tài chính không căng thẳng của chúng tôi có thể tìm ra các giải pháp tài chính giúp bạn tiết kiệm tiền.</p>
             </div>
 
             <!-- Expert Car Service -->
@@ -59,8 +59,8 @@
                         </path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold  mb-4">Dịch vụ xe hơi chuyên nghiệp</h3>
-                <p class="text-sub leading-relaxed">Bộ phận tài chính không căng thẳng của chúng tôi có thể tìm ra các giải pháp tài chính giúp bạn tiết kiệm tiền.</p>
+                <h3 class="text-md md:text-xl font-semibold  mb-4">Dịch vụ xe hơi chuyên nghiệp</h3>
+                <p class="text-sub text-xs leading-relaxed">Bộ phận tài chính không căng thẳng của chúng tôi có thể tìm ra các giải pháp tài chính giúp bạn tiết kiệm tiền.</p>
             </div>
         </div>
     </div>

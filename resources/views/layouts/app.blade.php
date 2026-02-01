@@ -40,7 +40,18 @@
         </button>
     </div>
 
+    <!-- Saved Cars Floating Button -->
+    <div id="savedCarsFloatingBtn" class="fixed bottom-20 right-4 z-40">
+        <a 
+            href="{{ route('cars.saved') }}"
+            class="bg-primary-800 text-white rounded-full py-3 shadow-2xl hover:shadow-primary-500/50 transition-all duration-300 flex items-center w-10 h-10 justify-center hover:scale-105">
+            <i data-lucide="bookmark" class="w-5 h-5"></i>
+            <span class="font-semibold"><span class="bookmark-count absolute -top-1 -right-1 bg-red-600 text-white rounded-full w-5 h-5 flex text-xs items-center justify-center">0</span></span>
+        </a>
+    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js" integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             console.log('DOM loaded - initializing mega menu');
@@ -120,6 +131,7 @@
         });
     </script>
     @vite('resources/js/app.js')
+    <script src="{{ asset('js/main.js') }}"></script>
     @yield('scripts')
 
 </body>

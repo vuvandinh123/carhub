@@ -4,15 +4,15 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative bg-gradient-to-br from-green-600 via-emerald-700 to-teal-800 dark:from-gray-900 dark:via-green-900 dark:to-teal-900 py-20">
+<section class="relative bg-gradient-to-br from-primary-900 via-primary-700 to-primary-900  py-20">
     <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
     <div class="container mx-auto px-4 pb-20 relative z-10">
         <div class="max-w-3xl mx-auto text-center">
             <div class="inline-flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full mb-6">
                 <i data-lucide="calculator" class="w-8 h-8 text-white"></i>
             </div>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Tính toán khoản vay mua xe</h1>
-            <p class="text-lg text-gray-200">
+            <h1 class="text-4xl md:text-4xl font-bold text-white mb-4">Tính toán khoản vay mua xe</h1>
+            <p class="text-md text-gray-200">
                 Công cụ tính toán chi phí vay mua xe nhanh chóng, chính xác và miễn phí
             </p>
         </div>
@@ -32,7 +32,7 @@
             <!-- Calculator Form -->
             <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700">
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                    <i data-lucide="settings" class="w-6 h-6 mr-2 text-green-600 dark:text-green-400"></i>
+                    <i data-lucide="settings" class="w-6 h-6 mr-2 text-primary-800 dark:text-green-400"></i>
                     Thông tin khoản vay
                 </h2>
 
@@ -44,7 +44,7 @@
                         </label>
                         <div class="relative">
                             <input type="text" id="car-price" value="500000000"
-                                   class="block pr-14 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-right font-semibold"
+                                   class="block pr-14 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-800 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-right font-semibold"
                                    placeholder="500,000,000">
                             <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                                 <span class="text-gray-400 text-sm">VNĐ</span>
@@ -65,7 +65,7 @@
                         </label>
                         <div class="relative">
                             <input type="number" id="down-payment-percent" value="20" min="0" max="100"
-                                   class="block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-right font-semibold">
+                                   class="block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-800 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-right font-semibold">
                             <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                                 <span class="text-gray-400 text-sm">%</span>
                             </div>
@@ -73,7 +73,7 @@
                         <input type="range" id="down-payment-slider" min="0" max="80" step="5" value="20"
                                class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer mt-3">
                         <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                            Số tiền: <span id="down-payment-amount" class="font-semibold text-green-600 dark:text-green-400">100,000,000 VNĐ</span>
+                            Số tiền: <span id="down-payment-amount" class="font-semibold text-primary-800 dark:text-green-400">100,000,000 VNĐ</span>
                         </div>
                     </div>
 
@@ -84,7 +84,7 @@
                         </label>
                         <div class="relative">
                             <input type="number" id="interest-rate" value="9" min="1" max="30" step="0.1"
-                                   class="block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-right font-semibold">
+                                   class="block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-800 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-right font-semibold">
                             <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                                 <span class="text-gray-400 text-sm">%</span>
                             </div>
@@ -99,17 +99,17 @@
                             Thời gian vay (năm)
                         </label>
                         <div class="grid grid-cols-4 gap-3">
-                            <button type="button" class="loan-term-btn py-3 px-4 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-green-500 dark:hover:border-green-400 transition-colors font-semibold text-gray-700 dark:text-gray-300" data-years="3">3 năm</button>
-                            <button type="button" class="loan-term-btn active py-3 px-4 rounded-lg border-2 border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20 transition-colors font-semibold text-green-700 dark:text-green-300" data-years="5">5 năm</button>
-                            <button type="button" class="loan-term-btn py-3 px-4 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-green-500 dark:hover:border-green-400 transition-colors font-semibold text-gray-700 dark:text-gray-300" data-years="7">7 năm</button>
-                            <button type="button" class="loan-term-btn py-3 px-4 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-green-500 dark:hover:border-green-400 transition-colors font-semibold text-gray-700 dark:text-gray-300" data-years="10">10 năm</button>
+                            <button type="button" class="loan-term-btn py-3 px-4 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-primary-800 dark:hover:border-green-400 transition-colors font-semibold text-gray-700 dark:text-gray-300" data-years="3">3 năm</button>
+                            <button type="button" class="loan-term-btn active py-3 px-4 rounded-lg border-2 border-primary-800 dark:border-green-400 bg-green-50 dark:bg-green-900/20 transition-colors font-semibold text-green-700 dark:text-green-300" data-years="5">5 năm</button>
+                            <button type="button" class="loan-term-btn py-3 px-4 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-primary-800 dark:hover:border-green-400 transition-colors font-semibold text-gray-700 dark:text-gray-300" data-years="7">7 năm</button>
+                            <button type="button" class="loan-term-btn py-3 px-4 rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:border-primary-800 dark:hover:border-green-400 transition-colors font-semibold text-gray-700 dark:text-gray-300" data-years="10">10 năm</button>
                         </div>
                         <input type="hidden" id="loan-term" value="5">
                     </div>
 
                     <!-- Calculate Button -->
                     <button type="button" id="calculate-btn"
-                            class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2">
+                            class="w-full bg-primary-800 cursor-pointer hover:bg-primary-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2">
                         <i data-lucide="calculator" class="w-5 h-5"></i>
                         <span>Tính toán ngay</span>
                     </button>
@@ -119,7 +119,7 @@
             <!-- Results -->
             <div class="space-y-6">
                 <!-- Summary Cards -->
-                <div class="bg-gradient-to-br from-green-600 to-emerald-700 dark:from-green-700 dark:to-emerald-800 rounded-2xl shadow-xl p-8 text-white">
+                <div class="bg-gradient-to-br from-primary-800 to-primary-900 dark:from-primary-900 dark:to-emerald-800 rounded-2xl shadow-xl p-8 text-white">
                     <h3 class="text-lg font-semibold mb-6 flex items-center">
                         <i data-lucide="file-text" class="w-5 h-5 mr-2"></i>
                         Kết quả tính toán
@@ -151,7 +151,7 @@
                 <!-- Breakdown Chart -->
                 <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                        <i data-lucide="pie-chart" class="w-5 h-5 mr-2 text-green-600 dark:text-green-400"></i>
+                        <i data-lucide="pie-chart" class="w-5 h-5 mr-2 text-primary-800 dark:text-green-400"></i>
                         Cơ cấu thanh toán
                     </h3>
                     <div class="space-y-4">
@@ -161,7 +161,7 @@
                                 <span id="principal-amount" class="font-semibold text-gray-900 dark:text-white">400,000,000 VNĐ</span>
                             </div>
                             <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-                                <div id="principal-bar" class="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full" style="width: 80%"></div>
+                                <div id="principal-bar" class="bg-gradient-to-r from-primary-700 to-primary-900 h-3 rounded-full" style="width: 80%"></div>
                             </div>
                         </div>
                         <div>
@@ -179,12 +179,12 @@
                 <!-- Action Buttons -->
                 <div class="grid grid-cols-2 gap-4">
                     <button id="show-schedule-btn"
-                            class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 hover:border-green-500 dark:hover:border-green-400 text-gray-700 dark:text-gray-300 font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2">
+                            class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 hover:border-primary-800 dark:hover:border-green-400 text-gray-700 dark:text-gray-300 font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2">
                         <i data-lucide="calendar" class="w-5 h-5"></i>
                         <span>Lịch trả góp</span>
                     </button>
                     <a href="{{ route('cars.index') }}"
-                       class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2">
+                       class="bg-primary-800 hover:bg-primary-700  text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2">
                         <i data-lucide="car" class="w-5 h-5"></i>
                         <span>Xem xe</span>
                     </a>
@@ -195,7 +195,7 @@
         <!-- Payment Schedule Table -->
         <div id="payment-schedule" class="hidden max-w-7xl mx-auto mt-12">
             <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700">
-                <div class="p-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white">
+                <div class="p-6 bg-gradient-to-r from-primary-800 to-emerald-600 text-white">
                     <h3 class="text-xl font-bold flex items-center">
                         <i data-lucide="list" class="w-6 h-6 mr-2"></i>
                         Lịch trả góp chi tiết
@@ -237,31 +237,31 @@
                 <!-- Package 1 -->
                 <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow">
                     <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-4">
-                        <i data-lucide="zap" class="w-7 h-7 text-blue-600 dark:text-blue-400"></i>
+                        <i data-lucide="zap" class="w-7 h-7 text-primary-800 dark:text-blue-400"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Vay nhanh</h3>
-                    <p class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-4">7.5%</p>
+                    <p class="text-3xl font-bold text-primary-800 dark:text-blue-400 mb-4">7.5%</p>
                     <ul class="space-y-3 mb-6">
                         <li class="flex items-start text-gray-600 dark:text-gray-400">
-                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <i data-lucide="check" class="w-5 h-5 text-primary-800 mr-2 flex-shrink-0 mt-0.5"></i>
                             <span>Duyệt trong 24h</span>
                         </li>
                         <li class="flex items-start text-gray-600 dark:text-gray-400">
-                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <i data-lucide="check" class="w-5 h-5 text-primary-800 mr-2 flex-shrink-0 mt-0.5"></i>
                             <span>Thời gian vay: 3-5 năm</span>
                         </li>
                         <li class="flex items-start text-gray-600 dark:text-gray-400">
-                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <i data-lucide="check" class="w-5 h-5 text-primary-800 mr-2 flex-shrink-0 mt-0.5"></i>
                             <span>Trả trước 20%</span>
                         </li>
                     </ul>
-                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors">
+                    <button class="w-full bg-primary-800 hover:bg-primary-700 text-white font-semibold py-3 rounded-lg transition-colors">
                         Chọn gói
                     </button>
                 </div>
 
                 <!-- Package 2 - Popular -->
-                <div class="bg-gradient-to-br from-green-600 to-emerald-600 rounded-2xl shadow-xl p-8 text-white relative transform md:scale-105">
+                <div class="bg-gradient-to-br from-primary-800 to-primary-900 rounded-2xl shadow-xl p-8 text-white relative transform md:scale-105">
                     <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
                         <span class="bg-yellow-400 text-gray-900 text-xs font-bold px-4 py-1 rounded-full">PHỔ BIẾN</span>
                     </div>
@@ -284,7 +284,7 @@
                             <span>Trả trước từ 15%</span>
                         </li>
                     </ul>
-                    <button class="w-full bg-white text-green-600 hover:bg-gray-100 font-semibold py-3 rounded-lg transition-colors">
+                    <button class="w-full bg-white text-primary-800 hover:bg-gray-100 font-semibold py-3 rounded-lg transition-colors">
                         Chọn gói
                     </button>
                 </div>
@@ -292,25 +292,25 @@
                 <!-- Package 3 -->
                 <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow">
                     <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-4">
-                        <i data-lucide="award" class="w-7 h-7 text-purple-600 dark:text-purple-400"></i>
+                        <i data-lucide="award" class="w-7 h-7 text-red-600 dark:text-purple-400"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Vay cao cấp</h3>
-                    <p class="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-4">11%</p>
+                    <p class="text-3xl font-bold text-red-600 dark:text-purple-400 mb-4">11%</p>
                     <ul class="space-y-3 mb-6">
                         <li class="flex items-start text-gray-600 dark:text-gray-400">
-                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <i data-lucide="check" class="w-5 h-5 text-primary-800 mr-2 flex-shrink-0 mt-0.5"></i>
                             <span>Vay lên đến 90%</span>
                         </li>
                         <li class="flex items-start text-gray-600 dark:text-gray-400">
-                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <i data-lucide="check" class="w-5 h-5 text-primary-800 mr-2 flex-shrink-0 mt-0.5"></i>
                             <span>Thời gian vay: 5-10 năm</span>
                         </li>
                         <li class="flex items-start text-gray-600 dark:text-gray-400">
-                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <i data-lucide="check" class="w-5 h-5 text-primary-800 mr-2 flex-shrink-0 mt-0.5"></i>
                             <span>Trả trước chỉ 10%</span>
                         </li>
                     </ul>
-                    <button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition-colors">
+                    <button class="w-full bg-primary-800 hover:bg-primary-700 text-white font-semibold py-3 rounded-lg transition-colors">
                         Chọn gói
                     </button>
                 </div>
@@ -333,7 +333,7 @@
             <div class="space-y-4">
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 flex items-start">
-                        <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-green-600 dark:text-green-400 flex-shrink-0 mt-1"></i>
+                        <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-primary-800 dark:text-green-400 flex-shrink-0 mt-1"></i>
                         Nên trả trước bao nhiêu khi mua xe trả góp?
                     </h3>
                     <p class="text-gray-600 dark:text-gray-400 ml-7">
@@ -343,7 +343,7 @@
 
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 flex items-start">
-                        <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-green-600 dark:text-green-400 flex-shrink-0 mt-1"></i>
+                        <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-primary-800 dark:text-green-400 flex-shrink-0 mt-1"></i>
                         Thời gian vay bao lâu là hợp lý?
                     </h3>
                     <p class="text-gray-600 dark:text-gray-400 ml-7">
@@ -353,7 +353,7 @@
 
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 flex items-start">
-                        <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-green-600 dark:text-green-400 flex-shrink-0 mt-1"></i>
+                        <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-primary-800 dark:text-green-400 flex-shrink-0 mt-1"></i>
                         Có thể trả nợ trước hạn không?
                     </h3>
                     <p class="text-gray-600 dark:text-gray-400 ml-7">
@@ -363,7 +363,7 @@
 
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 flex items-start">
-                        <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-green-600 dark:text-green-400 flex-shrink-0 mt-1"></i>
+                        <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-primary-800 dark:text-green-400 flex-shrink-0 mt-1"></i>
                         Giấy tờ cần thiết để vay mua xe?
                     </h3>
                     <p class="text-gray-600 dark:text-gray-400 ml-7">
@@ -490,9 +490,9 @@ $(document).ready(function() {
 
     // Loan term buttons
     $('.loan-term-btn').on('click', function() {
-        $('.loan-term-btn').removeClass('active border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300')
+        $('.loan-term-btn').removeClass('active border-primary-800 dark:border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300')
                            .addClass('border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300');
-        $(this).addClass('active border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300')
+        $(this).addClass('active border-primary-800 dark:border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300')
                .removeClass('border-gray-300 dark:border-gray-600');
         
         const years = $(this).data('years');

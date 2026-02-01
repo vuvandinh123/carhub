@@ -5,16 +5,16 @@
 @section('content')
 <div class="bg-main">
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white py-16 overflow-hidden">
+    <section class="relative bg-gradient-to-r from-primary-900 via-primary-800 to-primary-900 text-white py-16 overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <div class="absolute animate-pulse top-10 left-10 w-72 h-72 bg-white rounded-full mix-blend-overlay filter blur-xl"></div>
-            <div class="absolute animate-pulse bottom-10 right-10 w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-xl"></div>
+            <div class="absolute animate-pulse top-10 left-10 w-72 h-72 bg-white/30 rounded-full mix-blend-overlay filter blur-xl"></div>
+            <div class="absolute animate-pulse bottom-10 right-10 w-96 h-96 bg-white/30 rounded-full mix-blend-overlay filter blur-xl"></div>
         </div>
         
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-5xl md:text-6xl font-bold mb-6">Tin Tức & Xu Hướng</h1>
-                <p class="text-xl md:text-2xl opacity-90 mb-8">
+                <h1 class="text-5xl md:text-5xl font-bold mb-6">Tin Tức & Xu Hướng</h1>
+                <p class="text-xl md:text-xl opacity-90 mb-8">
                     Cập nhật thông tin mới nhất về thế giới ô tô, công nghệ và xu hướng thị trường
                 </p>
                 
@@ -26,10 +26,10 @@
                             name="search"
                             value="{{ request('search') }}"
                             placeholder="Tìm kiếm bài viết..." 
-                            class="w-full px-6 py-4 pr-32 rounded-full text-gray-900 dark:text-white bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm focus:outline-none focus:ring-4 focus:ring-white/50 shadow-2xl">
+                            class="w-full px-6 py-4 pr-32 rounded-full text-gray-900 dark:text-white bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm focus:outline-none focus:ring-4 focus:ring-white/20 shadow-2xl">
                         <button 
                             type="submit"
-                            class="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold">
+                            class="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 bg-primary-800 text-white rounded-full hover:bg-primary-700 transition-all duration-300 font-semibold">
                             <i data-lucide="search" class="w-5 h-5 inline"></i>
                             Tìm kiếm
                         </button>
@@ -47,15 +47,15 @@
                 <aside class="lg:w-80 flex-shrink-0">
                     <div class="sticky top-24 space-y-6">
                         <!-- Categories -->
-                        <div class="bg-main-gray dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="bg-main-gray dark:bg-gray-800 rounded-sm p-6 shadow-md border border-gray-200 dark:border-gray-700">
                             <h3 class="text-xl font-bold text-main mb-4 flex items-center gap-2">
-                                <i data-lucide="folder" class="w-5 h-5 text-blue-600"></i>
+                                <i data-lucide="folder" class="w-5 h-5 text-primary-800"></i>
                                 Danh Mục
                             </h3>
                             <ul class="space-y-2">
                                 <li>
                                     <a href="{{ route('posts.index') }}" 
-                                        class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-main transition-colors {{ !request('category') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600' : 'text-sub' }}">
+                                        class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-main transition-colors {{ !request('category') ? 'bg-blue-50 dark:bg-blue-900/20 text-primary-800' : 'text-sub' }}">
                                         <span>Tất cả bài viết</span>
                                         <span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded-full">{{ $posts->total() }}</span>
                                     </a>
@@ -63,7 +63,7 @@
                                 @foreach($categories as $category)
                                 <li>
                                     <a href="{{ route('posts.index', ['category' => $category->id]) }}" 
-                                        class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-main transition-colors {{ request('category') == $category->id ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600' : 'text-sub' }}">
+                                        class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-main transition-colors {{ request('category') == $category->id ? 'bg-blue-50 dark:bg-blue-900/20 text-primary-800' : 'text-sub' }}">
                                         <span>{{ $category->name }}</span>
                                         <span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded-full">{{ $category->posts_count }}</span>
                                     </a>
@@ -73,9 +73,9 @@
                         </div>
 
                         <!-- Tags -->
-                        <div class="bg-main-gray dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="bg-main-gray dark:bg-gray-800 rounded-sm p-6 shadow-md border border-gray-200 dark:border-gray-700">
                             <h3 class="text-xl font-bold text-main mb-4 flex items-center gap-2">
-                                <i data-lucide="tag" class="w-5 h-5 text-purple-600"></i>
+                                <i data-lucide="tag" class="w-5 h-5 text-gray-500"></i>
                                 Thẻ Tag
                             </h3>
                             <div class="flex flex-wrap gap-2">
@@ -89,7 +89,7 @@
                         </div>
 
                         <!-- Featured Posts -->
-                        <div class="bg-main-gray dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="bg-main-gray dark:bg-gray-800 rounded-sm p-6 shadow-md border border-gray-200 dark:border-gray-700">
                             <h3 class="text-xl font-bold text-main mb-4 flex items-center gap-2">
                                 <i data-lucide="star" class="w-5 h-5 text-yellow-500"></i>
                                 Bài Viết Nổi Bật
@@ -108,7 +108,7 @@
                                         </div>
                                         @endif
                                         <div class="flex-1">
-                                            <h4 class="font-semibold text-sm text-main line-clamp-2 group-hover:text-blue-600 transition-colors">
+                                            <h4 class="font-semibold text-sm text-main line-clamp-2 group-hover:text-primary-800 transition-colors">
                                                 {{ $featured->title }}
                                             </h4>
                                             <p class="text-xs text-sub mt-1">
@@ -133,7 +133,7 @@
                             <div class="flex items-center gap-2 flex-wrap">
                                 <span class="text-sm font-semibold text-blue-900 dark:text-blue-100">Lọc theo:</span>
                                 @if(request('search'))
-                                <span class="px-3 py-1 bg-blue-600 text-white rounded-full text-sm flex items-center gap-2">
+                                <span class="px-3 py-1 bg-primary-800 text-white rounded-full text-sm flex items-center gap-2">
                                     "{{ request('search') }}"
                                     <a href="{{ route('posts.index', request()->except('search')) }}" class="hover:bg-blue-700 rounded-full p-0.5">
                                         <i data-lucide="x" class="w-3 h-3"></i>
@@ -157,7 +157,7 @@
                                 </span>
                                 @endif
                             </div>
-                            <a href="{{ route('posts.index') }}" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                            <a href="{{ route('posts.index') }}" class="text-sm text-primary-800 hover:text-blue-700 font-medium">
                                 Xóa tất cả
                             </a>
                         </div>
@@ -196,7 +196,7 @@
                                 <div class="flex items-center gap-3 mb-3">
                                     @if($post->category)
                                     <a href="{{ route('posts.index', ['category' => $post->category->id]) }}" 
-                                        class="px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full hover:bg-blue-700 transition-colors">
+                                        class="px-3 py-1 bg-primary-800 text-white text-xs font-semibold rounded-full hover:bg-blue-700 transition-colors">
                                         {{ $post->category->name }}
                                     </a>
                                     @endif
@@ -207,7 +207,7 @@
                                 </div>
 
                                 <!-- Title -->
-                                <h3 class="text-xl font-bold text-main mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                                <h3 class="text-xl font-bold text-main mb-3 line-clamp-2 group-hover:text-primary-800 transition-colors">
                                     <a href="{{ route('posts.show', $post) }}">
                                         {{ $post->title }}
                                     </a>
@@ -234,7 +234,7 @@
 
                                 <!-- Read More -->
                                 <a href="{{ route('posts.show', $post) }}" 
-                                    class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-sm group/link">
+                                    class="inline-flex items-center gap-2 text-primary-800 hover:text-blue-700 font-semibold text-sm group/link">
                                     Đọc tiếp
                                     <i data-lucide="arrow-right" class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"></i>
                                 </a>
@@ -259,7 +259,7 @@
                         <h3 class="text-2xl font-bold text-main mb-3">Không tìm thấy bài viết</h3>
                         <p class="text-sub mb-6">Thử thay đổi điều kiện tìm kiếm hoặc bộ lọc của bạn</p>
                         <a href="{{ route('posts.index') }}" 
-                            class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            class="inline-flex items-center gap-2 px-6 py-3 bg-primary-800 text-white rounded-lg hover:bg-blue-700 transition-colors">
                             <i data-lucide="refresh-cw" class="w-5 h-5"></i>
                             Xem tất cả bài viết
                         </a>
@@ -271,24 +271,24 @@
     </section>
 
     <!-- Newsletter Section -->
-    <section class="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+    <section class="py-16 bg-gradient-to-r from-primary-800 to-primary-900 text-white">
         <div class="container mx-auto px-4">
             <div class="max-w-3xl mx-auto text-center">
                 <div class="mb-6">
                     <i data-lucide="mail" class="w-16 h-16 mx-auto mb-4 opacity-90"></i>
                 </div>
-                <h2 class="text-4xl font-bold mb-4">Đăng Ký Nhận Tin</h2>
-                <p class="text-xl mb-8 opacity-90">
+                <h2 class="text-2xl font-bold mb-4">Đăng Ký Nhận Tin</h2>
+                <p class="text-sm mb-8 opacity-90">
                     Cập nhật những tin tức mới nhất về thế giới ô tô ngay vào email của bạn
                 </p>
                 <form class="flex gap-3 max-w-md mx-auto">
                     <input 
                         type="email" 
                         placeholder="Email của bạn..." 
-                        class="flex-1 px-6 py-4 rounded-full text-gray-900 dark:text-white bg-white/90 dark:bg-gray-800/90 focus:outline-none focus:ring-4 focus:ring-white/50">
+                        class="flex-1 px-6 py-3 rounded-full text-gray-900 dark:text-white bg-white/90 dark:bg-gray-800/90 focus:outline-none focus:ring-4 focus:ring-white/30">
                     <button 
                         type="submit"
-                        class="px-8 py-4 bg-white text-blue-600 rounded-full hover:bg-gray-100 transition-colors font-bold whitespace-nowrap">
+                        class="px-8 py-3 bg-white text-primary-800 rounded-full hover:bg-gray-100 transition-colors font-bold whitespace-nowrap">
                         Đăng ký
                     </button>
                 </form>

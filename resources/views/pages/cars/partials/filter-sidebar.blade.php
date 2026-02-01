@@ -1,7 +1,7 @@
 <form id="filterForm" action="{{ route('cars.index') }}" method="GET">
     <aside class="w-full lg:w-80 space-y-5">
         <!-- Filter Header -->
-        <div class="bg-main rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5">
+        <div class="bg-main rounded-sm shadow-sm border border-gray-200 dark:border-gray-700 p-5">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-bold text-main flex items-center gap-2">
                     <i data-lucide="filter" class="w-5 h-5 text-blue-600"></i>
@@ -27,7 +27,7 @@
         </div>
 
         <!-- Main Filters -->
-        <div class="bg-main rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5 space-y-5">
+        <div class="bg-main rounded-sm shadow-sm border border-gray-200 dark:border-gray-700 p-5 space-y-5">
             <!-- Brand -->
             <div class="space-y-2">
                 <label class="flex items-center gap-2 text-sm font-semibold text-main">

@@ -36,7 +36,7 @@
     @include('pages.home.partials.product-category')
     @include('pages.home.partials.list-blog-section')
     @include('pages.home.partials.subscribe')
-    @include('pages.home.partials.calculate-car-section')
+    {{-- @include('pages.home.partials.calculate-car-section') --}}
     @include('pages.home.partials.my-need-section')
 @endsection
 @section('scripts')

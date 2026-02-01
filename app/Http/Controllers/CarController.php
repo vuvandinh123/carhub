@@ -108,6 +108,14 @@ class CarController extends Controller
     }
 
     /**
+     * Display saved cars page
+     */
+    public function saved()
+    {
+        return view('pages.cars.saved');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Car $car)
