@@ -81,7 +81,24 @@ class CarController extends Controller
     public function show(Car $car)
     {
         $car = $this->carRepository->find($car->id);
-        return view('pages.car-detail.index', compact('car'));
+        $relatedCars = Car::where('id', '!=', $car->id)
+            ->where(function($query) use ($car) {
+                $query->where('brand_id', $car->brand_id)
+                      ->orWhereHas('categories', function($q) use ($car) {
+                          $q->whereIn('categories.id', $car->categories->pluck('id'));
+                      });
+            })
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+        if (!$relatedCars || $relatedCars->isEmpty()) {
+            $relatedCars = Car::where('id', '!=', $car->id)
+                ->inRandomOrder()
+                ->take(4)
+                ->get();
+        }
+        
+        return view('pages.car-detail.index', compact('car', 'relatedCars'));
     }
 
     /**

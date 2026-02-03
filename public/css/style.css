@@ -1,0 +1,353 @@
+:root {
+    --primary-blue: #1E3A8A;
+    --accent-gold: #D4AF37;
+    --zalo-blue: #0068FF;
+    --facebook-blue: #1877F2;
+    --call-green: #25D366;
+    --white: #FFFFFF;
+}
+
+/* Floating Contact Buttons Container */
+.floating-contacts {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Main Contact Button (Toggle) */
+.contact-toggle {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, #2E4A9A 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    border: 3px solid var(--accent-gold);
+    animation: pulse 2s infinite;
+    margin-left: 0;
+}
+
+.contact-toggle:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 12px 35px rgba(30, 58, 138, 0.5);
+}
+
+.contact-toggle.active {
+    transform: rotate(45deg);
+    background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
+}
+
+.contact-toggle svg {
+    width: 32px;
+    height: 32px;
+    color: var(--white);
+    transition: transform 0.3s ease;
+}
+
+.contact-toggle.active svg {
+    transform: rotate(45deg);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4), 0 0 0 0 rgba(212, 175, 55, 0.7);
+    }
+
+    50% {
+        box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4), 0 0 0 15px rgba(212, 175, 55, 0);
+    }
+}
+
+/* Contact Buttons List */
+.contact-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.contact-buttons.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Individual Contact Button */
+.contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--white);
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    max-width: 200px;
+    margin-left: auto;
+}
+
+.contact-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.contact-btn:hover::before {
+    left: 100%;
+}
+
+.contact-btn:hover {
+    transform: translateX(-8px) scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon Container */
+.contact-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.contact-btn:hover .contact-icon {
+    transform: rotate(360deg) scale(1.1);
+}
+
+/* Phone Button */
+.contact-btn.phone .contact-icon {
+    background: linear-gradient(135deg, var(--call-green) 0%, #20BA5A 100%);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+.contact-btn.phone:hover {
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(32, 186, 90, 0.1) 100%);
+}
+
+/* Zalo Button */
+.contact-btn.zalo .contact-icon {
+    background: linear-gradient(135deg, var(--zalo-blue) 0%, #0056CC 100%);
+    box-shadow: 0 4px 15px rgba(0, 104, 255, 0.4);
+}
+
+.contact-btn.zalo:hover {
+    background: linear-gradient(135deg, rgba(0, 104, 255, 0.1) 0%, rgba(0, 86, 204, 0.1) 100%);
+}
+
+/* Facebook Button */
+.contact-btn.facebook .contact-icon {
+    background: linear-gradient(135deg, var(--facebook-blue) 0%, #1565C0 100%);
+    box-shadow: 0 4px 15px rgba(24, 119, 242, 0.4);
+}
+
+.contact-btn.facebook:hover {
+    background: linear-gradient(135deg, rgba(24, 119, 242, 0.1) 0%, rgba(21, 101, 192, 0.1) 100%);
+}
+
+/* Icon SVGs */
+.contact-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--white);
+}
+
+/* Text Labels */
+.contact-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.contact-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contact-info {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.contact-btn.phone .contact-info {
+    color: var(--call-green);
+}
+
+.contact-btn.zalo .contact-info {
+    color: var(--zalo-blue);
+}
+
+.contact-btn.facebook .contact-info {
+    color: var(--facebook-blue);
+}
+
+/* Animation delays for stagger effect */
+.contact-buttons.show .contact-btn:nth-child(1) {
+    animation: slideIn 0.4s ease 0.1s both;
+}
+
+.contact-buttons.show .contact-btn:nth-child(2) {
+    animation: slideIn 0.4s ease 0.2s both;
+}
+
+.contact-buttons.show .contact-btn:nth-child(3) {
+    animation: slideIn 0.4s ease 0.3s both;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Tooltip on hover */
+.contact-btn {
+    position: relative;
+}
+
+.contact-tooltip {
+    position: absolute;
+    left: calc(100% + 15px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-blue);
+    color: var(--white);
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.contact-tooltip::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid var(--primary-blue);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+}
+
+.contact-btn:hover .contact-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(-5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .floating-contacts {
+        bottom: 20px;
+        left: 20px;
+    }
+
+    .contact-toggle {
+        width: 58px;
+        height: 58px;
+    }
+
+    .contact-toggle svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .contact-btn {
+        max-width: 180px;
+        padding: 10px 16px;
+    }
+
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .contact-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .contact-label {
+        font-size: 10px;
+    }
+
+    .contact-info {
+        font-size: 12px;
+    }
+
+    .contact-tooltip {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-text {
+        display: none;
+    }
+
+    .contact-btn {
+        padding: 8px;
+        max-width: 56px;
+        justify-content: center;
+    }
+
+    .contact-icon {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* Accessibility */
+.contact-btn:focus,
+.contact-toggle:focus {
+    outline: 3px solid var(--accent-gold);
+    outline-offset: 3px;
+}
+
+/* Print - hide floating buttons */
+@media print {
+    .floating-contacts {
+        display: none;
+    }
+}

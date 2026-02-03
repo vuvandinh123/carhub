@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Register view composers
+        view()->composer('partials.nav', \App\View\Composers\MenuComposer::class);
     }
 }

@@ -41,7 +41,7 @@
         <!-- Action buttons -->
         <div class="absolute top-3 right-3 flex gap-2">
             <button 
-                onclick="addToCompare({{ $carid }}, '{{ addslashes($title) }}', {{ $price }}, {{ $year ?? 'null' }}, '{{ $fuel ?? '' }}', '{{ $mileage ?? '' }}', '{{ $bodytype ?? '' }}', '{{ $image ?? '' }}')"
+                onclick="addToCompare({{ $carid }})"
                 class="compare-btn bg-white/90 backdrop-blur-sm p-2 w-9 h-9 cursor-pointer flex items-center justify-center rounded-full hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-lg group/btn"
                 title="So sánh">
                 <i data-lucide="git-compare" class="text-gray-600 group-hover/btn:text-white w-4 h-4"></i>
@@ -76,7 +76,7 @@
             </a>
         </h3>
         @if ($price)
-            <div class="text-xl absolute top-3 left-3  text-red-500 font-bold">{{ number_format($price / 1000000, 0, ',', '.') }} <small class="text-sm">triệu</small></div>
+            <div class="text-xl absolute top-3 left-3 text-red-500 font-bold">{{ formatPrice($price) }}</div>
         @endif
 
         <!-- Divider -->
@@ -115,14 +115,14 @@
 
         <!-- Action Buttons -->
         <div class="flex gap-2 mt-4">
-            <button class="flex-1 flex items-center justify-center gap-2 bg-primary-800 hover:bg-primary-700 text-white py-2.5 px-4 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg">
+            <button data-modal-target="register-modal" data-modal-toggle="register-modal" class="flex-1 flex items-center justify-center gap-2 bg-primary-800 hover:bg-primary-700 text-white py-2.5 px-4 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg">
                 <i data-lucide="calculator" class="w-4 h-4"></i>
                 <span>Báo giá</span>
             </button>
-            <button class="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white py-2.5 px-4 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg">
+            <a href="tel:0333583800" class="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white py-2.5 px-4 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg">
                 <i data-lucide="phone" class="w-4 h-4"></i>
                 <span>Liên hệ</span>
-            </button>
+            </a>
         </div>
     </div>
 </div>
@@ -156,14 +156,14 @@
             <!-- Price Badge -->
             @if ($price)
                 <div class="absolute bottom-3 left-3 bg-red-500 text-white px-4 py-2 rounded-lg font-bold shadow-lg">
-                    {{ number_format($price / 1000000, 0, ',', '.') }} <small class="text-sm">triệu</small>
+                    {{ formatPrice($price) }}
                 </div>
             @endif
 
             <!-- Action buttons for List View -->
             <div class="absolute top-3 right-3 flex gap-2">
                 <button 
-                    onclick="addToCompare({{ $carid }}, '{{ addslashes($title) }}', {{ $price }}, {{ $year ?? 'null' }}, '{{ $fuel ?? '' }}', '{{ $mileage ?? '' }}', '{{ $bodytype ?? '' }}', '{{ $image ?? '' }}')"
+                    onclick="addToCompare({{ $carid }})"
                     class="compare-btn bg-white/90 backdrop-blur-sm p-2 w-9 h-9 cursor-pointer flex items-center justify-center rounded-full hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-lg group/btn"
                     title="So sánh">
                     <i data-lucide="git-compare" class="text-gray-600 group-hover/btn:text-white w-4 h-4"></i>
@@ -232,7 +232,7 @@
             <!-- Action Buttons -->
             <div class="flex gap-3">
                 <button 
-                    onclick="addToCompare({{ $carid }}, '{{ addslashes($title) }}', {{ $price }}, {{ $year ?? 'null' }}, '{{ $fuel ?? '' }}', '{{ $mileage ?? '' }}', '{{ $bodytype ?? '' }}', '{{ $image ?? '' }}')"
+                    onclick="addToCompare({{ $carid }})"
                     class="compare-btn flex items-center justify-center gap-2 bg-primary-800 hover:bg-primary-700 text-white py-2.5 px-6 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg"
                     title="So sánh">
                     <i data-lucide="git-compare" class="w-4 h-4"></i>

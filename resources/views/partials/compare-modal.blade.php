@@ -65,9 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Add car to compare list
-function addToCompare(carId, title, price, year, fuel, mileage, bodytype) {
+function addToCompare(carId) {
     // Check if already exists
-    if (compareList.find(car => car.id === carId)) {
+    if (compareList.includes(carId)) {
         showNotification('Xe này đã có trong danh sách so sánh', 'warning');
         return;
     }
@@ -79,17 +79,7 @@ function addToCompare(carId, title, price, year, fuel, mileage, bodytype) {
     }
 
     // Add to list
-    const car = {
-        id: carId,
-        title: title,
-        price: price,
-        year: year,
-        fuel: fuel,
-        mileage: mileage,
-        bodytype: bodytype
-    };
-
-    compareList.push(car);
+    compareList.push(carId);
     localStorage.setItem('compareList', JSON.stringify(compareList));
     
     updateCompareUI();
@@ -99,7 +89,7 @@ function addToCompare(carId, title, price, year, fuel, mileage, bodytype) {
 
 // Remove car from compare list
 function removeFromCompare(carId) {
-    compareList = compareList.filter(car => car.id !== carId);
+    compareList = compareList.filter(id => id !== carId);
     localStorage.setItem('compareList', JSON.stringify(compareList));
     
     updateCompareUI();
@@ -120,10 +110,15 @@ function clearAllCompare() {
 
 // Open compare modal
 function openCompareModal() {
-    document.getElementById('compareModal').classList.remove('hidden');
-    document.getElementById('compareModal').classList.add('flex');
-    document.body.style.overflow = 'hidden';
-    updateCompareUI();
+    let data = localStorage.getItem('compareList');
+    compareList = data ? JSON.parse(data) : [];
+    if (compareList.length <= 1) {
+        showNotification('Chọn ít nhất 2 xe để so sánh', 'warning');
+        return;
+    }
+    // chuyển thành dạng 1,2,3
+    compareList = compareList.join(',');
+    window.location.href = `{{ route('cars.compare') }}?ids=${compareList}`;
 }
 
 // Close compare modal
@@ -226,31 +221,29 @@ function performCompare() {
         return;
     }
     
-    // Get car IDs
-    const carIds = compareList.map(car => car.id).join(',');
-    
-    // Redirect to comparison page
-    window.location.href = `/cars/compare?ids=${carIds}`;
+    // Redirect to comparison page with IDs
+    const ids = compareList.join(',');
+    window.location.href = `{{ route('cars.compare') }}?ids=${ids}`;
 }
 
 // Show notification
 function showNotification(message, type = 'info') {
     // Create notification element
     const notification = document.createElement('div');
-    notification.className = `fixed top-6 right-6 z-[60] px-6 py-4 rounded-lg shadow-2xl transform transition-all duration-300 translate-x-0 ${
+    notification.className = `fixed top-20 right-6 z-[60] px-6 py-4 rounded-md shadow-2xl transform transition-all duration-300 translate-x-0 ${
         type === 'success' ? 'bg-green-500' :
         type === 'error' ? 'bg-red-500' :
         type === 'warning' ? 'bg-yellow-500' :
         'bg-blue-500'
     } text-white font-medium flex items-center gap-3`;
     
-    const icon = type === 'success' ? 'check-circle' :
-                 type === 'error' ? 'x-circle' :
-                 type === 'warning' ? 'alert-circle' :
-                 'info';
+    const icon = type === 'success' ? 'fa-solid fa-circle-check' :
+                 type === 'error' ? 'fa-solid fa-circle-xmark' :
+                 type === 'warning' ? 'fa-solid fa-triangle-exclamation' :
+                 'fa-solid fa-info-circle';
     
     notification.innerHTML = `
-        <i data-lucide="${icon}" class="w-5 h-5"></i>
+        <i class="w-5 h-5 ${icon}"></i>
         <span>${message}</span>
     `;
     

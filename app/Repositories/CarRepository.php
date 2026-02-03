@@ -24,10 +24,10 @@ class CarRepository
         if (!empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function($q) use ($search) {
-                $q->where('name', 'LIKE', "%{$search}%")
+                $q->where('title', 'LIKE', "%{$search}%")
                   ->orWhere('description', 'LIKE', "%{$search}%")
                   ->orWhereHas('brand', function($brandQuery) use ($search) {
-                      $brandQuery->where('name', 'LIKE', "%{$search}%");
+                      $brandQuery->where('title', 'LIKE', "%{$search}%");
                   });
             });
         }

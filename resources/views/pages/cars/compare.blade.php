@@ -3,19 +3,19 @@
 @section('title', 'So sánh xe')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto max-w-7xl px-4 py-8">
     <!-- Header -->
     <div class="mb-8">
-        <div class="flex items-center gap-3 mb-4">
+        <div class="flex items-center gap-3 mt-10 mb-4">
             <a href="{{ route('cars.index') }}" class="text-sub hover:text-main transition-colors">
                 <i data-lucide="arrow-left" class="w-6 h-6"></i>
             </a>
-            <h1 class="text-3xl font-bold text-main flex items-center gap-3">
-                <i data-lucide="git-compare" class="w-8 h-8 text-purple-600"></i>
+            <h1 class="text-3xl font-bold text-main text-primary-800 flex items-center gap-3">
+                <i data-lucide="git-compare" class="w-8 h-8 text-primary-800"></i>
                 So sánh xe
             </h1>
         </div>
-        <p class="text-sub">So sánh chi tiết các thông số kỹ thuật và tính năng</p>
+        <p class="text-primary-800">So sánh chi tiết các thông số kỹ thuật và tính năng</p>
     </div>
 
     <!-- Comparison Table -->
@@ -23,9 +23,9 @@
         <div class="overflow-x-auto">
             <table class="w-full">
                 <!-- Car Images and Names -->
-                <thead class="bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20">
+                <thead class=" dark:from-purple-900/20 dark:to-purple-800/20">
                     <tr>
-                        <th class="sticky left-0 z-10 bg-purple-50 dark:bg-purple-900/20 p-4 text-left font-semibold text-main w-48">
+                        <th class="sticky left-0 z-10 bg-white dark:bg-purple-900/20 p-4 text-left font-semibold text-primary-800 w-48">
                             Thông tin
                         </th>
                         @foreach($cars as $car)
@@ -36,11 +36,11 @@
                                     @if($car->images->isNotEmpty())
                                         <img src="{{ asset('storage/' . $car->images->first()->image_path) }}" 
                                             alt="{{ $car->name }}"
-                                            class="w-full h-full object-cover">
+                                            class="w-full h-full object-contain">
                                     @else
                                         <img src="https://cafefcdn.com/2018/6/16/photo-1-1529146484215497174285.png" 
                                             alt="{{ $car->name }}"
-                                            class="w-full h-full object-cover">
+                                            class="w-full h-full object-contain">
                                     @endif
                                 </div>
                                 
@@ -50,16 +50,21 @@
                                 </a>
                                 
                                 <!-- Price -->
-                                <div class="text-2xl font-bold text-purple-600">
-                                    {{ number_format($car->price / 1000000, 0, ',', '.') }} <small class="text-sm">triệu</small>
+                                <div class="text-2xl font-bold text-primary-800">
+                                    {{ formatPrice($car->price) }}
                                 </div>
                                 
                                 <!-- Quick Actions -->
                                 <div class="flex gap-2 justify-center mt-3">
                                     <a href="{{ route('cars.show', $car->id) }}" 
-                                        class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium">
+                                        class="px-4 py-2 bg-gradient-to-r from-primary-800 to-primary-700 text-white rounded-sm hover:from-primary-700 hover:to-primary-800 transition-colors text-sm font-medium">
                                         Xem chi tiết
                                     </a>
+                                    <button onclick="removeCarFromCompare({{ $car->id }})" 
+                                        class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-sm transition-colors text-sm font-medium flex items-center gap-2">
+                                        <i data-lucide="x" class="w-4 h-4"></i>
+                                        Xóa
+                                    </button>
                                 </div>
                             </div>
                         </th>
@@ -197,4 +202,28 @@
         </a>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    function removeCarFromCompare(carId) {
+        // Get current compare list
+        let compareList = JSON.parse(localStorage.getItem('compareList') || '[]');
+        
+        // Remove the car
+        compareList = compareList.filter(id => id !== carId);
+        
+        // Update localStorage
+        localStorage.setItem('compareList', JSON.stringify(compareList));
+        
+        // Reload page with updated IDs
+        if (compareList.length >= 2) {
+            const ids = compareList.join(',');
+            window.location.href = '{{ route("cars.compare") }}?ids=' + ids;
+        } else {
+            // If less than 2 cars, redirect to cars list
+            window.location.href = '{{ route("cars.index") }}';
+        }
+    }
+</script>
 @endsection

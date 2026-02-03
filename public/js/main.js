@@ -131,6 +131,47 @@ function showToast(message, type = 'info', duration = 3000) {
     setTimeout(removeToast, duration);
 }
 
+$(function () {
+    const $contactToggle = $('#contactToggle');
+    const $contactButtons = $('#contactButtons');
+    let isOpen = false;
+
+    // Toggle contact buttons
+    $contactToggle.on('click', function (e) {
+        e.stopPropagation(); // tránh bị document click bắt luôn
+
+        isOpen = !isOpen;
+
+        if (isOpen) {
+            $contactButtons.addClass('show');
+            $contactToggle.addClass('active');
+
+            // Prevent body scroll on mobile
+            if ($(window).width() <= 768) {
+                $('body').css('overflow', 'hidden');
+            }
+        } else {
+            closeContacts();
+        }
+    });
+
+    // Close when clicking outside
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.floating-contacts').length && isOpen) {
+            closeContacts();
+        }
+    });
+
+    function closeContacts() {
+        $contactButtons.removeClass('show');
+        $contactToggle.removeClass('active');
+        $('body').css('overflow', 'auto');
+        isOpen = false;
+    }
+});
+
+
+
 // Initialize bookmarks on page load
 $(document).ready(function () {
     initializeBookmarks();

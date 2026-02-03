@@ -85,6 +85,7 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+            const filterForm = $('#filterForm');
             const $filterOffcanvas = $('#filterOffcanvas');
             const $filterPanel = $('#filterPanel');
             const $mobileFilterBtn = $('#mobileFilterBtn');
@@ -118,15 +119,7 @@
                     closeOffcanvas();
                 }
             });
-        });
-    </script>
-@endsection
 
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            const filterForm = $('#filterForm');
-            
             // Mobile filter toggle
             const filterBtn = $('.lg\\:hidden.fixed');
             const filterSidebar = $('aside');
@@ -157,6 +150,9 @@
                     $(this).removeClass('text-gray-600 dark:text-gray-400')
                         .addClass('bg-white dark:bg-gray-700 shadow-sm text-blue-600');
                 }
+                
+                // Auto submit form
+                filterForm.submit();
             });
 
             // Quick price buttons

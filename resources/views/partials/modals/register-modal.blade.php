@@ -1,29 +1,31 @@
-<div id="register-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-xl max-h-full">
+<div id="register-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-[#1E3A8A]/30  backdrop-blur-sm transition-opacity duration-300 z-40"></div>
+    <div class="relative p-4 w-full max-w-xl max-h-full z-50 animate-[slide-in_0.4s_ease]">
         <!-- Modal content -->
-        <div class="relative bg-main rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div class="relative bg-primary-900 rounded-[2rem] shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_0_rgba(30,58,138,0.25)]">
             <!-- Decorative Header Background -->
-            <div class="absolute top-0 left-0 right-0 h-24 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 opacity-10"></div>
+            <div class="absolute top-0 left-0 right-0 h-28 bg-gradient-to-r from-primary-900 via-primary-800 to-primary-700 opacity-40"></div>
             
             <!-- Modal header -->
-            <div class="relative flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="relative flex items-center justify-between p-6 border-b-2 border-blue-800">
                 <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                        <i data-lucide="car" class="w-6 h-6 text-white"></i>
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-400 via-[#1E3A8A] to-blue-900 rounded-xl flex items-center justify-center shadow-xl border-2 border-white/30">
+                        <i data-lucide="car" class="w-7 h-7 text-white"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-main">Đăng Ký Tư Vấn</h3>
-                        <p class="text-xs text-sub">Liên hệ trong 24h</p>
+                        <h3 class="text-xl uppercase text-white drop-shadow">Đăng Ký Tư Vấn</h3>
+                        <p class="text-xs text-blue-100">Liên hệ trong 24h</p>
                     </div>
                 </div>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white transition-all" data-modal-hide="register-modal">
-                    <i data-lucide="x" class="w-4 h-4"></i>
+                <button type="button" class="text-blue-100 bg-transparent hover:bg-blue-900/30 hover:text-white rounded-lg text-lg w-9 h-9 inline-flex justify-center items-center transition-all" data-modal-hide="register-modal">
+                    <i data-lucide="x" class="w-5 h-5"></i>
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
 
             <!-- Modal body -->
-            <div class="p-5">
+            <div class="p-7 bg-white rounded-b-[2rem] backdrop-blur-md transition-all duration-500">
                 <form action="" method="POST" class="space-y-4">
                     @csrf
                     
@@ -35,7 +37,7 @@
                         </label>
                         <input type="text" name="name" id="name"
                             class="bg-main-gray border-2 border-gray-200 text-main text-sm rounded-lg 
-                                   focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                                   focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
                                    dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 
                                    transition-all duration-300 hover:border-blue-300"
                             placeholder="Nguyễn Văn A" required>
@@ -50,7 +52,7 @@
                             </label>
                             <input type="tel" name="phone" id="phone"
                                 class="bg-main-gray border-2 border-gray-200 text-main text-sm rounded-lg 
-                                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                                       focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
                                        dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 
                                        transition-all duration-300 hover:border-blue-300"
                                 placeholder="0912345678" required>
@@ -65,7 +67,7 @@
                             <div class="relative">
                                 <select id="car_type" name="car_type"
                                     class="bg-main-gray border-2 border-gray-200 text-main text-sm rounded-lg 
-                                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                                           focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
                                            dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 
                                            transition-all duration-300 hover:border-blue-300 appearance-none cursor-pointer">
                                     <option value="">Chọn loại</option>
@@ -140,12 +142,13 @@
 
                     <!-- Nút gửi -->
                     <button type="submit"
-                        class="w-full text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 
-                               focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg 
-                               text-sm px-5 py-3 text-center dark:focus:ring-blue-800 
-                               transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02]
+                        class="w-full text-white bg-gradient-to-r from-primary-800 via-primary-700 to-primary-900 hover:from-primary-900 hover:to-primary-700 
+                        cursor-pointer 
+                               focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-xl 
+                               text-base px-5 py-3 text-center 
+                               transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-[1.03]
                                flex items-center justify-center gap-2">
-                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <i data-lucide="send" class="w-5 h-5"></i>
                         Gửi Đăng Ký Ngay
                     </button>
                 </form>

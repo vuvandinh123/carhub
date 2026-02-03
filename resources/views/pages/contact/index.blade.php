@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 py-20">
+<section class="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 py-20 pb-30">
     <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
     <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-3xl mx-auto text-center">
@@ -24,13 +24,10 @@
         </svg>
     </div>
 </section>
-
-<!-- Contact Info Cards -->
-<section class="py-16 bg-white dark:bg-gray-900">
+<section class="py-16 container mx-auto max-w-7xl bg-white dark:bg-gray-900">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-32 relative z-20 mb-16">
-            <!-- Phone -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="bg-white  rounded-2xl shadow-md shadow-primary-300 p-8 hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl mb-4">
                     <i data-lucide="phone" class="w-7 h-7 text-white"></i>
                 </div>
@@ -43,7 +40,7 @@
             </div>
 
             <!-- Email -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="bg-white  rounded-2xl shadow-md shadow-primary-300 p-8 hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl mb-4">
                     <i data-lucide="mail" class="w-7 h-7 text-white"></i>
                 </div>
@@ -56,7 +53,7 @@
             </div>
 
             <!-- Address -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="bg-white  rounded-2xl shadow-md shadow-primary-300 p-8 hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl mb-4">
                     <i data-lucide="map-pin" class="w-7 h-7 text-white"></i>
                 </div>
@@ -69,9 +66,7 @@
             </div>
         </div>
 
-        <!-- Main Contact Section -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <!-- Contact Form -->
             <div>
                 <div class="mb-8">
                     <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-3">Gửi tin nhắn</h2>
@@ -173,7 +168,7 @@
                 <div class="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 border border-blue-100 dark:border-gray-600">
                     <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0">
-                            <div class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-800 to-primary-900 rounded-xl">
                                 <i data-lucide="clock" class="w-6 h-6 text-white"></i>
                             </div>
                         </div>
@@ -198,7 +193,7 @@
                 </div>
 
                 <!-- Why Contact Us -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-lg">
+                <div class="bg-white rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-lg">
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Tại sao nên liên hệ với chúng tôi?</h3>
                     <div class="space-y-4">
                         <div class="flex items-start space-x-3">
@@ -245,7 +240,7 @@
                 </div>
 
                 <!-- Social Media -->
-                <div class="bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 text-white">
+                <div class="bg-gradient-to-br from-primary-900 to-primary-800 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 text-white">
                     <h3 class="text-xl font-bold mb-4">Kết nối với chúng tôi</h3>
                     <p class="text-gray-300 mb-6">Theo dõi để cập nhật thông tin mới nhất</p>
                     <div class="flex space-x-4">
@@ -268,7 +263,6 @@
     </div>
 </section>
 
-<!-- Map Section -->
 <section class="py-16 bg-gray-50 dark:bg-gray-800">
     <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
@@ -355,29 +349,4 @@
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-16 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-900 dark:to-purple-900">
-    <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                Bạn đã sẵn sàng tìm chiếc xe lý tưởng?
-            </h2>
-            <p class="text-lg text-white/90 mb-8">
-                Hãy liên hệ với chúng tôi ngay hôm nay để nhận tư vấn miễn phí và báo giá tốt nhất
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="tel:0123456789" 
-                   class="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg">
-                    <i data-lucide="phone" class="w-5 h-5 mr-2"></i>
-                    Gọi ngay: 0123 456 789
-                </a>
-                <a href="{{ route('cars.index') }}" 
-                   class="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-white/20 transition-colors duration-300 border-2 border-white">
-                    <i data-lucide="car" class="w-5 h-5 mr-2"></i>
-                    Xem xe hiện có
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
 @endsection

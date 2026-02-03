@@ -18,6 +18,8 @@
             document.documentElement.classList.remove('dark')
         }
     </script>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
 </head>
 
 <body class="bg-main">
@@ -30,11 +32,12 @@
     @include('partials.modals.index')
     @include('partials.compare-modal')
     
+    @include('partials.floating-contacts')
     <!-- Compare Floating Button -->
     <div id="compareFloatingBtn" class="fixed bottom-4 right-4 z-40 hidden">
         <button 
             onclick="openCompareModal()"
-            class="bg-blue-600 text-white rounded-full px-3 py-2 shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-3 hover:scale-105">
+            class="bg-primary-800 cursor-pointer text-white rounded-full px-3 py-2 shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-3 hover:scale-105">
             <i data-lucide="git-compare" class="w-5 h-5"></i>
             <span class="font-semibold">So sánh (<span id="compareCount">0</span>)</span>
         </button>

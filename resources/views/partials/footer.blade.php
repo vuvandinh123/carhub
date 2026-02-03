@@ -15,35 +15,35 @@
                             </svg>
                             </span>
                         <input type="text" name="email" class="py-3 px-5 h-14 pl-14 border border-gray-200 rounded-full text-lg text-gray-900 placeholder:text-gray-400 focus:outline-none flex-1 w-full " placeholder="Email"/>
-                        <button type="submit" class="h-14 py-3.5 px-7 cursor-pointer transition-all duration-500 shadow-md rounded-full text-white font-semibold btn-primary">Đăng ký</button>
+                        <button type="submit" class="h-14 py-3.5 px-7 cursor-pointer transition-all duration-500 shadow-md rounded-full text-white font-semibold bg-primary-800 hover:bg-primary-700">Đăng ký</button>
                     </div>
                 </div>
                 <div class="flex flex-col items-center sm:items-start min-[530px]:flex-row max-[1124px]:w-full max-[1124px]:justify-between gap-12 xl:gap-24 max-[1124px]:max-w-2xl max-[1124px]:mx-auto">
                    <div class="block">
                         <h4 class="text-lg text-main font-medium mb-7 text-center lg:text-left">Danh mục</h4>
                         <ul class="grid gap-6 text-center lg:text-left">
-                            <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">Home</a></li>
-                            <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">About</a></li>
-                            <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">Pricing</a></li>
-                            <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">Pro Version</a></li>
+                            <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Trang chủ</a></li>
+                            <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Giới thiệu</a></li>
+                            <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Bảng giá</a></li>
+                            <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Phiên bản Pro</a></li>
                         </ul>
                    </div>
                    <div class="block">
-                    <h4 class="text-lg text-main font-medium mb-7 text-center lg:text-left">Sản phẩm</h4>
+                    <h4 class="text-lg text-main font-medium mb-7 text-center lg:text-left">Dịch vụ</h4>
                     <ul class="grid gap-6 text-center lg:text-left" >
-                        <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">Figma UI System</a></li>
-                        <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">Icons Assets</a></li>
-                        <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">Responsive Blocks</a></li>
-                        <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">Components Library</a></li>
+                        <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Mua xe trả góp</a></li>
+                        <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Bảo hiểm xe</a></li>
+                        <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Bảo dưỡng định kỳ</a></li>
+                        <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Thu cũ đổi mới</a></li>
                     </ul>
                   </div>
                   <div class="block">
                     <h4 class="text-lg text-main font-medium mb-7 text-center lg:text-left">Hỗ Trợ</h4>
                     <ul class="grid gap-6 text-center lg:text-left">
-                        <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">Customer Support</a></li>
-                        <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">Privacy Policy</a></li>
-                        <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">License</a></li>
-                        <li><a href="javascript:;"  class="text-gray-600 hover:text-brand-white">Terms & Conditions</a></li>
+                        <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Hỗ trợ khách hàng</a></li>
+                        <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Chính sách bảo mật</a></li>
+                        <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Giấy phép</a></li>
+                        <li><a href="javascript:;"  class="text-gray-600 hover:text-primary-800 ">Điều khoản & Điều kiện</a></li>
                     </ul>
                   </div>
                 </div>

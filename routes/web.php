@@ -7,7 +7,7 @@ Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->nam
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
 Route::get('/loan-calculator', [App\Http\Controllers\HomeController::class, 'loan'])->name('loan.calculator');
 Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
+Route::get('/posts/{post:slug}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
 Route::get('/cars/compare', [App\Http\Controllers\CarController::class, 'compare'])->name('cars.compare');
 Route::get('/cars/saved', [App\Http\Controllers\CarController::class, 'saved'])->name('cars.saved');
 Route::resource('cars', App\Http\Controllers\CarController::class);

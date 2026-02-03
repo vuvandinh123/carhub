@@ -12,25 +12,25 @@
                     <div>
                         <label class="block text-brand-black text-sm mb-1">Họ và tên</label>
                         <input type="text" placeholder="Nguyễn Văn A"
-                            class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
                     </div>
 
                     <div>
                         <label class="block text-brand-black text-sm mb-1">Số điện thoại</label>
                         <input type="tel" placeholder="090xxxxxxx"
-                            class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
                     </div>
 
                     <div>
                         <label class="block text-brand-black text-sm mb-1">Email</label>
                         <input type="email" placeholder="email@example.com"
-                            class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
                     </div>
 
                     <div>
                         <label class="block text-brand-black text-sm mb-1">Dòng xe quan tâm</label>
                         <select
-                            class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
                             <option>Chọn xe</option>
                             <option>Audi e-tron GT</option>
                             <option>Mercedes C-Class</option>
@@ -40,7 +40,7 @@
                     </div>
 
                     <button type="submit"
-                        class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition">
+                        class="w-full bg-linear-to-r from-primary-900 to-primary-800 hover:bg-linear-to-r hover:from-primary-800 hover:to-primary-900 cursor-pointer text-white py-2 rounded-lg font-semibold transition">
                         Đăng ký ngay
                     </button>
                 </form>

@@ -5,7 +5,7 @@
 @section('content')
 <div class="bg-main">
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-r from-primary-900 via-primary-800 to-primary-900 text-white py-16 overflow-hidden">
+    <section class="relative  bg-gradient-to-r from-primary-900 via-primary-800 to-primary-900 text-white py-16 overflow-hidden">
         <div class="absolute inset-0 opacity-20">
             <div class="absolute animate-pulse top-10 left-10 w-72 h-72 bg-white/30 rounded-full mix-blend-overlay filter blur-xl"></div>
             <div class="absolute animate-pulse bottom-10 right-10 w-96 h-96 bg-white/30 rounded-full mix-blend-overlay filter blur-xl"></div>
@@ -40,14 +40,14 @@
     </section>
 
     <!-- Main Content -->
-    <section class="py-12">
+    <section class="py-12 container mx-auto max-w-7xl">
         <div class="container mx-auto px-4">
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Sidebar -->
                 <aside class="lg:w-80 flex-shrink-0">
-                    <div class="sticky top-24 space-y-6">
+                    <div class="sticky top-24 space-y-4">
                         <!-- Categories -->
-                        <div class="bg-main-gray dark:bg-gray-800 rounded-sm p-6 shadow-md border border-gray-200 dark:border-gray-700">
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-md p-6 shadow-sm border border-gray-200 dark:border-gray-700">
                             <h3 class="text-xl font-bold text-main mb-4 flex items-center gap-2">
                                 <i data-lucide="folder" class="w-5 h-5 text-primary-800"></i>
                                 Danh Mục
@@ -73,7 +73,7 @@
                         </div>
 
                         <!-- Tags -->
-                        <div class="bg-main-gray dark:bg-gray-800 rounded-sm p-6 shadow-md border border-gray-200 dark:border-gray-700">
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-md p-6 shadow-sm border border-gray-200 dark:border-gray-700">
                             <h3 class="text-xl font-bold text-main mb-4 flex items-center gap-2">
                                 <i data-lucide="tag" class="w-5 h-5 text-gray-500"></i>
                                 Thẻ Tag
@@ -89,19 +89,19 @@
                         </div>
 
                         <!-- Featured Posts -->
-                        <div class="bg-main-gray dark:bg-gray-800 rounded-sm p-6 shadow-md border border-gray-200 dark:border-gray-700">
-                            <h3 class="text-xl font-bold text-main mb-4 flex items-center gap-2">
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-md p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                            <h3 class="text-xl font-bold text-main mb-10 flex items-center gap-2">
                                 <i data-lucide="star" class="w-5 h-5 text-yellow-500"></i>
                                 Bài Viết Nổi Bật
                             </h3>
                             <div class="space-y-4">
                                 @foreach($featuredPosts as $featured)
-                                <a href="{{ route('posts.show', $featured) }}" class="block group">
+                                <a href="{{ route('posts.show', $featured) }}" class="block group border-b border-gray-200 dark:border-gray-700 pb-4 last:border-0">
                                     <div class="flex gap-3">
                                         @if($featured->thumbnail)
-                                        <img src="{{ asset('storage/' . $featured->thumbnail) }}" 
+                                        <img src="{{ $featured->thumbnail }}" 
                                             alt="{{ $featured->title }}"
-                                            class="w-20 h-20 object-cover rounded-lg group-hover:scale-105 transition-transform">
+                                            class="w-20 h-20 object-contain rounded-lg group-hover:scale-105 transition-transform">
                                         @else
                                         <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
                                             <i data-lucide="newspaper" class="w-8 h-8 text-white"></i>
@@ -173,15 +173,15 @@
 
                     @if($posts->count() > 0)
                     <!-- Posts Grid -->
-                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="grid md:grid-cols-3 gap-2 mb-8">
                         @foreach($posts as $post)
-                        <article class="group bg-main-gray dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+                        <article class="group bg-gray-50 dark:bg-gray-800 rounded-md overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
                             <!-- Thumbnail -->
                             <a href="{{ route('posts.show', $post) }}" class="block relative overflow-hidden">
                                 @if($post->thumbnail)
-                                <img src="{{ asset('storage/' . $post->thumbnail) }}" 
+                                <img src="{{ $featured->thumbnail }}" 
                                     alt="{{ $post->title }}"
-                                    class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500">
+                                    class="w-full h-56 object-contain group-hover:scale-110 transition-transform duration-500">
                                 @else
                                 <div class="w-full h-56 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
                                     <i data-lucide="newspaper" class="w-20 h-20 text-white opacity-50"></i>
@@ -191,7 +191,7 @@
                             </a>
 
                             <!-- Content -->
-                            <div class="p-6">
+                            <div class="p-4 border-t border-gray-200 dark:border-gray-700">
                                 <!-- Category & Date -->
                                 <div class="flex items-center gap-3 mb-3">
                                     @if($post->category)

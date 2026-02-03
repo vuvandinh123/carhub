@@ -1,54 +1,6 @@
+{{-- Menu items are automatically provided by MenuComposer --}}
 @php
-$menuItems = [
-    [
-        'label' => 'Trang chủ',
-        'route' => 'home',
-        'url' => '/',
-    ],
-    [
-        'label' => 'Giới thiệu',
-        'route' => 'about',
-        'url' => route('about'),
-    ],
-    [
-        'label' => 'Sản phẩm',
-        'route' => 'cars.*',
-        'url' => route('cars.index'),
-        'has_mega' => true,
-        'icon' => 'chevron-down',
-        'mega_menu' => [
-            [
-                'title' => 'Hãng xe phổ biến',
-                'items' => ['Toyota', 'Honda', 'Mazda', 'Hyundai']
-            ],
-            [
-                'title' => 'Phân khúc',
-                'items' => ['Sedan', 'SUV', 'Hatchback', 'Bán tải']
-            ],
-            [
-                'title' => 'Khoảng giá',
-                'items' => ['Dưới 500 triệu', '500 triệu - 1 tỷ', '1 - 2 tỷ', 'Trên 2 tỷ']
-            ],
-        ]
-    ],
-    [
-        'label' => 'Tin tức',
-        'route' => 'posts.*',
-        'url' => route('posts.index'),
-    ],
-    [
-        'label' => 'Tính vay',
-        'route' => 'loan.calculator',
-        'url' => route('loan.calculator'),
-    ],
-    [
-        'label' => 'Liên hệ',
-        'route' => 'contact',
-        'url' => route('contact'),
-    ],
-];
 @endphp
-
 <ul class="flex overflow-visible md:overflow-visible max-h-[calc(100vh-4.5rem)] flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">
     @foreach($menuItems as $item)
         <li class="{{ $item['has_mega'] ?? false ? 'has-mega relative' : '' }}" 
@@ -75,7 +27,9 @@ $menuItems = [
                                 <ul class="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
                                     @foreach($column['items'] as $subItem)
                                         <li>
-                                            <a href="#" class="hover:text-blue-600">{{ $subItem }}</a>
+                                            <a href="{{ $subItem['url'] ?? '#' }}" class="hover:text-blue-600">
+                                                {{ $subItem['label'] ?? $subItem }}
+                                            </a>
                                         </li>
                                     @endforeach
                                 </ul>

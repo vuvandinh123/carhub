@@ -109,8 +109,6 @@
                 right: 10px;
             }
         }
-
-       
     </style>
 
 @endsection
@@ -131,8 +129,8 @@
                     <button class="p-2 text-gray-400 hover:text-gray-600">
                         <i data-lucide="share" class="fas fa-share-alt"></i>
                     </button>
-                    <button class="p-2 text-gray-400 hover:text-red-500">
-                        <i data-lucide="heart" class="far fa-heart"></i>
+                    <button onclick="toggleBookmark({{ $car->id }}, '{{ addslashes($car->title) }}', {{ $car->price }}, {{ $car->year ?? 'null' }}, '{{ $car->fuel ?? '' }}', '{{ $car->mileage ?? '' }}', '{{ $car->bodytype ?? '' }}', '{{ $car->thumbnail ?? '' }}')" class="p-2 text-gray-400 hover:text-red-500">
+                        <i  class="far fa-bookmark"></i>
                     </button>
                 </div>
             </div>
@@ -144,7 +142,8 @@
                             <div class="swiper-wrapper">
                                 @for ($i = 0; $i < 5; $i++)
                                     <div class="swiper-slide">
-                                        <a href="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/hinh-anh-oto.jpg" data-fancybox="car-gallery"
+                                        <a href="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/hinh-anh-oto.jpg"
+                                            data-fancybox="car-gallery"
                                             data-caption="Ảnh xe {{ $i + 1 }} - {{ $car->name ?? 'Chi tiết xe' }}"
                                             class="block relative group">
                                             <img src="https://cafefcdn.com/2018/6/16/photo-1-1529146484215497174285.png"
@@ -231,7 +230,7 @@
                     <div class="mt-8 bg-main text-main rounded-lg p-6 shadow-sm">
                         <h2 class="text-2xl font-bold mb-6">Thông số kỹ thuật</h2>
 
-                        @if($car->specifications && $car->specifications->count() > 0)
+                        @if ($car->specifications && $car->specifications->count() > 0)
                             @php
                                 // Chia specifications thành 2 cột đều nhau
                                 $halfCount = ceil($car->specifications->count() / 2);
@@ -239,10 +238,11 @@
                             @endphp
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                @foreach($columns as $columnIndex => $columnSpecs)
+                                @foreach ($columns as $columnIndex => $columnSpecs)
                                     <div class="space-y-4">
-                                        @foreach($columnSpecs as $spec)
-                                            <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
+                                        @foreach ($columnSpecs as $spec)
+                                            <div
+                                                class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
                                                 <span class="text-sub">{{ $spec->name }}:</span>
                                                 <span class="font-medium">{{ $spec->value }}</span>
                                             </div>
@@ -311,15 +311,15 @@
                                     class="w-full border-2 border-gray-300  py-3 px-4 rounded-lg font-medium hover:border-gray-400 flex justify-center items-center gap-2 transition">
                                     <i data-lucide="phone" class="fas fa-phone-alt mr-2"></i>
                                     <span id="phoneNumber">
-                                        039 888 8888
+                                        0333583800
                                     </span>
                                 </button>
 
-                                <button
+                                <a href="tel:0333583800"
                                     class="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition flex items-center justify-center">
                                     <i class="fas fa-envelope mr-2"></i>
                                     Gọi ngay
-                                </button>
+                                </a>
                                 <div
                                     class="text-center mt-6 before:content-['Hoặc'] before:absolute before:-top-full before:bg-white dark:before:bg-gray-900 before:translate-y-[-5px] before:px-3 before:left-1/2 before:-translate-x-1/2 relative h-[2px] bg-gray-200 dark:bg-gray-700 text-sm text-gray-500 dark:text-gray-300">
                                 </div>
@@ -374,6 +374,31 @@
             </div>
         </div>
     </section>
+
+    <!-- Related Cars Section -->
+    @if (isset($relatedCars) && count($relatedCars) > 0)
+        <section class=" max-w-7xl px-4 md:px-0 mx-auto container dark:bg-gray-900 py-12">
+            <div class="container mx-auto px-4">
+                <div class="">
+                    <div class="mb-8 after:content-[''] after:block after:w-20 after:h-1 after:bg-primary-800 after:mt-2 after:rounded">
+                    <h2 class="text-3xl md:text-3xl font-bold flex items-center gap-3">
+                        <i data-lucide="car" class="w-8 h-8 text-primary-800"></i>
+                       Bạn có thể thích
+                    </h2>
+                    <p class="text-sub mt-2">Các sản phẩm tương tự bạn có thể quan tâm</p>
+                </div>
+                </div>
+
+                <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+                    @foreach ($relatedCars as $relatedCar)
+                        <x-card-car :carid="$car['id']" :image="$car['thumbnail']" :title="$car['title']" :year="$car['year']"
+                            :price="$car['price']" :date="date('d M Y', strtotime($car['created_at']))" :location="'HCM'" :mileage="'60km'" :fuel="$car->fuel"
+                            :gearbox="'12'" :bodytype="'Tự động'" {{-- :badges="$car['badges']" --}} />
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
 @endsection
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -440,12 +465,14 @@
                 // Animation Settings - mượt mà hơn
                 showClass: "f-fadeIn",
                 hideClass: "f-fadeOut",
-                
+
                 // UI Settings - fullscreen và minimal
                 Toolbar: {
                     display: {
                         left: ["infobar"],
-                        middle: ["zoomIn", "zoomOut", "toggle1to1", "rotateCCW", "rotateCW", "flipX", "flipY"],
+                        middle: ["zoomIn", "zoomOut", "toggle1to1", "rotateCCW", "rotateCW", "flipX",
+                            "flipY"
+                        ],
                         right: ["slideshow", "thumbs", "fullscreen", "close"]
                     },
                     items: {
@@ -511,14 +538,15 @@
                 compact: false,
                 idle: false,
                 dragToClose: true,
-                
+
                 // Custom Events
                 on: {
                     init: (fancybox) => {
                         // Auto fullscreen khi mở
                         if (fancybox.Carousel) {
                             setTimeout(() => {
-                                if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
+                                if (document.fullscreenEnabled || document
+                                    .webkitFullscreenEnabled) {
                                     const container = fancybox.$container;
                                     if (container && container.requestFullscreen) {
                                         container.requestFullscreen().catch(() => {});
