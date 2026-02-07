@@ -3,7 +3,7 @@
     'title' => 'Default Title',
     'meta_description' => 'Default description',
     'meta_keywords' => 'default, keywords',
-    'meta_author' => 'Your Name',
+    'meta_author' => 'VŨ VĂN ĐỊNH',
     'meta_image' => asset('default-image.jpg'),
     'meta_robots' => 'index, follow',
     'meta_googlebot' => 'index, follow',

@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Cars')
+@section('title', "Danh sách xe | THACO Thủ Đức")
 
 @section('meta')
     @include('partials.meta-tag', [
-        'title' => 'Cars',
-        'meta_description' => 'Explore our collection of cars',
+        'title' => 'Danh sách xe | THACO Thủ Đức',
+        'meta_description' => 'Tìm kiếm và khám phá danh sách xe đa dạng tại THACO Thủ Đức. Chọn lựa xe phù hợp với nhu cầu của bạn ngay hôm nay.',
         'meta_keywords' => 'cars, vehicles, automotive',
-        'meta_author' => 'Your Name',
         'meta_image' => asset('default-image.jpg'),
         'meta_robots' => 'index, follow',
         'meta_googlebot' => 'index, follow',
@@ -28,7 +27,7 @@
         <!-- Page Header -->
         <div class="mb-8">
             <h1 class="text-3xl text-center uppercase md:text-4xl font-bold text-main mb-3">
-                Khám phá xe
+                DANH SÁCH XE
             </h1>
             <p class="text-sub text-sm md:text-lg">
                 Tìm chiếc xe hoàn hảo từ <span class="font-semibold text-blue-600">{{ $cars->total() }}</span> xe có sẵn
@@ -38,43 +37,37 @@
         <!-- Results and filters header -->
         @include('pages.cars.partials.filter-header')
 
-        <div class="flex flex-col lg:flex-row gap-6">
-            <!-- Sidebar Filters Desktop -->
-            <div class="hidden lg:block">
-                @include('pages.cars.partials.filter-sidebar')
-            </div>
-
-            <!-- Car Listings -->
-            <div class="flex-1">
-                @include('pages.cars.partials.list-cars', ['cars' => $cars])
-            </div>
+        <!-- Car Listings (Full Width) -->
+        <div class="w-full">
+            @include('pages.cars.partials.list-cars', ['cars' => $cars])
         </div>
 
-        <!-- Mobile Filter Button -->
-        <button id="mobileFilterBtn" class="lg:hidden fixed bottom-6 left-6 z-50 bg-primary-800/10 backdrop-blur-sm text-primary-800 p-2.5 rounded-full shadow-2xl hover:shadow-blue-500/50 transition-all hover:scale-110 flex items-center gap-3">
+        <!-- Filter Modal Button -->
+        <button id="filterModalBtn" class="fixed bottom-4 right-40 z-50 bg-primary-800 hover:bg-primary-700 text-white px-6 py-2 rounded-full shadow-2xl hover:shadow-primary-500/50 transition-all hover:scale-110 flex items-center gap-2 font-medium">
             <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
+            <span>Bộ lọc</span>
         </button>
 
-        <!-- Mobile Filter Offcanvas -->
-        <div id="filterOffcanvas" class="fixed inset-0 z-[60] hidden">
+        <!-- Filter Modal -->
+        <div id="filterModal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4">
             <!-- Overlay -->
-            <div id="filterOverlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+            <div id="filterModalOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
             
-            <!-- Offcanvas Panel -->
-            <div id="filterPanel" class="absolute top-0 left-0 h-full w-[85%] max-w-sm bg-white dark:bg-gray-900 shadow-2xl transform -translate-x-full transition-transform duration-300">
-                <!-- Offcanvas Header -->
-                <div class="flex items-center justify-between p-5 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-primary-800 to-primary-900 text-white">
-                    <h3 class="text-xl font-bold flex items-center gap-2">
-                        <i data-lucide="filter" class="w-6 h-6"></i>
-                        Bộ lọc xe
+            <!-- Modal Panel -->
+            <div id="filterModalPanel" class="relative overflow-hidden bg-white dark:bg-gray-900 rounded-sm shadow-2xl w-full max-w-4xl max-h-[85vh] flex flex-col transform scale-95 opacity-0 transition-all duration-300">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-gray-200 to-gray-200 text-white ">
+                    <h3 class="text-xl font-bold uppercase text-primary-800 flex items-center gap-3">
+                        <i data-lucide="filter" class="w-7 h-7"></i>
+                        Bộ lọc
                     </h3>
-                    <button id="closeFilterBtn" class="p-2 hover:bg-white/20 rounded-lg transition">
-                        <i data-lucide="x" class="w-6 h-6"></i>
+                    <button id="closeFilterModal" class="p-1 text-gray-600 hover:bg-red-500 hover:text-white hover:shadow-lg hover:shadow-red-500/20 rounded-lg transition">
+                        <i data-lucide="x" class="w-7 h-7"></i>
                     </button>
                 </div>
                 
-                <!-- Offcanvas Body -->
-                <div class="h-[calc(100%-80px)] overflow-y-auto p-5">
+                <!-- Modal Body (Scrollable) -->
+                <div class="overflow-y-auto p-6 flex-1">
                     @include('pages.cars.partials.filter-sidebar')
                 </div>
             </div>
@@ -86,73 +79,39 @@
     <script>
         $(document).ready(function() {
             const filterForm = $('#filterForm');
-            const $filterOffcanvas = $('#filterOffcanvas');
-            const $filterPanel = $('#filterPanel');
-            const $mobileFilterBtn = $('#mobileFilterBtn');
-            const $closeFilterBtn = $('#closeFilterBtn');
-            const $filterOverlay = $('#filterOverlay');
+            const $filterModal = $('#filterModal');
+            const $filterModalPanel = $('#filterModalPanel');
+            const $filterModalBtn = $('#filterModalBtn');
+            const $closeFilterModal = $('#closeFilterModal');
+            const $filterModalOverlay = $('#filterModalOverlay');
             
-            // Open offcanvas
-            $mobileFilterBtn.on('click', function() {
-                $filterOffcanvas.removeClass('hidden');
-                setTimeout(function() {
-                    $filterPanel.removeClass('-translate-x-full');
-                }, 10);
+            // Open modal
+            $filterModalBtn.on('click', function() {
+                $filterModal.removeClass('hidden').addClass('flex');
                 $('body').addClass('overflow-hidden');
+                // Trigger animation
+                setTimeout(function() {
+                    $filterModalPanel.removeClass('scale-95 opacity-0').addClass('scale-100 opacity-100');
+                }, 10);
             });
             
-            // Close offcanvas
-            function closeOffcanvas() {
-                $filterPanel.addClass('-translate-x-full');
+            // Close modal
+            function closeModal() {
+                $filterModalPanel.removeClass('scale-100 opacity-100').addClass('scale-95 opacity-0');
                 setTimeout(function() {
-                    $filterOffcanvas.addClass('hidden');
+                    $filterModal.removeClass('flex').addClass('hidden');
                     $('body').removeClass('overflow-hidden');
                 }, 300);
             }
             
-            $closeFilterBtn.on('click', closeOffcanvas);
-            $filterOverlay.on('click', closeOffcanvas);
+            $closeFilterModal.on('click', closeModal);
+            $filterModalOverlay.on('click', closeModal);
             
             // Close on Escape key
             $(document).on('keydown', function(e) {
-                if (e.key === 'Escape' && !$filterOffcanvas.hasClass('hidden')) {
-                    closeOffcanvas();
+                if (e.key === 'Escape' && $filterModal.hasClass('flex')) {
+                    closeModal();
                 }
-            });
-
-            // Mobile filter toggle
-            const filterBtn = $('.lg\\:hidden.fixed');
-            const filterSidebar = $('aside');
-
-            if (filterBtn.length && filterSidebar.length) {
-                filterBtn.on('click', function() {
-                    filterSidebar.toggleClass('hidden fixed inset-0 z-40 bg-white dark:bg-gray-900 overflow-y-auto p-6');
-                });
-            }
-
-            // Condition toggle buttons
-            $('.condition-btn').on('click', function() {
-                const condition = $(this).data('condition');
-                const currentCondition = $('#conditionInput').val();
-                
-                // Toggle condition
-                if (currentCondition === condition) {
-                    $('#conditionInput').val('');
-                } else {
-                    $('#conditionInput').val(condition);
-                }
-                
-                // Update button styles
-                $('.condition-btn').removeClass('bg-white dark:bg-gray-700 shadow-sm text-blue-600')
-                    .addClass('text-gray-600 dark:text-gray-400');
-                
-                if ($('#conditionInput').val()) {
-                    $(this).removeClass('text-gray-600 dark:text-gray-400')
-                        .addClass('bg-white dark:bg-gray-700 shadow-sm text-blue-600');
-                }
-                
-                // Auto submit form
-                filterForm.submit();
             });
 
             // Quick price buttons

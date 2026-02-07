@@ -67,12 +67,12 @@
             <!-- Featured Image -->
             @if($post->thumbnail)
             <div class="mb-10 rounded-2xl overflow-hidden shadow-2xl">
-                <img src="{{ $post->thumbnail }}" alt="{{ $post->title }}" class="w-full h-auto object-cover">
+                <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="{{ $post->title }}" class="w-full h-auto object-cover">
             </div>
             @endif
 
             <!-- Content -->
-            <article class="prose prose-lg dark:prose-invert max-w-none mb-12">
+            <article class="prose prose-2xl dark:prose-invert max-w-none mb-12">
                 {!! $post->content !!}
             </article>
 
@@ -139,7 +139,7 @@
                         <a href="{{ route('posts.show', $relatedPost->slug) }}" class="block">
                             @if($relatedPost->thumbnail)
                             <div class="relative overflow-hidden h-48">
-                                <img src="{{ $relatedPost->thumbnail }}" 
+                                <img src="{{ asset('storage/' . $relatedPost->thumbnail) }}" 
                                      alt="{{ $relatedPost->title }}" 
                                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>

@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
+@section('title', 'Trang chủ | THACO Thủ Đức')
 
 @section('meta')
     @include('partials.meta-tag', [
-        'title' => 'Home',
+        'title' => 'Trang chủ | THACO Thủ Đức',
         'meta_description' => 'Welcome to the home page',
         'meta_keywords' => 'home, welcome',
-        'meta_author' => 'Your Name',
         'meta_image' => asset('default-image.jpg'),
         'meta_robots' => 'index, follow',
         'meta_googlebot' => 'index, follow',

@@ -19,9 +19,9 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
         @foreach ($cars as $car)
-            <x-card-car :carid="$car['id']" :image="$car['thumbnail']" :title="$car['title']" :year="$car['year']" :price="$car['price']" :date="date('d M Y', strtotime($car['created_at']))"
-                :location="'HCM'" :mileage="'60km'" :fuel="$car->fuel" :gearbox="'12'" 
-                :bodytype="'Tự động'"
+            <x-card-car :carid="$car['id']" :slug="$car['slug']" :image="$car['thumbnail']" :title="$car['title']" :year="$car['year']" :price="$car['price']" :date="date('d M Y', strtotime($car['created_at']))"
+                :location="'HCM'" :mileage="$car->mileage" :fuel="$car->fuel" :gearbox="'12'" 
+                :bodytype="$car->bodytype"
                 {{-- :badges="$car['badges']" --}} />
             {{-- @include('partials.cards.card') --}}
         @endforeach

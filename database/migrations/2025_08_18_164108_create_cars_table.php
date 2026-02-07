@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('cars', function (Blueprint $table) {
             $table->id()->comment('ID xe');
             $table->string('title')->comment('Tên xe, ví dụ: Toyota Vios 2024');
+            $table->string('slug')->unique()->comment('URL thân thiện, ví dụ: toyota-vios-2024');
             $table->string('thumbnail')->nullable()->comment('Ảnh đại diện chính của xe');
 
             $table->foreignId('brand_id')

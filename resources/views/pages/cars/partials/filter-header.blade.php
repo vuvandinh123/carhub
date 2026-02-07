@@ -180,9 +180,9 @@
 
         <!-- View mode and compare -->
         <div class="flex items-center gap-3  ">
-            <button class="flex items-center gap-2 px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition group">
+            <button onclick="openCompareModal()" class="flex items-center gap-2 px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition group">
                 <i data-lucide="git-compare" class="w-5 h-5 text-blue-600 group-hover:scale-110 transition"></i>
-                <span class="font-medium hidden md:block">So sánh (0)</span>
+                <span class="font-medium hidden md:block">So sánh (<span class="compareCount">0</span>)</span>
             </button>
             
             <div class="md:flex border hidden border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">

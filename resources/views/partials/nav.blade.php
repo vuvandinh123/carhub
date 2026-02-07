@@ -1,7 +1,7 @@
 {{-- Menu items are automatically provided by MenuComposer --}}
 @php
 @endphp
-<ul class="flex overflow-visible md:overflow-visible max-h-[calc(100vh-4.5rem)] flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">
+<ul class="flex overflow-visible md:overflow-visible max-h-[calc(100vh-4.5rem)] overflow-y-auto flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">
     @foreach($menuItems as $item)
         <li class="{{ $item['has_mega'] ?? false ? 'has-mega relative' : '' }}" 
             @if($item['has_mega'] ?? false) id="megaMenuItem" @endif>
@@ -17,8 +17,8 @@
             @if($item['has_mega'] ?? false)
                 <!-- Mega menu -->
                 <div id="megaMenuContent"
-                    class="mega-menu hidden transition-all duration-300 md:absolute rounded-2xl left-1/2 transform md:-translate-x-1/2 top-full mt-2 md:bg-white md:dark:bg-brand-gray md:shadow-lg md:min-w-5xl z-50">
-                    <div class="grid md:grid-cols-{{ count($item['mega_menu']) }} gap-6 p-6">
+                    class="mega-menu hidden transition-all duration-300 md:absolute rounded-2xl left-1/2 transform md:-translate-x-1/2 top-full mt-2 md:bg-white md:dark:bg-brand-gray md:shadow-lg md:min-w-5xl z-50 max-h-[70vh] overflow-y-auto">
+                    <div class="grid md:grid-cols-6 gap-6 p-6">
                         @foreach($item['mega_menu'] as $column)
                             <div>
                                 <h3 class="md:text-sm text-[13px] font-semibold text-gray-900 dark:text-white uppercase mb-3">

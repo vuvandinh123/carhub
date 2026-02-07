@@ -125,6 +125,10 @@ class CarRepository
     {
         return Car::with(['brand','images','specifications'])->find($id);
     }
+    public function findSlug($slug)
+    {
+        return Car::with(['brand','images','specifications'])->where('slug', $slug)->first();
+    }
     
     public function findMultiple($ids)
     {

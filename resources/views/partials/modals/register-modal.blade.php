@@ -26,7 +26,7 @@
 
             <!-- Modal body -->
             <div class="p-7 bg-white rounded-b-[2rem] backdrop-blur-md transition-all duration-500">
-                <form action="" method="POST" class="space-y-4">
+                <form action="{{ route('consultation.store') }}" method="POST" class="space-y-4">
                     @csrf
                     
                     <!-- Họ và tên -->

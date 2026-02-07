@@ -4,19 +4,19 @@
     <!-- Contact Buttons List -->
     <div class="contact-buttons" id="contactButtons">
         <!-- Phone Button -->
-        <a href="tel:0901234567" class="contact-btn phone">
+        <a href="tel:0392096106" class="contact-btn phone">
             <div class="contact-icon">
                 <img src="{{ asset("images/phone.png") }}" alt="">
             </div>
             <div class="contact-text">
                 <span class="contact-label">Hotline</span>
-                <span class="contact-info">0901 234 567</span>
+                <span class="contact-info">0392 096 106</span>
             </div>
             <div class="contact-tooltip">Gọi ngay để tư vấn</div>
         </a>
 
         <!-- Zalo Button -->
-        <a href="https://zalo.me/0901234567" target="_blank" class="contact-btn zalo">
+        <a href="https://zalo.me/0392096106" target="_blank" class="contact-btn zalo">
             <div class="contact-icon">
                 <img src="{{ asset("images/zalo.png") }}" alt="">
             </div>
@@ -28,7 +28,7 @@
         </a>
 
         <!-- Facebook Button -->
-        <a href="https://m.me/xedepvn" target="_blank" class="contact-btn facebook">
+        <a href="https://m.me/thacothuduc" target="_blank" class="contact-btn facebook">
             <div class="contact-icon">
                 <img src="{{ asset("images/facebook.png") }}" alt="">
             </div>

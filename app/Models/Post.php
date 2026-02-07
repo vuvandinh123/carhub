@@ -17,9 +17,9 @@ class Post extends Model
         'content',
         'excerpt',
         'thumbnail',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
         'is_published',
         'published_at',
     ];

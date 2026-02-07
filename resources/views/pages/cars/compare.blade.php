@@ -34,7 +34,7 @@
                                 <!-- Image -->
                                 <div class="relative h-48 rounded-lg overflow-hidden mb-3">
                                     @if($car->images->isNotEmpty())
-                                        <img src="{{ asset('storage/' . $car->images->first()->image_path) }}" 
+                                        <img src="{{ asset('storage/' . $car->thumbnail) }}" 
                                             alt="{{ $car->name }}"
                                             class="w-full h-full object-contain">
                                     @else
@@ -45,7 +45,7 @@
                                 </div>
                                 
                                 <!-- Name -->
-                                <a href="{{ route('cars.show', $car->id) }}" class="font-bold text-lg text-main hover:text-purple-600 transition-colors block">
+                                <a href="{{ route('cars.show', $car->slug) }}" class="font-bold text-lg text-main hover:text-purple-600 transition-colors block">
                                     {{ $car->name }}
                                 </a>
                                 
@@ -56,7 +56,7 @@
                                 
                                 <!-- Quick Actions -->
                                 <div class="flex gap-2 justify-center mt-3">
-                                    <a href="{{ route('cars.show', $car->id) }}" 
+                                    <a href="{{ route('cars.show', $car->slug) }}" 
                                         class="px-4 py-2 bg-gradient-to-r from-primary-800 to-primary-700 text-white rounded-sm hover:from-primary-700 hover:to-primary-800 transition-colors text-sm font-medium">
                                         Xem chi tiết
                                     </a>

@@ -52,7 +52,7 @@
                                 <i data-lucide="folder" class="w-5 h-5 text-primary-800"></i>
                                 Danh Mục
                             </h3>
-                            <ul class="space-y-2">
+                            <ul class="space-y-2 h-[300px] overflow-y-auto pr-2">
                                 <li>
                                     <a href="{{ route('posts.index') }}" 
                                         class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-main transition-colors {{ !request('category') ? 'bg-blue-50 dark:bg-blue-900/20 text-primary-800' : 'text-sub' }}">
@@ -99,7 +99,8 @@
                                 <a href="{{ route('posts.show', $featured) }}" class="block group border-b border-gray-200 dark:border-gray-700 pb-4 last:border-0">
                                     <div class="flex gap-3">
                                         @if($featured->thumbnail)
-                                        <img src="{{ $featured->thumbnail }}" 
+                                        <img src="{{ asset('storage/' . $featured->thumbnail) }}"
+                                            onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';" 
                                             alt="{{ $featured->title }}"
                                             class="w-20 h-20 object-contain rounded-lg group-hover:scale-105 transition-transform">
                                         @else
@@ -179,8 +180,9 @@
                             <!-- Thumbnail -->
                             <a href="{{ route('posts.show', $post) }}" class="block relative overflow-hidden">
                                 @if($post->thumbnail)
-                                <img src="{{ $featured->thumbnail }}" 
+                                <img src="{{ asset('storage/' . $post->thumbnail) }}" 
                                     alt="{{ $post->title }}"
+                                    onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';"
                                     class="w-full h-56 object-contain group-hover:scale-110 transition-transform duration-500">
                                 @else
                                 <div class="w-full h-56 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">

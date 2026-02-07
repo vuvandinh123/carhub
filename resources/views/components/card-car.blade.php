@@ -1,5 +1,6 @@
 @props([
     'carid' => 1,
+    'slug' => '1234',
     'image' => null,
     'title' => '',
     'year' => null,
@@ -17,9 +18,10 @@
 <div class="car-card-grid group relative card rounded-xl hover:translate-y-[-8px] transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl bg-main">
     <!-- Image Section -->
     <div class="relative overflow-hidden">
-        <a href="{{ route('cars.show', $carid) }}" class="block">
-            <img src="https://cafefcdn.com/2018/6/16/photo-1-1529146484215497174285.png" 
+        <a href="{{ route('cars.show', $slug) }}" class="block">
+            <img src="{{ asset("storage/". $image) }}" 
                 alt="{{ $title }}"
+                onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';"
                 class="w-full h-48 object-contain transform group-hover:scale-110 transition-transform duration-500">
             
             <!-- Overlay gradient -->
@@ -68,7 +70,7 @@
         @endif
 
         <h3 class="font-bold text-lg text-main mb-1 line-clamp-2 ">
-            <a href="{{ route('cars.show', $carid) }}" class="hover:text-blue-600 transition-colors">
+            <a href="{{ route('cars.show', $slug) }}" class="hover:text-blue-600 transition-colors">
                 {{ $title }} 
                 @if ($year)
                     <span class="text-sub font-normal text-base">({{ $year }})</span>
@@ -97,7 +99,12 @@
                     <span class="truncate">{{ $mileage }}</span>
                 </div>
             @endif
-
+                @if ($mileage == 0)
+                <div class="flex items-center gap-2 text-sub">
+                    <i data-lucide="gauge" class="w-4 h-4 text-green-500"></i>
+                    <span class="truncate">Mới</span>
+                </div>
+            @endif
             @if ($fuel)
                 <div class="flex items-center gap-2 text-sub">
                     <i data-lucide="fuel" class="w-4 h-4 text-orange-500"></i>
@@ -119,7 +126,7 @@
                 <i data-lucide="calculator" class="w-4 h-4"></i>
                 <span>Báo giá</span>
             </button>
-            <a href="tel:0333583800" class="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white py-2.5 px-4 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg">
+            <a href="tel:0392096106" class="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white py-2.5 px-4 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg">
                 <i data-lucide="phone" class="w-4 h-4"></i>
                 <span>Liên hệ</span>
             </a>
@@ -132,7 +139,7 @@
     <div class="flex flex-col sm:flex-row">
         <!-- Image Section -->
         <div class="relative overflow-hidden sm:w-80 flex-shrink-0">
-            <a href="{{ route('cars.show', $carid) }}" class="block">
+            <a href="{{ route('cars.show', $slug) }}" class="block">
                 <img src="https://cafefcdn.com/2018/6/16/photo-1-1529146484215497174285.png" 
                     alt="{{ $title }}"
                     class="w-full h-56 sm:h-full object-contain transform group-hover:scale-110 transition-transform duration-500">
@@ -187,7 +194,7 @@
             @endif
 
             <h3 class="font-bold text-xl text-main mb-2">
-                <a href="{{ route('cars.show', $carid) }}" class="hover:text-blue-600 transition-colors">
+                <a href="{{ route('cars.show', $slug) }}" class="hover:text-blue-600 transition-colors">
                     {{ $title }} 
                     @if ($year)
                         <span class="text-sub font-normal text-lg">({{ $year }})</span>

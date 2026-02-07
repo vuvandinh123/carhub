@@ -8,26 +8,44 @@
                     Điền thông tin của bạn để nhận tư vấn chi tiết và đăng ký lái thử xe.
                 </p>
 
-                <form class="space-y-4 grid grid-cols-2 gap-3 ">
+                <form action="{{ route('consultation.store') }}" method="POST" class="space-y-4 grid grid-cols-2 gap-3 ">
+                    @csrf
                     <div>
                         <label class="block text-brand-black text-sm mb-1">Họ và tên</label>
-                        <input type="text" placeholder="Nguyễn Văn A"
+                        <input name="name" type="text" placeholder="Nguyễn Văn A"
                             class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
                     </div>
 
                     <div>
                         <label class="block text-brand-black text-sm mb-1">Số điện thoại</label>
-                        <input type="tel" placeholder="090xxxxxxx"
+                        <input name="phone" type="tel" placeholder="090xxxxxxx"
                             class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
                     </div>
 
-                    <div>
-                        <label class="block text-brand-black text-sm mb-1">Email</label>
-                        <input type="email" placeholder="email@example.com"
-                            class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <div class="w-full col-span-2">
+
+                        <label for="budget"
+                            class="block mb-1.5 text-sm font-semibold text-main flex items-center gap-2">
+                            <i data-lucide="wallet" class="w-3.5 h-3.5 text-yellow-600"></i>
+                            Ngân sách dự kiến
+                        </label>
+                        <select id="budget" name="budget"
+                            class="bg-main-gray border-2 border-gray-200 text-main text-sm rounded-lg 
+                                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                                       dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 
+                                       transition-all duration-300 hover:border-blue-300 appearance-none cursor-pointer">
+                            <option value="">Chọn ngân sách</option>
+                            <option value="under-500">Dưới 500 triệu</option>
+                            <option value="500-1200">500 triệu - 1.2 tỷ</option>
+                            <option value="1200-2000">1.2 - 2 tỷ</option>
+                            <option value="over-2000">Trên 2 tỷ</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+                        </div>
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label class="block text-brand-black text-sm mb-1">Dòng xe quan tâm</label>
                         <select
                             class="w-full px-3 text-brand-black py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
@@ -37,7 +55,7 @@
                             <option>BMW 3 Series</option>
                             <option>Toyota Camry</option>
                         </select>
-                    </div>
+                    </div> --}}
 
                     <button type="submit"
                         class="w-full bg-linear-to-r from-primary-900 to-primary-800 hover:bg-linear-to-r hover:from-primary-800 hover:to-primary-900 cursor-pointer text-white py-2 rounded-lg font-semibold transition">

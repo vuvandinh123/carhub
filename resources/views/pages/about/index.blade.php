@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Giới thiệu - Xedep.vn')
-
+@section('title', 'Giới thiệu | THACO Thủ Đức')
+@section('meta')
+    @include('partials.meta-tag', [
+        'title' => 'Giới thiệu | THACO Thủ Đức',
+        'meta_description' => 'Tìm hiểu về THACO Thủ Đức, sứ mệnh và tầm nhìn của chúng tôi trong ngành công nghiệp ô tô tại Việt Nam.',
+        'meta_keywords' => 'THACO Thủ Đức, giới thiệu, sứ mệnh, tầm nhìn, ô tô',
+        'meta_image' => asset('storage/default-image.jpg'),
+    ])
+@endsection
 @section('content')
 <div class="bg-main">
     <!-- Hero Section -->
@@ -15,7 +22,7 @@
             <div class="max-w-3xl mx-auto text-center">
                 <h1 class="text-5xl font-bold mb-6 animate-fade-in">Về Chúng Tôi</h1>
                 <p class="text-xl leading-relaxed opacity-90">
-                    Xedep.vn - Nền tảng mua bán và tư vấn xe hơi hàng đầu Việt Nam, 
+                    THACO Thủ Đức - Nền tảng mua bán và tư vấn xe hơi hàng đầu Việt Nam, 
                     mang đến cho bạn trải nghiệm tìm kiếm xe mơ ước một cách dễ dàng và tin cậy nhất.
                 </p>
             </div>

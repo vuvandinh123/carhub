@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Car;
+use App\Models\Category;
 use App\Models\Post;
 use App\Repositories\BrandRepository;
 use App\Repositories\CarRepository;
@@ -28,14 +29,16 @@ class HomeController extends Controller
     public function index()
     {
         $brands  = $this->brandRepository->all();
+        $categories = Category::where("is_active","=", 1)->limit(10)->get();
         $cars = $this->carRepository->paginate(8);
         $categoriesByVehicleType = $this->categoryRepository->getByVehicleType();
         $posts = Post::where('is_published', true)
             ->orderByDesc('published_at')
             ->take(4)
             ->get();
-        return view('pages.home.index', compact('brands', 'cars', 'categoriesByVehicleType', 'posts'));
+        return view('pages.home.index', compact('brands', 'cars', 'categoriesByVehicleType', 'posts','categories'));
     }
+
 
     /**
      * Display about page

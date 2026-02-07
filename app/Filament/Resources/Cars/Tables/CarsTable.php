@@ -42,8 +42,7 @@ class CarsTable
                     ->label('Ảnh')
                     ->imageSize(60)
                     ->defaultImageUrl(fn($record) => "https://ui-avatars.com/api/?name=" . urlencode($record->name) . "&background=random")
-                    ->toggleable(isToggledHiddenByDefault: false)
-                    ->circular(),
+                    ->toggleable(isToggledHiddenByDefault: false),
 
                 TextColumn::make('title')
                     ->label('Tên xe')
@@ -91,18 +90,8 @@ class CarsTable
                     })
                     ->formatStateUsing(fn(int $state): string => $state . ' xe'),
 
-                TextColumn::make('fuelType.name')
-                    ->label('Nhiên liệu')
-                    ->badge()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->color('info'),
 
-                TextColumn::make('transmission.name')
-                    ->label('Hộp số')
-                    ->badge()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->color('warning'),
-
+                
                 TextColumn::make('seats')
                     ->label('Chỗ ngồi')
                     ->badge()
@@ -249,19 +238,7 @@ class CarsTable
                         return $indicators;
                     }),
 
-                // Filter theo loại nhiên liệu
-                SelectFilter::make('fuel_type_id')
-                    ->label('Nhiên liệu')
-                    ->relationship('fuelType', 'name')
-                    ->searchable()
-                    ->preload(),
 
-                // Filter theo hộp số
-                SelectFilter::make('transmission_id')
-                    ->label('Hộp số')
-                    ->relationship('transmission', 'name')
-                    ->searchable()
-                    ->preload(),
 
                 // Filter xe cũ/mới
                 TernaryFilter::make('is_used')

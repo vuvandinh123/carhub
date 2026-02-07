@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Cars\Schemas;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
@@ -31,7 +32,34 @@ class CarForm
                                     ->required()
                                     ->maxLength(255)
                                     ->placeholder('Ví dụ: Toyota Vios 2024')
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(function ($state, callable $set, $record) {
+                                        if (!$state) return;
+                                        
+                                        $slug = \Illuminate\Support\Str::slug($state);
+                                        
+                                        // Check if slug exists
+                                        $query = \App\Models\Car::where('slug', $slug);
+                                        if ($record) {
+                                            $query->where('id', '!=', $record->id);
+                                        }
+                                        
+                                        // If slug exists, add random string
+                                        if ($query->exists()) {
+                                            $slug = $slug . '-' . \Illuminate\Support\Str::random(6);
+                                        }
+                                        
+                                        $set('slug', $slug);
+                                    })
                                     ->columnSpan(2),
+
+                                TextInput::make('slug')
+                                    ->label('Slug (URL thân thiện)')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->placeholder('Ví dụ: toyota-vios-2024')
+                                    ->dehydrated()
+                                    ->unique(ignoreRecord: true),
 
                                 Select::make('brand_id')
                                     ->label('Thương hiệu')
@@ -41,24 +69,56 @@ class CarForm
                                     ->preload()
                                     ->createOptionForm([
                                         TextInput::make('name')
+                                            ->label('Tên thương hiệu')
                                             ->required()
+                                            ->live(onBlur: true)
+                                            ->afterStateUpdated(function ($state, callable $set) {
+                                                if (!$state) return;
+                                                $slug = \Illuminate\Support\Str::slug($state);
+                                                
+                                                // Check if slug exists in brands
+                                                if (\App\Models\Brand::where('slug', $slug)->exists()) {
+                                                    $slug = $slug . '-' . \Illuminate\Support\Str::random(4);
+                                                }
+                                                
+                                                $set('slug', $slug);
+                                            })
                                             ->maxLength(255),
                                         TextInput::make('slug')
                                             ->required()
+                                            ->hidden()
+                                            ->dehydrated()
                                             ->maxLength(255),
                                     ])
                                     ->native(false),
 
-                                Select::make('categories')
+                                Select::make('category_id')
                                     ->label('Danh mục')
-                                    ->multiple() // Cho phép chọn nhiều
                                     ->relationship('categories', 'name') // Quan hệ many-to-many
                                     ->required()
                                     ->searchable()
                                     ->preload()
                                     ->createOptionForm([
                                         TextInput::make('name')
+                                            ->label('Tên danh mục')
                                             ->required()
+                                            ->live(onBlur: true)
+                                            ->afterStateUpdated(function ($state, callable $set) {
+                                                if (!$state) return;
+                                                $slug = \Illuminate\Support\Str::slug($state);
+                                                
+                                                // Check if slug exists in categories
+                                                if (\App\Models\Category::where('slug', $slug)->exists()) {
+                                                    $slug = $slug . '-' . \Illuminate\Support\Str::random(4);
+                                                }
+                                                
+                                                $set('slug', $slug);
+                                            })
+                                            ->maxLength(255),
+                                        TextInput::make('slug')
+                                            ->required()
+                                            // ->hidden()
+                                            ->dehydrated()
                                             ->maxLength(255),
                                     ])
                                     ->native(false),
@@ -113,86 +173,16 @@ class CarForm
 
                         Section::make('Thông số kỹ thuật')
                             ->schema([
-                                Select::make('fuel_type_id')
+                                Select::make('fuel')
                                     ->label('Loại nhiên liệu')
-                                    ->relationship('fuelType', 'name', fn($query) => $query->where('type', 'fuel'))
-                                    ->searchable()
-                                    ->preload()
-                                    ->createOptionForm([
-                                        TextInput::make('name')
-                                            ->required()
-                                            ->maxLength(255),
-                                        Hidden::make('type')
-                                            ->default('fuel'),
+                                    ->options([
+                                        'Xăng' => 'Xăng',
+                                        'Dầu diesel' => 'Dầu diesel',
+                                        'Điện' => 'Điện',
+                                        'Hybrid' => 'Hybrid',
+                                        'Khác' => 'Khác',
                                     ])
-                                    ->native(false)
-                                    ->placeholder('Chọn loại nhiên liệu'),
-
-                                Select::make('body_type_id')
-                                    ->label('Kiểu dáng')
-                                    ->relationship('bodyType', 'name', fn($query) => $query->where('type', 'body'))
-                                    ->searchable()
-                                    ->preload()
-                                    ->createOptionForm([
-                                        TextInput::make('name')
-                                            ->required()
-                                            ->maxLength(255),
-                                        Hidden::make('type')
-                                            ->default('body'),
-                                    ])
-                                    ->native(false)
-                                    ->placeholder('Sedan, SUV, Hatchback...'),
-
-                                Select::make('transmission_id')
-                                    ->label('Hộp số')
-                                    ->relationship('transmission', 'name', fn($query) => $query->where('type', 'transmission'))
-                                    ->searchable()
-                                    ->preload()
-                                    ->createOptionForm([
-                                        TextInput::make('name')
-                                            ->required()
-                                            ->maxLength(255),
-                                        Hidden::make('type')
-                                            ->default('transmission'),
-                                    ])
-                                    ->native(false)
-                                    ->placeholder('Số sàn, Số tự động...'),
-
-                                Select::make('color_id')
-                                    ->label('Màu xe')
-                                    ->relationship('color', 'name', fn($query) => $query->where('type', 'color'))
-                                    ->searchable()
-                                    ->preload()
-                                    ->createOptionForm([
-                                        TextInput::make('name')
-                                            ->required()
-                                            ->maxLength(255),
-                                        Hidden::make('type')
-                                            ->default('color'),
-                                    ])
-                                    ->native(false)
-                                    ->placeholder('Trắng, Đen, Bạc...'),
-
-                                Select::make('origin_id')
-                                    ->label('Xuất xứ')
-                                    ->relationship('origin', 'name', fn($query) => $query->where('type', 'origin'))
-                                    ->searchable()
-                                    ->preload()
-                                    ->createOptionForm([
-                                        TextInput::make('name')
-                                            ->required()
-                                            ->maxLength(255),
-                                        Hidden::make('type')
-                                            ->default('origin'),
-                                    ])
-                                    ->native(false)
-                                    ->placeholder('Nhập khẩu, Lắp ráp trong nước...'),
-
-                                TextInput::make('engine')
-                                    ->label('Động cơ')
-                                    ->maxLength(255)
-                                    ->placeholder('Ví dụ: 2.0L Turbo, 150kW')
-                                    ->helperText('Thông tin về động cơ và công suất'),
+                                    ->helperText('Thông tin về loại nhiên liệu sử dụng'),
 
                                 TextInput::make('seats')
                                     ->label('Số chỗ ngồi')
@@ -202,17 +192,84 @@ class CarForm
                                     ->step(1)
                                     ->placeholder('5')
                                     ->suffix('chỗ'),
-                                // ẩn khi chỉnh sửa
-                                Select::make('created_by')
-                                    ->label('Người tạo')
-                                    ->relationship('creator', 'name')
-                                    ->default(auth()->id())
-                                    ->searchable()
-                                    ->preload()
-                                    ->native(false)
-                                    ->disabled()
-                                    ->hiddenOn('edit')
-                                    ->dehydrated(),
+
+                                Repeater::make('specifications')
+                                    ->label('Chi tiết thông số kỹ thuật')
+                                    ->relationship('specifications')
+                                    ->schema([
+                                        TextInput::make('name')
+                                            ->label('Tên thông số')
+                                            ->required()
+                                            ->datalist([
+                                                'Hộp số',
+                                                'Dẫn động',
+                                                'Nhiên liệu',
+                                                'Mức tiêu thụ nhiên liệu',
+                                                'Xuất xứ',
+                                                'Kiểu dáng',
+                                                'Màu ngoại thất',
+                                                'Màu nội thất',
+                                                'Kích thước tổng thể',
+                                                'Chiều dài',
+                                                'Chiều rộng',
+                                                'Chiều cao',
+                                                'Chiều dài cơ sở',
+                                                'Khoảng sáng gầm',
+                                                'Bán kính vòng quay',
+                                                'Trọng lượng không tải',
+                                                'Dung tích bình nhiên liệu',
+                                                'Dung tích khoang hành lý',
+                                                'Loại động cơ',
+                                                'Công suất tối đa',
+                                                'Mô-men xoắn cực đại',
+                                                'Dung tích xy-lanh',
+                                                'Hệ thống treo trước',
+                                                'Hệ thống treo sau',
+                                                'Phanh trước',
+                                                'Phanh sau',
+                                                'Lốp xe',
+                                                'La-zăng',
+                                                'Túi khí',
+                                                'ABS',
+                                                'EBD',
+                                                'BA',
+                                                'ESC',
+                                                'TCS',
+                                                'HSA',
+                                                'Camera lùi',
+                                                'Cảm biến lùi',
+                                                'Cảm biến áp suất lốp',
+                                                'Đèn LED',
+                                                'Đèn chiếu tự động',
+                                                'Đèn ban ngày',
+                                                'Gương chiếu hậu tự động',
+                                                'Cửa sổ trời',
+                                                'Điều hòa tự động',
+                                                'Màn hình cảm ứng',
+                                                'Kết nối Apple CarPlay',
+                                                'Kết nối Android Auto',
+                                                'Hệ thống âm thanh',
+                                                'Cruise Control',
+                                                'Khởi động từ xa',
+                                                'Cửa cốp tự động',
+                                            ])
+                                            ->placeholder('Chọn hoặc nhập tên thông số...')
+                                            ->helperText('Chọn từ danh sách hoặc nhập tên mới')
+                                            ->columnSpan(1),
+
+                                        TextInput::make('value')
+                                            ->label('Giá trị')
+                                            ->required()
+                                            ->placeholder('Ví dụ: Tự động 6 cấp, Xăng, 5 chỗ...')
+                                            ->columnSpan(1),
+                                    ])
+                                    ->columns(2)
+                                    ->reorderable()
+                                    ->collapsible()
+                                    ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
+                                    ->addActionLabel('Thêm thông số')
+                                    ->defaultItems(0)
+                                    ->columnSpanFull(),
                             ])
                             ->columns(2),
 
@@ -264,6 +321,64 @@ class CarForm
                                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                                     ->helperText('Kích thước khuyến nghị: 800x600px')
                                     ->columnSpanFull(),
+
+                                FileUpload::make('images')
+                                    ->label('Thư viện ảnh')
+                                    ->multiple()
+                                    ->image()
+                                    ->reorderable()
+                                    ->appendFiles()
+                                    ->imageEditor()
+                                    ->imageEditorAspectRatios([
+                                        '16:9',
+                                        '4:3',
+                                        '1:1',
+                                    ])
+                                    ->directory('cars/gallery')
+                                    ->visibility('public')
+                                    ->maxSize(2048)
+                                    ->maxFiles(10)
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                                    ->helperText('Tải lên tối đa 10 ảnh. Kéo thả để sắp xếp thứ tự')
+                                    ->columnSpanFull()
+                                    ->saveRelationshipsUsing(function ($component, $state, $record) {
+                                        if (!$record) {
+                                            return;
+                                        }
+
+                                        // Xóa các ảnh cũ nếu có
+                                        $existingImages = $record->images()->pluck('image_url')->toArray();
+                                        $newImages = is_array($state) ? $state : [];
+
+                                        // Tìm các ảnh cần xóa
+                                        $imagesToDelete = array_diff($existingImages, $newImages);
+                                        if (!empty($imagesToDelete)) {
+                                            $record->images()->whereIn('image_url', $imagesToDelete)->delete();
+
+                                            // Xóa file vật lý
+                                            foreach ($imagesToDelete as $imageUrl) {
+                                                if (\Storage::disk('public')->exists($imageUrl)) {
+                                                    \Storage::disk('public')->delete($imageUrl);
+                                                }
+                                            }
+                                        }
+
+                                        // Thêm ảnh mới
+                                        foreach ($newImages as $index => $imageUrl) {
+                                            if (!in_array($imageUrl, $existingImages)) {
+                                                $record->images()->create([
+                                                    'image_url' => $imageUrl,
+                                                    'is_primary' => $index === 0 && $record->images()->count() === 0,
+                                                ]);
+                                            }
+                                        }
+                                    })
+                                    ->dehydrated(false)
+                                    ->afterStateHydrated(function ($component, $state, $record) {
+                                        if ($record) {
+                                            $component->state($record->images()->pluck('image_url')->toArray());
+                                        }
+                                    }),
                             ]),
 
                         Section::make('Tính năng nổi bật')
@@ -313,6 +428,17 @@ class CarForm
                             ])
                             ->collapsible()
                             ->collapsed(),
+                        // ẩn khi chỉnh sửa
+                        Select::make('created_by')
+                            ->label('Người tạo')
+                            ->relationship('creator', 'name')
+                            ->default(auth()->id())
+                            ->searchable()
+                            ->preload()
+                            ->native(false)
+                            ->disabled()
+                            ->hiddenOn('edit')
+                            ->dehydrated(),
                     ])
                     ->columnSpan(['lg' => 1]),
             ])

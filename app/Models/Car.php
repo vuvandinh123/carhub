@@ -16,6 +16,7 @@ class Car extends Model
     protected $fillable = [
         'title',
         'thumbnail',
+        'slug',
         'brand_id',
         'category_id',
         'price',
@@ -36,6 +37,8 @@ class Car extends Model
         'meta_title',
         'meta_description',
         'meta_keywords',
+        'fuel',
+        'bodytype',
     ];
 
     protected $casts = [

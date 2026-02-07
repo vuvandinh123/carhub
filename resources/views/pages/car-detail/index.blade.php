@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Cars')
+@section('title', $car->title)
 
 @section('meta')
     @include('partials.meta-tag', [
-        'title' => 'Cars',
-        'meta_description' => 'Explore our collection of cars',
-        'meta_keywords' => 'cars, vehicles, automotive',
-        'meta_author' => 'Your Name',
-        'meta_image' => asset('default-image.jpg'),
+        'title' => $car->meta_title ?? $car->title,
+        'meta_description' => $car->meta_description ?? Str::limit(strip_tags($car->description), 160),
+        'meta_keywords' => $car->meta_keywords ?? '',
+        'meta_image' => asset('storage/' . ($car->thumbnail ?? 'default-image.jpg')),
         'meta_robots' => 'index, follow',
         'meta_googlebot' => 'index, follow',
         'meta_bingbot' => 'index, follow',
@@ -123,14 +122,94 @@
             <div class="flex items-center justify-between mb-6">
                 <div>
                     <h1 class="text-3xl font-bold text-main">{{ $car->title }}</h1>
-                    <span class="text-sub text-lg">({{ $car->year }})</span>
+                    @if ($car->year)
+                        <span class="text-sub text-lg">({{ $car->year }})</span>
+                    @endif
                 </div>
                 <div class="flex items-center space-x-2">
-                    <button class="p-2 text-gray-400 hover:text-gray-600">
-                        <i data-lucide="share" class="fas fa-share-alt"></i>
-                    </button>
-                    <button onclick="toggleBookmark({{ $car->id }}, '{{ addslashes($car->title) }}', {{ $car->price }}, {{ $car->year ?? 'null' }}, '{{ $car->fuel ?? '' }}', '{{ $car->mileage ?? '' }}', '{{ $car->bodytype ?? '' }}', '{{ $car->thumbnail ?? '' }}')" class="p-2 text-gray-400 hover:text-red-500">
-                        <i  class="far fa-bookmark"></i>
+                    <!-- Share Dropdown -->
+                    <div class="relative" id="shareDropdown">
+                        <button onclick="toggleShareDropdown()" class="p-2 text-gray-400 hover:text-blue-600 transition-colors">
+                            <i class="fas fa-share-alt text-xl"></i>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div id="shareMenu" class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 overflow-hidden">
+                            <div class="p-3 border-b border-gray-200 dark:border-gray-700">
+                                <h3 class="font-semibold text-main text-sm">Chia sẻ xe này</h3>
+                            </div>
+                            <div class="p-2">
+                                <!-- Facebook -->
+                                <button onclick="shareToFacebook()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
+                                    <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                                        <i class="fab fa-facebook-f text-white text-sm"></i>
+                                    </div>
+                                    <span class="text-main font-medium text-sm">Facebook</span>
+                                </button>
+                                
+                                <!-- Zalo -->
+                                <button onclick="shareToZalo()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-comments text-white text-sm"></i>
+                                    </div>
+                                    <span class="text-main font-medium text-sm">Zalo</span>
+                                </button>
+                                
+                                <!-- Messenger -->
+                                <button onclick="shareToMessenger()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
+                                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                        <i class="fab fa-facebook-messenger text-white text-sm"></i>
+                                    </div>
+                                    <span class="text-main font-medium text-sm">Messenger</span>
+                                </button>
+                                
+                                <!-- WhatsApp -->
+                                <button onclick="shareToWhatsApp()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-colors group">
+                                    <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                                        <i class="fab fa-whatsapp text-white text-sm"></i>
+                                    </div>
+                                    <span class="text-main font-medium text-sm">WhatsApp</span>
+                                </button>
+                                
+                                <!-- Telegram -->
+                                <button onclick="shareToTelegram()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
+                                    <div class="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center">
+                                        <i class="fab fa-telegram-plane text-white text-sm"></i>
+                                    </div>
+                                    <span class="text-main font-medium text-sm">Telegram</span>
+                                </button>
+                                
+                                <!-- Twitter/X -->
+                                <button onclick="shareToTwitter()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors group">
+                                    <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center">
+                                        <i class="fab fa-x-twitter text-white text-sm"></i>
+                                    </div>
+                                    <span class="text-main font-medium text-sm">Twitter/X</span>
+                                </button>
+                                
+                                <!-- Email -->
+                                <button onclick="shareViaEmail()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors group">
+                                    <div class="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-envelope text-white text-sm"></i>
+                                    </div>
+                                    <span class="text-main font-medium text-sm">Email</span>
+                                </button>
+                                
+                                <!-- Copy Link -->
+                                <button onclick="copyLinkToClipboard()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors group">
+                                    <div class="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-link text-white text-sm"></i>
+                                    </div>
+                                    <span class="text-main font-medium text-sm">Sao chép liên kết</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        onclick="toggleBookmark({{ $car->id }}, '{{ addslashes($car->title) }}', {{ $car->price }}, {{ $car->year ?? 'null' }}, '{{ $car->fuel ?? '' }}', '{{ $car->mileage ?? '' }}', '{{ $car->bodytype ?? '' }}', '{{ $car->thumbnail ?? '' }}')"
+                        class="p-2 text-gray-400 hover:text-red-500">
+                        <i class="far fa-bookmark"></i>
                     </button>
                 </div>
             </div>
@@ -140,16 +219,42 @@
                     <div class="relative mb-6">
                         <div class="swiper mySwiper2 rounded-xl overflow-hidden ">
                             <div class="swiper-wrapper">
-                                @for ($i = 0; $i < 5; $i++)
-                                    <div class="swiper-slide">
-                                        <a href="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/hinh-anh-oto.jpg"
-                                            data-fancybox="car-gallery"
-                                            data-caption="Ảnh xe {{ $i + 1 }} - {{ $car->name ?? 'Chi tiết xe' }}"
-                                            class="block relative group">
-                                            <img src="https://cafefcdn.com/2018/6/16/photo-1-1529146484215497174285.png"
-                                                alt="Ảnh xe {{ $i + 1 }}"
-                                                class="w-full h-96 lg:h-[550px] object-contain  transition-transform duration-500 group-hover:scale-105">
+                                @if ($car->images && $car->images->count() > 0)
+                                    @foreach ($car->images as $index => $image)
+                                        <div class="swiper-slide">
+                                            <a href="{{ asset('storage/' . $image->image_url) }}"
+                                                data-fancybox="car-gallery"
+                                                data-caption="Ảnh xe {{ $index + 1 }} - {{ $car->title }}"
+                                                class="block relative group">
+                                                <img src="{{ asset('storage/' . $image->image_url) }}"
+                                                    alt="{{ $car->title }} - Ảnh {{ $index + 1 }}"
+                                                    class="w-full h-96 lg:h-[550px] object-contain  transition-transform duration-500 group-hover:scale-105">
 
+                                                <div
+                                                    class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                                                    <div
+                                                        class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                                        <svg class="w-16 h-16 text-white mx-auto mb-2" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7">
+                                                            </path>
+                                                        </svg>
+                                                        <p class="text-white font-semibold text-sm">Nhấn để phóng to</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="swiper-slide">
+                                        <a href="{{ asset($car->thumbnail ?? 'images/default-car.jpg') }}"
+                                            data-fancybox="car-gallery" data-caption="{{ $car->title }}"
+                                            class="block relative group">
+                                            <img src="{{ asset($car->thumbnail ?? 'images/default-car.jpg') }}"
+                                                alt="{{ $car->title }}"
+                                                class="w-full h-96 lg:h-[550px] object-contain  transition-transform duration-500 group-hover:scale-105">
                                             <div
                                                 class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                                                 <div
@@ -166,7 +271,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                @endfor
+                                @endif
                             </div>
 
                             <div class="swiper-button-prev-custom">
@@ -198,29 +303,43 @@
                             <div
                                 class="absolute bottom-5 right-5 bg-black bg-opacity-70 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm z-10">
                                 <span class="current-slide">1</span> / <span
-                                    class="total-slides">{{ count($car->images) }}</span>
+                                    class="total-slides">{{ $car->images && $car->images->count() > 0 ? $car->images->count() : 1 }}</span>
                             </div>
                         </div>
 
                         <div class="swiper mySwiperThumbs mt-4">
                             <div class="swiper-wrapper">
-                                @for ($i = 0; $i < 5; $i++)
+                                @if ($car->images && $car->images->count() > 0)
+                                    @foreach ($car->images as $index => $image)
+                                        <div class="swiper-slide">
+                                            <div
+                                                class="relative group cursor-pointer overflow-hidden rounded-lg border-3 border-transparent hover:border-blue-500 transition-all duration-300">
+                                                <img src="{{ asset('storage/' . $image->image_url) }}"
+                                                    alt="{{ $car->title }} - Thumbnail {{ $index + 1 }}"
+                                                    class="w-full h-20  object-contain transition-transform duration-300 group-hover:scale-110">
+                                                <div
+                                                    class="absolute inset-0 bg-black/30 bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300">
+                                                </div>
+                                                <div
+                                                    class="absolute bottom-1 right-1 bg-black/30 bg-opacity-70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    {{ $index + 1 }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
                                     <div class="swiper-slide">
                                         <div
                                             class="relative group cursor-pointer overflow-hidden rounded-lg border-3 border-transparent hover:border-blue-500 transition-all duration-300">
-                                            <img src="https://cafefcdn.com/2018/6/16/photo-1-1529146484215497174285.png"
-                                                alt="Thumbnail {{ $i + 1 }}"
+                                            <img src="{{ asset($car->thumbnail ?? 'images/default-car.jpg') }}"
+                                                alt="{{ $car->title }}"
                                                 class="w-full h-20  object-contain transition-transform duration-300 group-hover:scale-110">
                                             <div
                                                 class="absolute inset-0 bg-black/30 bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300">
                                             </div>
-                                            <div
-                                                class="absolute bottom-1 right-1 bg-black/30 bg-opacity-70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                                                {{ $i + 1 }}
-                                            </div>
                                         </div>
                                     </div>
-                                @endfor
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -257,7 +376,7 @@
                     {{-- content --}}
                     <div class="mt-8 bg-main text-main rounded-lg p-6 shadow-sm">
                         <h2 class="text-2xl font-bold mb-6">Mô tả</h2>
-                        <p class="text-sub">{!! $car->description !!}</p>
+                        <div class="prose prose-xl max-w-none">{!! $car->content !!}</div>
                     </div>
                 </div>
                 <div class="lg:col-span-1">
@@ -282,26 +401,26 @@
                             </div>
                             <div class="flex items-center text-sub">
                                 <i data-lucide="settings" class="fas fa-cogs mr-2"></i>
-                                <span>Tự động</span>
+                                <span>{{ $car->bodytype }}</span>
                             </div>
                         </div>
 
                         <div class="border-t border-gray-200 dark:border-gray-700 pt-6 mb-6">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face"
-                                        alt="Seller" class="w-12 h-12 rounded-full mr-3">
+                                    <img src="{{ asset('images/default.png') }}" alt="Seller"
+                                        class="w-12 h-12 rounded-full mr-3">
                                     <div>
-                                        <h3 class="font-semibold ">Nguyễn Định Quân</h3>
+                                        <h3 class="font-semibold ">Nguyễn Hữu Tuấn</h3>
                                         <div class="flex items-center">
-                                            <div class="flex text-orange-400 text-sm mr-2">
-                                                <i data-lucide="star" class="w-4"></i>
-                                                <i data-lucide="star" class="w-4"></i>
-                                                <i data-lucide="star" class="w-4"></i>
-                                                <i data-lucide="star" class="w-4"></i>
-                                                <i data-lucide="star" class="w-4"></i>
+                                            <div class="flex text-orange-300 text-xs  mr-2">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
                                             </div>
-                                            <span class="text-sm text-sub">4.9 (6 reviews)</span>
+                                            <span class="text-sm text-sub">5</span>
                                         </div>
                                     </div>
                                 </div>
@@ -311,11 +430,11 @@
                                     class="w-full border-2 border-gray-300  py-3 px-4 rounded-lg font-medium hover:border-gray-400 flex justify-center items-center gap-2 transition">
                                     <i data-lucide="phone" class="fas fa-phone-alt mr-2"></i>
                                     <span id="phoneNumber">
-                                        0333583800
+                                        0392.096.106
                                     </span>
                                 </button>
 
-                                <a href="tel:0333583800"
+                                <a href="tel:0392096106"
                                     class="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition flex items-center justify-center">
                                     <i class="fas fa-envelope mr-2"></i>
                                     Gọi ngay
@@ -326,23 +445,26 @@
                                 <div class=" border-gray-200 pt-6">
                                     <h3 class="font-semibold  mb-2">Để lại thông tin chúng tôi sẽ liên hệ với
                                         bạn</h3>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div class="">
-                                            <input type="text" id="nameInput" placeholder="Tên của bạn"
-                                                class="w-full dark:bg-gray-800 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 dark:border-gray-600 focus:ring-primary-800 focus:border-primary-800 outline-none">
-                                        </div>
-                                        <div>
-                                            <input type="text" id="phoneInput" placeholder="Số điện thoại của bạn"
-                                                class="w-full dark:bg-gray-800 px-4 py-2 border border-gray-300 
+                                    <form action="{{ route('consultation.store') }}">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div class="">
+                                                <input type="text" id="nameInput" placeholder="Tên của bạn"
+                                                    class="w-full dark:bg-gray-800 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 dark:border-gray-600 focus:ring-primary-800 focus:border-primary-800 outline-none">
+                                            </div>
+                                            <div>
+                                                <input type="text" id="phoneInput" placeholder="Số điện thoại của bạn"
+                                                    class="w-full dark:bg-gray-800 px-4 py-2 border border-gray-300 
                                                 dark:border-gray-600
                                                 rounded-lg focus:ring-1 focus:ring-primary-800 focus:border-primary-800 outline-none">
+                                            </div>
+                                            <input type="hidden" name="car_id" value="{{ $car->id }}">
                                         </div>
-                                    </div>
+                                        <button
+                                            class="mt-3 w-full bg-primary-800 hover:bg-primary-700 text-white cursor-pointer py-3 px-4 rounded-lg font-medium transition">
+                                            Gửi
+                                        </button>
+                                    </form>
 
-                                    <button
-                                        class="mt-3 w-full bg-primary-800 hover:bg-primary-700 text-white cursor-pointer py-3 px-4 rounded-lg font-medium transition">
-                                        Gửi
-                                    </button>
 
                                 </div>
                             </div>
@@ -380,20 +502,21 @@
         <section class=" max-w-7xl px-4 md:px-0 mx-auto container dark:bg-gray-900 py-12">
             <div class="container mx-auto px-4">
                 <div class="">
-                    <div class="mb-8 after:content-[''] after:block after:w-20 after:h-1 after:bg-primary-800 after:mt-2 after:rounded">
-                    <h2 class="text-3xl md:text-3xl font-bold flex items-center gap-3">
-                        <i data-lucide="car" class="w-8 h-8 text-primary-800"></i>
-                       Bạn có thể thích
-                    </h2>
-                    <p class="text-sub mt-2">Các sản phẩm tương tự bạn có thể quan tâm</p>
-                </div>
+                    <div
+                        class="mb-8 after:content-[''] after:block after:w-20 after:h-1 after:bg-primary-800 after:mt-2 after:rounded">
+                        <h2 class="text-3xl md:text-3xl font-bold flex items-center gap-3">
+                            <i data-lucide="car" class="w-8 h-8 text-primary-800"></i>
+                            Bạn có thể thích
+                        </h2>
+                        <p class="text-sub mt-2">Các sản phẩm tương tự bạn có thể quan tâm</p>
+                    </div>
                 </div>
 
                 <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
                     @foreach ($relatedCars as $relatedCar)
-                        <x-card-car :carid="$car['id']" :image="$car['thumbnail']" :title="$car['title']" :year="$car['year']"
-                            :price="$car['price']" :date="date('d M Y', strtotime($car['created_at']))" :location="'HCM'" :mileage="'60km'" :fuel="$car->fuel"
-                            :gearbox="'12'" :bodytype="'Tự động'" {{-- :badges="$car['badges']" --}} />
+                        <x-card-car :carid="$relatedCar->id" :slug="$relatedCar->slug" :image="$relatedCar->thumbnail" :title="$relatedCar->title"
+                            :year="$relatedCar->year" :price="$relatedCar->price" :date="$relatedCar->created_at->format('d M Y')" :location="$relatedCar->brand->country ?? 'N/A'" :mileage="number_format($relatedCar->mileage) . ' km'"
+                            :fuel="$relatedCar->fuel" :bodytype="$relatedCar->bodytype ?? 'N/A'" />
                     @endforeach
                 </div>
             </div>
@@ -600,5 +723,141 @@
                 }
             );
         });
+
+        // Share Functions
+        const shareData = {
+            url: window.location.href,
+            title: "{{ $car->title }}",
+            description: "{{ Str::limit(strip_tags($car->description ?? ''), 100) }}",
+            price: "{{ number_format($car->price) }} đ",
+            year: "{{ $car->year ?? '' }}",
+            image: "{{ asset($car->thumbnail ?? 'images/default-car.jpg') }}"
+        };
+
+        function toggleShareDropdown() {
+            const menu = document.getElementById('shareMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const shareDropdown = document.getElementById('shareDropdown');
+            const shareMenu = document.getElementById('shareMenu');
+            
+            if (shareDropdown && !shareDropdown.contains(event.target)) {
+                shareMenu.classList.add('hidden');
+            }
+        });
+
+        function shareToFacebook() {
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
+            window.open(url, '_blank', 'width=600,height=400');
+            toggleShareDropdown();
+        }
+
+        function shareToZalo() {
+            const url = `https://page.zalo.me/share?url=${encodeURIComponent(shareData.url)}&title=${encodeURIComponent(shareData.title)}`;
+            window.open(url, '_blank', 'width=600,height=400');
+            toggleShareDropdown();
+        }
+
+        function shareToMessenger() {
+            const url = `fb-messenger://share?link=${encodeURIComponent(shareData.url)}`;
+            // Fallback to web version if app not installed
+            const webUrl = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(shareData.url)}&app_id=YOUR_APP_ID&redirect_uri=${encodeURIComponent(shareData.url)}`;
+            window.open(webUrl, '_blank', 'width=600,height=400');
+            toggleShareDropdown();
+        }
+
+        function shareToWhatsApp() {
+            const text = `${shareData.title} - ${shareData.price}\n${shareData.url}`;
+            const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+            toggleShareDropdown();
+        }
+
+        function shareToTelegram() {
+            const text = `${shareData.title} - ${shareData.price}`;
+            const url = `https://t.me/share/url?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+            toggleShareDropdown();
+        }
+
+        function shareToTwitter() {
+            const text = `${shareData.title} - ${shareData.price}`;
+            const url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank', 'width=600,height=400');
+            toggleShareDropdown();
+        }
+
+        function shareViaEmail() {
+            const subject = encodeURIComponent(`${shareData.title} - ${shareData.price}`);
+            const body = encodeURIComponent(`Xem xe này: ${shareData.title}\nGiá: ${shareData.price}\nNăm: ${shareData.year}\n\nLink: ${shareData.url}`);
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+            toggleShareDropdown();
+        }
+
+        function copyLinkToClipboard() {
+            navigator.clipboard.writeText(shareData.url).then(() => {
+                // Show success toast
+                showToast('Đã sao chép liên kết!', 'success');
+                toggleShareDropdown();
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                // Fallback method
+                const textArea = document.createElement('textarea');
+                textArea.value = shareData.url;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Đã sao chép liên kết!', 'success');
+                } catch (err) {
+                    showToast('Không thể sao chép!', 'error');
+                }
+                document.body.removeChild(textArea);
+                toggleShareDropdown();
+            });
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white z-50 animate-toast-in ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+            toast.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('animate-toast-in');
+                toast.classList.add('animate-toast-out');
+                setTimeout(() => toast.remove(), 250);
+            }, 3000);
+        }
+
+        // Native Web Share API (for mobile devices)
+        if (navigator.share) {
+            const shareButton = document.querySelector('#shareDropdown button');
+            shareButton.addEventListener('click', async (e) => {
+                if (e.target === shareButton && window.innerWidth <= 768) {
+                    try {
+                        await navigator.share({
+                            title: shareData.title,
+                            text: `${shareData.title} - ${shareData.price}`,
+                            url: shareData.url
+                        });
+                    } catch (err) {
+                        if (err.name !== 'AbortError') {
+                            console.log('Error sharing:', err);
+                        }
+                    }
+                }
+            });
+        }
     </script>
 @endsection

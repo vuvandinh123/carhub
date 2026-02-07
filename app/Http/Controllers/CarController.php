@@ -27,10 +27,10 @@ class CarController extends Controller
     {
         // Get all brands for filter
         $brands = $this->brandRepository->all();
-        
+
         // Get all categories for filter
         $categories = $this->categoryRepository->all();
-        
+
         // Collect filters from request
         $filters = [
             'search' => $request->input('search'),
@@ -43,28 +43,63 @@ class CarController extends Controller
             'year_max' => $request->input('year_max'),
             'mileage_max' => $request->input('mileage_max'),
             'fuel' => $request->input('fuel', []),
-            'transmission' => $request->input('transmission'),
             'seats' => $request->input('seats'),
             'sort_by' => $request->input('sort_by', 'newest'),
         ];
-        
+
         // Filter and paginate results
         $cars = $this->carRepository->filterAndPaginate($filters, 12);
-        
+
         // Get active filters for display
-        $activeFilters = array_filter($filters, function($value) {
+        $activeFilters = array_filter($filters, function ($value) {
             return !empty($value) && $value !== '' && $value !== [];
         });
-        
+
         return view('pages.cars.index', compact('cars', 'brands', 'categories', 'filters', 'activeFilters'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function search(Request $request)
     {
-        //
+
+        $query = $request->input('q', '');
+
+        if (empty($query)) {
+            return response()->json(['cars' => []]);
+        }
+
+        $cars = Car::with(['brand', 'images'])
+            ->where(function ($q) use ($query) {
+                $q->where('title', 'LIKE', "%{$query}%")
+                    ->orWhere('description', 'LIKE', "%{$query}%")
+                    ->orWhereHas('brand', function ($brandQuery) use ($query) {
+                        $brandQuery->where('name', 'LIKE', "%{$query}%");
+                    });
+            })
+            ->where('status', 'available')
+            ->limit(10)
+            ->get()
+            ->map(function ($car) {
+                return [
+                    'id' => $car->id,
+                    'slug' => $car->slug,
+                    'title' => $car->title,
+                    'brand' => $car->brand->name ?? 'N/A',
+                    'year' => $car->year,
+                    'price' => $car->price,
+                    'price_formatted' => number_format($car->price, 0, ',', '.') . ' VNĐ',
+                    'thumbnail' => $car->thumbnail ? asset('storage/' . $car->thumbnail) : null,
+                    'url' => route('cars.show', $car->slug),
+                ];
+            });
+
+        return response()->json([
+            'success' => true,
+            'count' => $cars->count(),
+            'cars' => $cars
+        ]);
     }
 
     /**
@@ -78,26 +113,32 @@ class CarController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Car $car)
+    public function show($slug)
     {
-        $car = $this->carRepository->find($car->id);
-        $relatedCars = Car::where('id', '!=', $car->id)
-            ->where(function($query) use ($car) {
+        $car = $this->carRepository->findSlug($slug);
+        
+        if (!$car) {
+            abort(404, 'Không tìm thấy xe');
+        }
+        
+        $relatedCars = Car::where('slug', '!=', $car->slug)
+            ->where(function ($query) use ($car) {
                 $query->where('brand_id', $car->brand_id)
-                      ->orWhereHas('categories', function($q) use ($car) {
-                          $q->whereIn('categories.id', $car->categories->pluck('id'));
-                      });
+                    ->orWhereHas('categories', function ($q) use ($car) {
+                        $q->whereIn('categories.id', $car->categories->pluck('id'));
+                    });
             })
             ->inRandomOrder()
             ->take(4)
             ->get();
+            
         if (!$relatedCars || $relatedCars->isEmpty()) {
             $relatedCars = Car::where('id', '!=', $car->id)
                 ->inRandomOrder()
                 ->take(4)
                 ->get();
         }
-        
+
         return view('pages.car-detail.index', compact('car', 'relatedCars'));
     }
 
@@ -107,20 +148,20 @@ class CarController extends Controller
     public function compare(Request $request)
     {
         $ids = explode(',', $request->input('ids', ''));
-        
+
         // Validate: must have 2-3 cars
-        if (count($ids) < 2 || count($ids) > 3) {
-            return redirect()->route('cars.index')->with('error', 'Vui lòng chọn từ 2 đến 3 xe để so sánh');
-        }
-        
+        // if (count($ids) < 2 || count($ids) > 3) {
+        //     return redirect()->route('cars.index')->with('error', 'Vui lòng chọn từ 2 đến 3 xe để so sánh');
+        // }
+
         // Get cars with all relationships
         $cars = $this->carRepository->findMultiple($ids);
-        
+
         // Ensure we have the requested cars
-        if ($cars->count() < 2) {
-            return redirect()->route('cars.index')->with('error', 'Không tìm thấy đủ xe để so sánh');
-        }
-        
+        // if ($cars->count() < 2) {
+        //     return redirect()->route('cars.index')->with('error', 'Không tìm thấy đủ xe để so sánh');
+        // }
+
         return view('pages.cars.compare', compact('cars'));
     }
 

@@ -59,7 +59,7 @@ class MenuComposer
     protected function processMegaMenu(array $columns): array
     {
         foreach ($columns as $index => $column) {
-            if (isset($column['type']) && in_array($column['type'], ['brands', 'categories'])) {
+            if (isset($column['type']) && $column['type'] !== 'static') {
                 $columns[$index]['items'] = $this->loadDynamicItems($column['type']);
             }
         }
@@ -76,8 +76,16 @@ class MenuComposer
             case 'brands':
                 return $this->loadBrands();
             
-            case 'categories':
-                return $this->loadCategories();
+            case 'KIA':
+                return $this->loadCategories(19);
+            case 'THACO':
+                return $this->loadCategories(20);
+            case 'FUSO':
+                return $this->loadCategories(21);
+            case 'VAN':
+                return $this->loadCategories(22);
+            case 'LINKER':
+                return $this->loadCategories(23);
             
             default:
                 return [];
@@ -102,10 +110,11 @@ class MenuComposer
     /**
      * Load categories from database
      */
-    protected function loadCategories(): array
+    protected function loadCategories($id=19): array
     {
-        return Category::orderBy('name')
+        return Category::orderBy('id')
             ->take(8)
+            ->where([['is_active', '=', 1], ['parent_id', '=', $id]])
             ->get()
             ->map(fn($category) => [
                 'label' => $category->name,

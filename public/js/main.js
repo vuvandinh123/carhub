@@ -135,10 +135,58 @@ $(function () {
     const $contactToggle = $('#contactToggle');
     const $contactButtons = $('#contactButtons');
     let isOpen = false;
+    let hasUserInteracted = false;
+    let autoOpenTimer = null;
+    let autoCloseTimer = null;
+
+    // Auto-open function
+    function autoOpen() {
+        if (!hasUserInteracted && !isOpen) {
+            // Tự động mở
+            isOpen = true;
+            $contactButtons.addClass('show');
+            $contactToggle.addClass('active');
+
+            // Thêm hiệu ứng bounce nhẹ để thu hút sự chú ý
+            $contactToggle.addClass('animate-bounce');
+            setTimeout(() => {
+                $contactToggle.removeClass('animate-bounce');
+            }, 2000);
+
+            // Tự động đóng sau 5 giây
+            autoCloseTimer = setTimeout(() => {
+                if (isOpen && !hasUserInteracted) {
+                    closeContacts();
+                    // Lặp lại sau 45 giây nữa
+                    scheduleAutoOpen(20000);
+                }
+            }, 10000);
+        }
+    }
+
+    // Schedule auto-open
+    function scheduleAutoOpen(delay = 20000) {
+        if (autoOpenTimer) {
+            clearTimeout(autoOpenTimer);
+        }
+        autoOpenTimer = setTimeout(autoOpen, delay);
+    }
+
+    // Bắt đầu lần auto-open đầu tiên sau 20 giây
+    scheduleAutoOpen(20000);
 
     // Toggle contact buttons
     $contactToggle.on('click', function (e) {
-        e.stopPropagation(); // tránh bị document click bắt luôn
+        e.stopPropagation();
+        hasUserInteracted = true; // Đánh dấu người dùng đã tương tác
+
+        // Clear auto-open timers khi user tương tác
+        if (autoOpenTimer) {
+            clearTimeout(autoOpenTimer);
+        }
+        if (autoCloseTimer) {
+            clearTimeout(autoCloseTimer);
+        }
 
         isOpen = !isOpen;
 
@@ -159,6 +207,15 @@ $(function () {
     $(document).on('click', function (e) {
         if (!$(e.target).closest('.floating-contacts').length && isOpen) {
             closeContacts();
+            hasUserInteracted = true;
+        }
+    });
+
+    // Đánh dấu user đã tương tác khi click vào bất kỳ contact button nào
+    $contactButtons.on('click', 'a', function() {
+        hasUserInteracted = true;
+        if (autoOpenTimer) {
+            clearTimeout(autoOpenTimer);
         }
     });
 
@@ -175,4 +232,62 @@ $(function () {
 // Initialize bookmarks on page load
 $(document).ready(function () {
     initializeBookmarks();
+
+    const swiper = new Swiper('.swiper-categories', {
+        slidesPerView: 6,
+        slidesPerGroup: 1,
+        spaceBetween: 20,
+        speed: 400,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            320: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+            },
+            640: {
+                slidesPerView: 3,
+                spaceBetween: 15,
+            },
+            1024: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+            },
+            1280: {
+                slidesPerView: 6,
+                spaceBetween: 14,
+            },
+        },
+    });
+
+    new Swiper('.swiper-slider', {
+        slidesPerView: 1,
+        slidesPerGroup: 1,
+        spaceBetween: 20,
+        speed: 400,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
 });

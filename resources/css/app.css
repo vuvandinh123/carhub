@@ -1,14 +1,12 @@
 @import "tailwindcss";
 @import "flowbite/src/themes/default";
 @plugin "flowbite/plugin";
+@plugin "@tailwindcss/typography";
 @source "../../node_modules/flowbite";
 @source '../views';
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
 @custom-variant dark (&:where(.dark, .dark *));
 
-body {
-    font-family: "DM Sans", sans-serif;
-}
 
 @theme {
     /* màu chủ đạo */
@@ -160,4 +158,86 @@ body {
 
 .animate-toast-out {
     animation: toast-out 0.25s ease-in forwards;
+}
+
+/* Custom Prose Styles for Rich Content */
+.prose {
+    color: inherit;
+    max-width: 65ch;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    @apply text-brand-black dark:text-brand-white font-bold mb-4;
+}
+
+.prose h1 {
+    @apply text-3xl md:text-4xl mt-0;
+}
+
+.prose h2 {
+    @apply text-2xl md:text-3xl mt-8;
+}
+
+.prose h3 {
+    @apply text-xl md:text-2xl mt-6;
+}
+
+.prose p {
+    @apply text-brand-gray dark:text-gray-300 mb-4 leading-relaxed;
+}
+
+.prose ul, .prose ol {
+    @apply ml-6 mb-4 text-brand-gray dark:text-gray-300;
+}
+
+.prose ul {
+    @apply list-disc;
+}
+
+.prose ol {
+    @apply list-decimal;
+}
+
+.prose li {
+    @apply mb-2;
+}
+
+.prose a {
+    @apply text-brand-blue-500 hover:text-brand-blue-600 underline;
+}
+
+.prose strong {
+    @apply font-bold text-brand-black dark:text-brand-white;
+}
+
+.prose blockquote {
+    @apply border-l-4 border-brand-blue-500 pl-4 italic text-gray-700 dark:text-gray-400 my-4;
+}
+
+.prose img {
+    @apply rounded-lg my-6;
+}
+
+.prose table {
+    @apply w-full border-collapse mb-4;
+}
+
+.prose th, .prose td {
+    @apply border border-gray-300 dark:border-gray-700 px-4 py-2;
+}
+
+.prose th {
+    @apply bg-gray-100 dark:bg-gray-800 font-semibold;
+}
+
+.prose code {
+    @apply bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm;
+}
+
+.prose pre {
+    @apply bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto mb-4;
+}
+
+.prose pre code {
+    @apply bg-transparent p-0;
 }

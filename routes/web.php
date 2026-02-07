@@ -10,6 +10,13 @@ Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->nam
 Route::get('/posts/{post:slug}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
 Route::get('/cars/compare', [App\Http\Controllers\CarController::class, 'compare'])->name('cars.compare');
 Route::get('/cars/saved', [App\Http\Controllers\CarController::class, 'saved'])->name('cars.saved');
-Route::resource('cars', App\Http\Controllers\CarController::class);
+Route::get('/cars/search', [App\Http\Controllers\CarController::class, 'search'])->name('cars.search');
+Route::get('cars/{slug}', [App\Http\Controllers\CarController::class, 'show'])->name('cars.show');
+Route::get('/cars', [App\Http\Controllers\CarController::class, 'index'])->name('cars.index');
+
+
+// Consultation Request Routes
+Route::post('/consultation-request', [App\Http\Controllers\ConsultationRequestController::class, 'store'])->name('consultation.store');
+Route::post('/consultation-request/car/{car}', [App\Http\Controllers\ConsultationRequestController::class, 'storeForCar'])->name('consultation.store.car');
 
 require __DIR__.'/auth.php';

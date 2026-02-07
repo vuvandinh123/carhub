@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Liên hệ - CarHub')
-
+@section('title', 'Liên hệ | THACO Thủ Đức')
+@section('meta')
+    @include('partials.meta-tag', [
+        'title' => 'Liên hệ | THACO Thủ Đức',
+        'meta_description' => 'Liên hệ với THACO Thủ Đức để được tư vấn và hỗ trợ nhanh chóng trong việc mua bán xe hơi.',
+        'meta_keywords' => 'THACO Thủ Đức, liên hệ, tư vấn, hỗ trợ, mua bán xe hơi',
+        'meta_image' => asset('storage/default-image.jpg'),
+    ])
+@endsection
 @section('content')
 <!-- Hero Section -->
 <section class="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 py-20 pb-30">
@@ -75,7 +82,7 @@
                     </p>
                 </div>
 
-                <form action="#" method="POST" class="space-y-6">
+                <form action="{{ route('consultation.store') }}" method="POST" class="space-y-6">
                     @csrf
                     <!-- Name -->
                     <div>
@@ -93,20 +100,8 @@
                     </div>
 
                     <!-- Email & Phone -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Email <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i data-lucide="mail" class="w-5 h-5 text-gray-400"></i>
-                                </div>
-                                <input type="email" id="email" name="email" required
-                                       class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400"
-                                       placeholder="email@example.com">
-                            </div>
-                        </div>
+                    <div class="grid grid-cols-1  gap-6">
+                        
 
                         <div>
                             <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -148,7 +143,7 @@
                         <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Nội dung <span class="text-red-500">*</span>
                         </label>
-                        <textarea id="message" name="message" rows="5" required
+                        <textarea id="message" name="note" rows="5" required
                                   class="block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 resize-none"
                                   placeholder="Nhập nội dung tin nhắn của bạn..."></textarea>
                     </div>

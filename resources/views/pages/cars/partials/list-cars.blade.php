@@ -20,7 +20,7 @@
     </div>
 
     <!-- Car Grid/List Container -->
-    <div id="carListContainer" class="grid-view grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+    <div id="carListContainer" class="grid-view grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
         @forelse ($cars as $car)
             <x-card-car 
                 :carid="$car->id" 
@@ -32,6 +32,8 @@
                 :location="$car->brand->country ?? 'N/A'" 
                 :mileage="number_format($car->mileage) . ' km'" 
                 :fuel="$car->fuel" 
+                :slug="$car->slug"
+                :bodytype="$car->bodytype"
             />
         @empty
             <div class="col-span-full">

@@ -1,37 +1,11 @@
 <form id="filterForm" action="{{ route('cars.index') }}" method="GET">
-    <aside class="w-full lg:w-80 space-y-5">
-        <!-- Filter Header -->
-        <div class="bg-main rounded-sm shadow-sm border border-gray-200 dark:border-gray-700 p-5">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-bold text-main flex items-center gap-2">
-                    <i data-lucide="filter" class="w-5 h-5 text-blue-600"></i>
-                    Bộ lọc
-                </h3>
-                <a href="{{ route('cars.index') }}" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
-                    Reset
-                </a>
-            </div>
-
-            <!-- Condition Toggle -->
-            <input type="hidden" name="condition" id="conditionInput" value="{{ $filters['condition'] ?? '' }}">
-            <div class="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1.5">
-                <button type="button" data-condition="new" class="condition-btn flex-1 py-2.5 text-center text-sm font-medium rounded-md transition {{ ($filters['condition'] ?? '') === 'new' ? 'bg-white dark:bg-gray-700 shadow-sm text-blue-600' : 'text-gray-600 dark:text-gray-400' }}">
-                    <i data-lucide="sparkles" class="w-4 h-4 inline mr-1"></i>
-                    Xe mới
-                </button>
-                <button type="button" data-condition="used" class="condition-btn flex-1 py-2.5 text-center text-sm font-medium rounded-md transition {{ ($filters['condition'] ?? '') === 'used' ? 'bg-white dark:bg-gray-700 shadow-sm text-blue-600' : 'text-gray-600 dark:text-gray-400' }}">
-                    <i data-lucide="car" class="w-4 h-4 inline mr-1"></i>
-                    Xe cũ
-                </button>
-            </div>
-        </div>
-
+    <div class="space-y-5">
         <!-- Main Filters -->
-        <div class="bg-main rounded-sm shadow-sm border border-gray-200 dark:border-gray-700 p-5 space-y-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <!-- Brand -->
             <div class="space-y-2">
                 <label class="flex items-center gap-2 text-sm font-semibold text-main">
-                    <i data-lucide="tag" class="w-4 h-4 text-blue-600"></i>
+                    <i data-lucide="tag" class="w-4 h-4 text-primary-800"></i>
                     Hãng xe
                 </label>
                 <select name="brand_id" class="filter-input w-full px-4 py-2.5 border border-gray-300 dark:bg-gray-800 dark:border-gray-600 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
@@ -47,25 +21,23 @@
             <!-- Category -->
             <div class="space-y-2">
                 <label class="flex items-center gap-2 text-sm font-semibold text-main">
-                    <i data-lucide="package" class="w-4 h-4 text-purple-600"></i>
+                    <i data-lucide="package" class="w-4 h-4 text-primary-800"></i>
                     Loại xe
                 </label>
-                <div class="space-y-2">
+                <select name="category_id" class="filter-input w-full px-4 py-2.5 border border-gray-300 dark:bg-gray-800 dark:border-gray-600 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    <option value="">Tất cả loại xe</option>
                     @foreach($categories as $category)
-                        <label class="flex items-center gap-2.5 p-2.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition group">
-                            <input type="checkbox" name="categories[]" value="{{ $category->id }}" 
-                                {{ in_array($category->id, $filters['categories'] ?? []) ? 'checked' : '' }}
-                                class="filter-input w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                            <span class="text-sm text-sub group-hover:text-main">{{ $category->name }}</span>
-                        </label>
+                        <option value="{{ $category->id }}" {{ ($filters['category_id'] ?? '') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
                     @endforeach
-                </div>
+                </select>
             </div>
 
             <!-- Price Range -->
             <div class="space-y-2">
                 <label class="flex items-center gap-2 text-sm font-semibold text-main">
-                    <i data-lucide="dollar-sign" class="w-4 h-4 text-green-600"></i>
+                    <i data-lucide="dollar-sign" class="w-4 h-4 text-primary-800"></i>
                     Giá bán (triệu VNĐ)
                 </label>
                 <div class="grid grid-cols-2 gap-2">
@@ -94,7 +66,7 @@
             <!-- Year Range -->
             <div class="space-y-2">
                 <label class="flex items-center gap-2 text-sm font-semibold text-main">
-                    <i data-lucide="calendar" class="w-4 h-4 text-orange-600"></i>
+                    <i data-lucide="calendar" class="w-4 h-4 text-primary-800"></i>
                     Năm sản xuất
                 </label>
                 <div class="grid grid-cols-2 gap-2">
@@ -184,7 +156,7 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-3 md:col-span-2">
             <button type="submit" class="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition shadow-lg shadow-blue-600/30">
                 <i data-lucide="search" class="w-4 h-4"></i>
                 Tìm kiếm
@@ -194,5 +166,5 @@
                 Đặt lại
             </a>
         </div>
-    </aside>
+    </div>
 </form>

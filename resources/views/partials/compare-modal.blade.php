@@ -112,10 +112,10 @@ function clearAllCompare() {
 function openCompareModal() {
     let data = localStorage.getItem('compareList');
     compareList = data ? JSON.parse(data) : [];
-    if (compareList.length <= 1) {
-        showNotification('Chọn ít nhất 2 xe để so sánh', 'warning');
-        return;
-    }
+    // if (compareList.length <= 1) {
+    //     showNotification('Chọn ít nhất 2 xe để so sánh', 'warning');
+    //     return;
+    // }
     // chuyển thành dạng 1,2,3
     compareList = compareList.join(',');
     window.location.href = `{{ route('cars.compare') }}?ids=${compareList}`;
@@ -203,9 +203,11 @@ function updateCompareUI() {
 // Update floating compare button
 function updateCompareButton() {
     const btn = document.getElementById('compareFloatingBtn');
-    const count = document.getElementById('compareCount');
+    const countElements = document.getElementsByClassName('compareCount');
     
-    count.textContent = compareList.length;
+    Array.from(countElements).forEach(count => {
+        count.textContent = compareList.length;
+    });
     
     if (compareList.length > 0) {
         btn.classList.remove('hidden');

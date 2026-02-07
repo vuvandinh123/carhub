@@ -1,11 +1,9 @@
 <header class="bg-main border-gray-200 dark:border-gray-600 border-b fixed left-0 top-0 w-full z-50">
     <div class="container max-w-7xl relative flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Xedep.vn</span>
+            <img src="{{ asset("/images/thacothuduclogo.png") }}" class="h-8" alt="Flowbite Logo" />
+            <span class="self-center text-lg md:text-2xl whitespace-nowrap dark:text-white uppercase text-primary-800 font-bold">THACO Thủ Đức</span>
         </a>
-        
-
         <div class="flex md:order-2 space-x-3 gap-2 md:space-x-0 rtl:space-x-reverse">
             <!-- Search Button -->
             <button id="search-modal-toggle" type="button"
@@ -77,21 +75,33 @@
                     <div id="popular-searches" class="p-6">
                         <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-4">Tìm kiếm phổ biến</h3>
                         <div class="space-y-2">
-                            <a href="{{ route('cars.index', ['search' => 'Toyota']) }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                            <a href="{{ route('cars.index', ['search' => 'XE TẢI FUSO']) }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
                                 <i data-lucide="trending-up" class="w-5 h-5 text-blue-500"></i>
-                                <span class="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">Toyota</span>
+                                <span class="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                    XE TẢI FUSO
+                                </span>
                             </a>
-                            <a href="{{ route('cars.index', ['search' => 'Honda']) }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                            <a href="{{ route('cars.index', ['search' => 'THACO TF220']) }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
                                 <i data-lucide="trending-up" class="w-5 h-5 text-blue-500"></i>
-                                <span class="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">Honda</span>
+                                <span class="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                    THACO TF220
+                                </span>
                             </a>
-                            <a href="{{ route('cars.index', ['search' => 'Mazda']) }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                            <a href="{{ route('cars.index', ['search' => 'linker T2-5.0']) }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
                                 <i data-lucide="trending-up" class="w-5 h-5 text-blue-500"></i>
-                                <span class="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">Mazda</span>
+                                <span class="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 uppercase dark:group-hover:text-blue-400">
+                                    linker T2-5.0
+                                </span>
                             </a>
-                            <a href="{{ route('cars.index', ['search' => 'SUV']) }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                            <a href="{{ route('cars.index', ['search' => 'XE TẢI KIA']) }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
                                 <i data-lucide="trending-up" class="w-5 h-5 text-blue-500"></i>
-                                <span class="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">SUV</span>
+                                <span class="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">XE TẢI KIA</span>
+                            </a>
+                             <a href="{{ route('cars.index', ['search' => 'TF450 2 Chỗ']) }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-blue-500"></i>
+                                <span class="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                TF450 2 Chỗ    
+                                </span>
                             </a>
                         </div>
                     </div>
@@ -130,6 +140,24 @@
 <script>
 $(document).ready(function() {
     let searchTimeout;
+
+    // Format price function - convert to million format
+    function formatPrice(price) {
+        if (!price || price === 0) return 'Liên hệ';
+        
+        const million = price / 1000000;
+        
+        if (million >= 1000) {
+            const billion = million / 1000;
+            return billion % 1 === 0 
+                ? `${billion.toFixed(0)} tỷ` 
+                : `${billion.toFixed(1)} tỷ`;
+        }
+        
+        return million % 1 === 0 
+            ? `${million.toFixed(0)} triệu` 
+            : `${million.toFixed(1)} triệu`;
+    }
 
     // Open modal
     $('#search-modal-toggle').on('click', function() {
@@ -191,7 +219,7 @@ $(document).ready(function() {
 
         searchTimeout = setTimeout(() => {
             $.ajax({
-                url: `/api/cars/search?q=${encodeURIComponent(query)}`,
+                url: `/cars/search?q=${encodeURIComponent(query)}`,
                 method: 'GET',
                 dataType: 'json',
                 success: function(data) {
@@ -199,12 +227,12 @@ $(document).ready(function() {
                     
                     if (data.cars && data.cars.length > 0) {
                         const resultsHtml = data.cars.map(car => `
-                            <a href="/cars/${car.id}" class="flex items-start gap-4 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
-                                <img src="${car.image || '/images/placeholder-car.jpg'}" alt="${car.name}" class="w-16 h-16 object-cover rounded-lg">
+                            <a href="/cars/${car.slug}" class="flex items-start gap-4 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <img src="${car.thumbnail || '/images/placeholder-car.jpg'}" alt="${car.title}" class="w-16 h-16 object-contain rounded-lg">
                                 <div class="flex-1 min-w-0">
-                                    <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 truncate">${car.name}</h4>
+                                    <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-primary-800 dark:group-hover:text-blue-400 truncate">${car.title}</h4>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">${car.brand}</p>
-                                    <p class="text-sm font-semibold text-blue-600 dark:text-blue-400 mt-1">${car.price}</p>
+                                    <p class="text-sm font-semibold text-red-600 dark:text-blue-400 mt-1">${formatPrice(car.price)}</p>
                                 </div>
                             </a>
                         `).join('');
