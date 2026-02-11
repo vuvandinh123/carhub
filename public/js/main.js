@@ -1,5 +1,5 @@
 
-function toggleBookmark(carId, title, price, year, fuel, mileage, bodytype, image) {
+function toggleBookmark(carId, slug, title, price, year, fuel, mileage, bodytype, image) {
     let bookmarks = JSON.parse(localStorage.getItem('savedCars') || '[]');
     const carIndex = bookmarks.findIndex(car => car.id === carId);
 
@@ -13,6 +13,7 @@ function toggleBookmark(carId, title, price, year, fuel, mileage, bodytype, imag
         // Add to bookmarks
         bookmarks.push({
             id: carId,
+            slug: slug, 
             title: title,
             price: price,
             year: year,
@@ -53,83 +54,24 @@ function initializeBookmarks() {
     updateBookmarkCount();
 }
 
-function showToast(message, type = 'info', duration = 3000) {
-    let $container = $('#toast-container');
+function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className =
+                `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white z-50 animate-toast-in ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+            toast.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(toast);
 
-    if ($container.length === 0) {
-        $container = $('<div>', {
-            id: 'toast-container',
-            class: 'fixed top-5 right-5 z-50 flex flex-col gap-3 w-[250px]'
-        }).appendTo('body');
-    }
-
-    const config = {
-        success: {
-            bg: 'from-primary-500 to-primary-600',
-            icon: 'check-circle'
-        },
-        error: {
-            bg: 'from-red-500 to-rose-600',
-            icon: 'x-circle'
-        },
-        info: {
-            bg: 'from-blue-500 to-indigo-600',
-            icon: 'info'
-        },
-        warning: {
-            bg: 'from-yellow-400 to-orange-500',
-            icon: 'alert-triangle'
+            setTimeout(() => {
+                toast.classList.remove('animate-toast-in');
+                toast.classList.add('animate-toast-out');
+                setTimeout(() => toast.remove(), 250);
+            }, 3000);
         }
-    };
-
-    const { bg, icon } = config[type] || config.info;
-
-    const $toast = $(`
-        <div class="
-            relative overflow-hidden
-            bg-gradient-to-r ${bg}
-            text-white
-            rounded-sm shadow-2xl
-            px-5 py-4
-            flex items-start gap-4
-            animate-toast-in
-        ">
-            <!-- Icon -->
-            <div class="shrink-0 bg-white/20 rounded-full p-2">
-                <i data-lucide="${icon}" class="w-5 h-5"></i>
-            </div>
-
-            <!-- Content -->
-            <div class="flex-1 text-sm leading-relaxed">
-                ${message}
-            </div>
-
-            <!-- Close -->
-            <button class="toast-close absolute top-2 right-2 opacity-70 hover:opacity-100 transition">
-                <i data-lucide="x" class="w-4 h-4"></i>
-            </button>
-
-            <!-- Progress bar -->
-            <div class="absolute bottom-0 left-0 h-[3px] bg-white/40 toast-progress"></div>
-        </div>
-    `).appendTo($container);
-
-    // Init icons
-    if (window.lucide) lucide.createIcons();
-
-    // Animate progress bar
-    $toast.find('.toast-progress').animate({ width: '100%' }, duration, 'linear');
-
-    // Close handler
-    const removeToast = () => {
-        $toast.addClass('animate-toast-out');
-        setTimeout(() => $toast.remove(), 300);
-    };
-
-    $toast.find('.toast-close').on('click', removeToast);
-
-    setTimeout(removeToast, duration);
-}
 
 $(function () {
     const $contactToggle = $('#contactToggle');

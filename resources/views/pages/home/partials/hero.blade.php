@@ -8,18 +8,17 @@
 
     ]
 @endphp
-<div class="relative h-[60vh] bg-main-gray overflow-hidden">
+<div class="relative h-[30vh] md:h-[60vh] bg-main-gray overflow-hidden">
     <!-- Slider with 50vh height -->
     <div class="absolute inset-0 swiper swiper-slider">
         <!-- Car Image -->
         <div class="swiper-wrapper">
             @foreach ($slider as $image)
                 <div class="swiper-slide">
-                    <div class="h-[60vh]">
+                    <div class="h-[30vh] md:h-[60vh]">
                         <img src="{{ asset($image) }}"
                             alt="" class="w-full h-full object-cover object-center">
                     </div>
-                    
                 </div>
             @endforeach
         </div>

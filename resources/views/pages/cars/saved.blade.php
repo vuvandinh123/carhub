@@ -109,7 +109,7 @@
                 
                 <!-- Image Section -->
                 <div class="relative overflow-hidden">
-                    <a href="/cars/${car.id}" class="block">
+                    <a href="/cars/${car.slug}" class="block">
                         <img src="https://cafefcdn.com/2018/6/16/photo-1-1529146484215497174285.png" 
                             alt="${car.title}"
                             class="w-full h-48 object-contain transform group-hover:scale-110 transition-transform duration-500">
@@ -163,7 +163,7 @@
                     
                     <!-- Action Buttons -->
                     <div class="flex gap-2 mt-4">
-                        <a href="/cars/${car.id}" class="flex-1 flex items-center justify-center gap-2 bg-primary-800 hover:bg-primary-700 text-white py-2.5 px-4 rounded-sm font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg">
+                        <a href="/cars/${car.slug}" class="flex-1 flex items-center justify-center gap-2 bg-primary-800 hover:bg-primary-700 text-white py-2.5 px-4 rounded-sm font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg">
                             <i class="fa-solid fa-eye text-xs"></i>
                             <span>Xem chi tiết</span>
                         </a>

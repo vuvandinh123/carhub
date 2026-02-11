@@ -125,14 +125,14 @@ class CarForm
 
                                 TextInput::make('price')
                                     ->label('Giá bán (VNĐ)')
-                                    ->numeric()
+                                    ->required()
                                     ->prefix('₫')
+                                    ->placeholder('1500000000')
+                                    ->mask(fn() => \Filament\Support\RawJs::make('$money($input)'))
+                                    ->stripCharacters(',')
+                                    ->numeric()
                                     ->minValue(0)
-                                    ->step(100000)
-                                    ->placeholder('1,500,000,000')
-                                    ->formatStateUsing(fn($state) => $state ? number_format($state) : '')
-                                    ->dehydrateStateUsing(fn($state) => str_replace(',', '', $state))
-                                    ->helperText('Nhập giá không bao gồm dấu phẩy'),
+                                    ->helperText('Nhập giá, dấu phẩy sẽ tự động thêm'),
 
                                 TextInput::make('year')
                                     ->label('Năm sản xuất')
@@ -192,6 +192,16 @@ class CarForm
                                     ->step(1)
                                     ->placeholder('5')
                                     ->suffix('chỗ'),
+
+                                Select::make('bodytype')
+                                    ->label('Loại hộp số')
+                                    ->options([
+                                        'Số sàn' => 'Số sàn',
+                                        'Tự động' => 'Tự động',
+                                    ])
+                                    ->default('Số sàn')
+                                    ->native(false)
+                                    ->helperText('Chọn loại hộp số của xe'),
 
                                 Repeater::make('specifications')
                                     ->label('Chi tiết thông số kỹ thuật')
@@ -402,11 +412,6 @@ class CarForm
                                     ->label('Cho phép liên hệ')
                                     ->default(true)
                                     ->helperText('Khách hàng có thể liên hệ về xe này'),
-
-                                DatePicker::make('available_from')
-                                    ->label('Có sẵn từ ngày')
-                                    ->native(false)
-                                    ->displayFormat('d/m/Y'),
                             ]),
 
                         Section::make('SEO')

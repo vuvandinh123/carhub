@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('title', 'Tin Tức & Bài Viết - Xedep.vn')
+@section('meta')
+    @include('partials.meta-tag', [
+        'title' => 'Tin Tức & Bài Viết - Xedep.vn',
+        'meta_description' => 'Cập nhật thông tin mới nhất về thế giới ô tô, công nghệ và xu hướng thị trường',
+        'meta_keywords' => 'tin tức ô tô, bài viết ô tô, xu hướng ô tô, công nghệ ô tô',
+        'meta_image' => asset('default-image.jpg'),
+        'meta_robots' => 'index, follow',
+    ])
+@endsection
 
 @section('content')
 <div class="bg-main">
@@ -13,8 +22,8 @@
         
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-5xl md:text-5xl font-bold mb-6">Tin Tức & Xu Hướng</h1>
-                <p class="text-xl md:text-xl opacity-90 mb-8">
+                <h1 class="text-3xl md:text-5xl font-bold mb-6">Tin Tức & Xu Hướng</h1>
+                <p class="text-md md:text-xl opacity-90 mb-8">
                     Cập nhật thông tin mới nhất về thế giới ô tô, công nghệ và xu hướng thị trường
                 </p>
                 
@@ -42,7 +51,7 @@
     <!-- Main Content -->
     <section class="py-12 container mx-auto max-w-7xl">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col lg:flex-row gap-8">
+            <div class="flex flex-col-reverse lg:flex-row gap-8">
                 <!-- Sidebar -->
                 <aside class="lg:w-80 flex-shrink-0">
                     <div class="sticky top-24 space-y-4">

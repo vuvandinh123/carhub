@@ -121,82 +121,93 @@
             <!-- Car Title -->
             <div class="flex items-center justify-between mb-6">
                 <div>
-                    <h1 class="text-3xl font-bold text-main">{{ $car->title }}</h1>
+                    <h1 class="text-xl md:text-3xl font-bold text-main">{{ $car->title }}</h1>
                     @if ($car->year)
                         <span class="text-sub text-lg">({{ $car->year }})</span>
                     @endif
                 </div>
-                <div class="flex items-center space-x-2">
+                <div class=" hidden md:flex items-center space-x-2">
                     <!-- Share Dropdown -->
                     <div class="relative" id="shareDropdown">
-                        <button onclick="toggleShareDropdown()" class="p-2 text-gray-400 hover:text-blue-600 transition-colors">
+                        <button onclick="toggleShareDropdown()"
+                            class="p-2 text-gray-400 hover:text-blue-600 transition-colors">
                             <i class="fas fa-share-alt text-xl"></i>
                         </button>
-                        
+
                         <!-- Dropdown Menu -->
-                        <div id="shareMenu" class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 overflow-hidden">
+                        <div id="shareMenu"
+                            class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 overflow-hidden">
                             <div class="p-3 border-b border-gray-200 dark:border-gray-700">
                                 <h3 class="font-semibold text-main text-sm">Chia sẻ xe này</h3>
                             </div>
                             <div class="p-2">
                                 <!-- Facebook -->
-                                <button onclick="shareToFacebook()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
+                                <button onclick="shareToFacebook()"
+                                    class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
                                     <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                                         <i class="fab fa-facebook-f text-white text-sm"></i>
                                     </div>
                                     <span class="text-main font-medium text-sm">Facebook</span>
                                 </button>
-                                
+
                                 <!-- Zalo -->
-                                <button onclick="shareToZalo()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
+                                <button onclick="shareToZalo()"
+                                    class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
                                     <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
                                         <i class="fas fa-comments text-white text-sm"></i>
                                     </div>
                                     <span class="text-main font-medium text-sm">Zalo</span>
                                 </button>
-                                
+
                                 <!-- Messenger -->
-                                <button onclick="shareToMessenger()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
-                                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <button onclick="shareToMessenger()"
+                                    class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
+                                    <div
+                                        class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
                                         <i class="fab fa-facebook-messenger text-white text-sm"></i>
                                     </div>
                                     <span class="text-main font-medium text-sm">Messenger</span>
                                 </button>
-                                
+
                                 <!-- WhatsApp -->
-                                <button onclick="shareToWhatsApp()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-colors group">
+                                <button onclick="shareToWhatsApp()"
+                                    class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-colors group">
                                     <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
                                         <i class="fab fa-whatsapp text-white text-sm"></i>
                                     </div>
                                     <span class="text-main font-medium text-sm">WhatsApp</span>
                                 </button>
-                                
+
                                 <!-- Telegram -->
-                                <button onclick="shareToTelegram()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
+                                <button onclick="shareToTelegram()"
+                                    class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors group">
                                     <div class="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center">
                                         <i class="fab fa-telegram-plane text-white text-sm"></i>
                                     </div>
                                     <span class="text-main font-medium text-sm">Telegram</span>
                                 </button>
-                                
+
                                 <!-- Twitter/X -->
-                                <button onclick="shareToTwitter()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors group">
+                                <button onclick="shareToTwitter()"
+                                    class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors group">
                                     <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center">
                                         <i class="fab fa-x-twitter text-white text-sm"></i>
                                     </div>
                                     <span class="text-main font-medium text-sm">Twitter/X</span>
                                 </button>
-                                
+
                                 <!-- Email -->
-                                <button onclick="shareViaEmail()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors group">
+                                <button onclick="shareViaEmail()"
+                                    class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors group">
                                     <div class="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
                                         <i class="fas fa-envelope text-white text-sm"></i>
                                     </div>
                                     <span class="text-main font-medium text-sm">Email</span>
                                 </button>
-                                
+
                                 <!-- Copy Link -->
-                                <button onclick="copyLinkToClipboard()" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors group">
+                                <button onclick="copyLinkToClipboard()"
+                                    class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors group">
                                     <div class="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center">
                                         <i class="fas fa-link text-white text-sm"></i>
                                     </div>
@@ -214,7 +225,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-8">
                 <div class="lg:col-span-2">
                     <div class="relative mb-6">
                         <div class="swiper mySwiper2 rounded-xl overflow-hidden ">
@@ -346,7 +357,7 @@
 
                     <!-- Specifications Section -->
                     <!-- Phần thông số kỹ thuật -->
-                    <div class="mt-8 bg-main text-main rounded-lg p-6 shadow-sm">
+                    <div class="mt-8 hidden md:block bg-main text-main rounded-lg p-6 shadow-sm">
                         <h2 class="text-2xl font-bold mb-6">Thông số kỹ thuật</h2>
 
                         @if ($car->specifications && $car->specifications->count() > 0)
@@ -374,15 +385,15 @@
                         @endif
                     </div>
                     {{-- content --}}
-                    <div class="mt-8 bg-main text-main rounded-lg p-6 shadow-sm">
+                    <div class="mt-8 hidden md:block bg-main text-main rounded-lg p-6 shadow-sm">
                         <h2 class="text-2xl font-bold mb-6">Mô tả</h2>
-                        <div class="prose prose-xl max-w-none">{!! $car->content !!}</div>
+                        <div class="prose prose-sm w-full    !max-w-none">{!! $car->content !!}</div>
                     </div>
                 </div>
                 <div class="lg:col-span-1">
-                    <div class="bg-brand-white dark:bg-brand-gray text-main rounded-lg p-6 shadow-sm sticky top-18">
+                    <div class="bg-brand-white text-main rounded-lg md:p-6 md:shadow-sm sticky top-18">
                         <div class="mb-6">
-                            <h2 class="text-3xl font-bold ">
+                            <h2 class="text-3xl text-red-700 font-bold ">
                                 {{ number_format($car->price) }} đ
                             </h2>
                         </div>
@@ -443,16 +454,16 @@
                                     class="text-center mt-6 before:content-['Hoặc'] before:absolute before:-top-full before:bg-white dark:before:bg-gray-900 before:translate-y-[-5px] before:px-3 before:left-1/2 before:-translate-x-1/2 relative h-[2px] bg-gray-200 dark:bg-gray-700 text-sm text-gray-500 dark:text-gray-300">
                                 </div>
                                 <div class=" border-gray-200 pt-6">
-                                    <h3 class="font-semibold  mb-2">Để lại thông tin chúng tôi sẽ liên hệ với
-                                        bạn</h3>
-                                    <form action="{{ route('consultation.store') }}">
+                                    <h3 class="font-semibold  mb-2">Để lại thông tin chúng tôi sẽ liên hệ với bạn</h3>
+                                    <form method="POST" action="{{ route('consultation.store') }}">
+                                        @csrf
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div class="">
-                                                <input type="text" id="nameInput" placeholder="Tên của bạn"
+                                                <input type="text" name="name" id="nameInput" placeholder="Tên của bạn"
                                                     class="w-full dark:bg-gray-800 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 dark:border-gray-600 focus:ring-primary-800 focus:border-primary-800 outline-none">
                                             </div>
                                             <div>
-                                                <input type="text" id="phoneInput" placeholder="Số điện thoại của bạn"
+                                                <input type="number" name="phone" id="phoneInput" placeholder="Số điện thoại của bạn"
                                                     class="w-full dark:bg-gray-800 px-4 py-2 border border-gray-300 
                                                 dark:border-gray-600
                                                 rounded-lg focus:ring-1 focus:ring-primary-800 focus:border-primary-800 outline-none">
@@ -496,6 +507,36 @@
             </div>
         </div>
     </section>
+    <div class="mt-8 block md:hidden bg-main text-main rounded-lg p-6 shadow-sm">
+        <h2 class="text-2xl font-bold mb-6">Thông số kỹ thuật</h2>
+
+        @if ($car->specifications && $car->specifications->count() > 0)
+            @php
+                // Chia specifications thành 2 cột đều nhau
+                $halfCount = ceil($car->specifications->count() / 2);
+                $columns = $car->specifications->chunk($halfCount);
+            @endphp
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @foreach ($columns as $columnIndex => $columnSpecs)
+                    <div class="space-y-4">
+                        @foreach ($columnSpecs as $spec)
+                            <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
+                                <span class="text-sub">{{ $spec->name }}:</span>
+                                <span class="font-medium">{{ $spec->value }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <p class="text-sub text-center py-4">Chưa có thông số kỹ thuật</p>
+        @endif
+    </div>
+    <div class="mt-8 block md:hidden bg-main text-main rounded-lg p-6 shadow-sm">
+        <h2 class="text-2xl font-bold mb-6">Mô tả</h2>
+        <div class="prose prose-sm md:prose-xl max-w-none">{!! $car->content !!}</div>
+    </div>
 
     <!-- Related Cars Section -->
     @if (isset($relatedCars) && count($relatedCars) > 0)
@@ -743,7 +784,7 @@
         document.addEventListener('click', function(event) {
             const shareDropdown = document.getElementById('shareDropdown');
             const shareMenu = document.getElementById('shareMenu');
-            
+
             if (shareDropdown && !shareDropdown.contains(event.target)) {
                 shareMenu.classList.add('hidden');
             }
@@ -756,7 +797,8 @@
         }
 
         function shareToZalo() {
-            const url = `https://page.zalo.me/share?url=${encodeURIComponent(shareData.url)}&title=${encodeURIComponent(shareData.title)}`;
+            const url =
+                `https://page.zalo.me/share?url=${encodeURIComponent(shareData.url)}&title=${encodeURIComponent(shareData.title)}`;
             window.open(url, '_blank', 'width=600,height=400');
             toggleShareDropdown();
         }
@@ -764,7 +806,8 @@
         function shareToMessenger() {
             const url = `fb-messenger://share?link=${encodeURIComponent(shareData.url)}`;
             // Fallback to web version if app not installed
-            const webUrl = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(shareData.url)}&app_id=YOUR_APP_ID&redirect_uri=${encodeURIComponent(shareData.url)}`;
+            const webUrl =
+                `https://www.facebook.com/dialog/send?link=${encodeURIComponent(shareData.url)}&app_id=YOUR_APP_ID&redirect_uri=${encodeURIComponent(shareData.url)}`;
             window.open(webUrl, '_blank', 'width=600,height=400');
             toggleShareDropdown();
         }
@@ -785,14 +828,17 @@
 
         function shareToTwitter() {
             const text = `${shareData.title} - ${shareData.price}`;
-            const url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(text)}`;
+            const url =
+                `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(text)}`;
             window.open(url, '_blank', 'width=600,height=400');
             toggleShareDropdown();
         }
 
         function shareViaEmail() {
             const subject = encodeURIComponent(`${shareData.title} - ${shareData.price}`);
-            const body = encodeURIComponent(`Xem xe này: ${shareData.title}\nGiá: ${shareData.price}\nNăm: ${shareData.year}\n\nLink: ${shareData.url}`);
+            const body = encodeURIComponent(
+                `Xem xe này: ${shareData.title}\nGiá: ${shareData.price}\nNăm: ${shareData.year}\n\nLink: ${shareData.url}`
+            );
             window.location.href = `mailto:?subject=${subject}&body=${body}`;
             toggleShareDropdown();
         }
@@ -822,23 +868,7 @@
             });
         }
 
-        function showToast(message, type = 'success') {
-            const toast = document.createElement('div');
-            toast.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white z-50 animate-toast-in ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
-            toast.innerHTML = `
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.classList.remove('animate-toast-in');
-                toast.classList.add('animate-toast-out');
-                setTimeout(() => toast.remove(), 250);
-            }, 3000);
-        }
+        
 
         // Native Web Share API (for mobile devices)
         if (navigator.share) {

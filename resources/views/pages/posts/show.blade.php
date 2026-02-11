@@ -26,11 +26,11 @@
                 <!-- Breadcrumb -->
                 <nav class="mb-6 text-sm">
                     <ol class="flex items-center space-x-2">
-                        <li><a href="{{ route('home') }}" class="hover:underline opacity-75">Trang chủ</a></li>
+                        <li class="w-max text-nowrap"><a href="{{ route('home') }}" class="hover:underline  opacity-75">Trang chủ</a></li>
                         <li><i data-lucide="chevron-right" class="w-4 h-4"></i></li>
-                        <li><a href="{{ route('posts.index') }}" class="hover:underline opacity-75">Tin tức</a></li>
+                        <li class="w-max text-nowrap"><a href="{{ route('posts.index') }}" class="hover:underline opacity-75">Tin tức</a></li>
                         <li><i data-lucide="chevron-right" class="w-4 h-4"></i></li>
-                        <li class="opacity-100">{{ Str::limit($post->title, 50) }}</li>
+                        <li class="opacity-100 truncate">{{ Str::limit($post->title, 50) }}</li>
                     </ol>
                 </nav>
 
@@ -44,7 +44,7 @@
                 @endif
 
                 <!-- Title -->
-                <h1 class="text-4xl md:text-5xl  mb-6 leading-tight">{{ $post->title }}</h1>
+                <h1 class="text-3xl md:text-5xl  mb-6 leading-tight">{{ $post->title }}</h1>
 
                 <!-- Meta Info -->
                 <div class="flex flex-wrap items-center gap-6 text-sm opacity-90">
@@ -72,7 +72,7 @@
             @endif
 
             <!-- Content -->
-            <article class="prose prose-2xl dark:prose-invert max-w-none mb-12">
+            <article class="prose  dark:prose-invert !max-w-none mb-12">
                 {!! $post->content !!}
             </article>
 

@@ -67,7 +67,7 @@
 
         <!-- Right Side - Image -->
         <div class="hidden md:block p-5">
-            <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            <img src="{{ asset("images/banner3.png") }}"
                 alt="Car Loan" class="w-full h-full object-cover rounded-2xl">
         </div>
     </div>

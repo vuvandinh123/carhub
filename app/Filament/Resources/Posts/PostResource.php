@@ -22,7 +22,7 @@ class PostResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'Post';
+    protected static ?string $recordTitleAttribute = 'title';
     // 🔹 Đổi tên hiển thị trong sidebar
     protected static ?string $navigationLabel = 'Bài viết';
 

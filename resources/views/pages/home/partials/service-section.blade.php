@@ -6,7 +6,7 @@
             <!-- First Car Image -->
             <div
                 class="relative overflow-hidden rounded-3xl shadow-lg transform hover:scale-105 transition-transform duration-300">
-                <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400&h=300&fit=crop"
+                <img src="{{ asset("images/xetai-banner.png") }}"
                     alt="Silver Mercedes Car" class="w-full h-64 object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
             </div>
@@ -14,7 +14,7 @@
             <!-- Second Car Image -->
             <div
                 class="relative overflow-hidden rounded-3xl shadow-lg transform hover:scale-105 transition-transform duration-300 lg:ml-16">
-                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&h=350&fit=crop"
+                <img src="{{ asset("images/xetai-banner2.png") }}"
                     alt="Black Sports Car" class="w-full h-80 object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
             </div>
@@ -84,22 +84,22 @@
     <!-- Statistics Section -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16 max-w-6xl mx-auto">
         <div class="text-center p-6 card text-main rounded-2xl  hover:shadow-lg transition-shadow">
-            <div class="text-4xl font-bold  mb-2">836M</div>
+            <div class="text-4xl font-bold  mb-2">2.000</div>
             <div class="text-sub text-sm uppercase tracking-wide font-medium">OTÔ ĐÃ BÁN</div>
         </div>
 
         <div class="text-center p-6 card text-main rounded-2xl  hover:shadow-lg transition-shadow">
-            <div class="text-4xl font-bold  mb-2">738M</div>
+            <div class="text-4xl font-bold  mb-2">1.000</div>
             <div class="text-sub text-sm uppercase tracking-wide font-medium">ĐÁNH GIÁ NHÀ PHÂN PHỐI</div>
         </div>
 
         <div class="text-center p-6 card text-main rounded-2xl  hover:shadow-lg transition-shadow">
-            <div class="text-4xl font-bold  mb-2">100M</div>
+            <div class="text-4xl font-bold  mb-2">100.000</div>
             <div class="text-sub text-sm uppercase tracking-wide font-medium">LƯỢT TRUY CẬP MỖI NGÀY</div>
         </div>
 
         <div class="text-center p-6 card text-main rounded-2xl  hover:shadow-lg transition-shadow">
-            <div class="text-4xl font-bold  mb-2">238M</div>
+            <div class="text-4xl font-bold  mb-2">50</div>
             <div class="text-sub text-sm uppercase tracking-wide font-medium">NHÀ PHÂN PHỐI ĐƯỢC XÁC THỰC</div>
         </div>
     </div>

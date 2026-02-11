@@ -40,8 +40,8 @@
                 </div>
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Điện thoại</h3>
                 <p class="text-gray-600 dark:text-gray-400 mb-3">Liên hệ trực tiếp</p>
-                <a href="tel:0123456789" class="text-blue-600 dark:text-blue-400 font-semibold text-lg hover:text-blue-700">
-                    0123 456 789
+                <a href="tel:0392096106" class="text-blue-600 dark:text-blue-400 font-semibold text-lg hover:text-blue-700">
+                    0392 096 106
                 </a>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">T2 - T7: 8:00 - 18:00</p>
             </div>
@@ -54,7 +54,7 @@
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Email</h3>
                 <p class="text-gray-600 dark:text-gray-400 mb-3">Gửi email cho chúng tôi</p>
                 <a href="mailto:contact@carhub.vn" class="text-purple-600 dark:text-purple-400 font-semibold text-lg hover:text-purple-700 break-all">
-                    contact@carhub.vn
+                    Nguyenhuutuan16012001@gmail.com
                 </a>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Phản hồi trong 24h</p>
             </div>
@@ -67,7 +67,7 @@
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Địa chỉ</h3>
                 <p class="text-gray-600 dark:text-gray-400 mb-3">Ghé thăm showroom</p>
                 <p class="text-gray-900 dark:text-gray-300 font-medium">
-                    123 Đường ABC, Quận 1, TP.HCM
+                     Quốc lộ 13, Hiệp Bình, TP. HCM
                 </p>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Mở cửa cả CN</p>
             </div>
@@ -273,7 +273,7 @@
                 <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700" style="height: 450px;">
                     <!-- Replace with actual Google Maps embed -->
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.6304931675717!2d106.69831731533427!3d10.762622892328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4b3330bcc9%3A0xb15a5e29bcf364b5!2sBitexco%20Financial%20Tower!5e0!3m2!1sen!2s!4v1234567890" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.517634865361!2d106.71618037355297!3d10.84817825786914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529002301bdd7%3A0x51a8b347aba76087!2zWGUgVOG6o2kgVGhhY28gVGjhu6cgxJDhu6lj!5e0!3m2!1svi!2s!4v1759847824203!5m2!1svi!2s" 
                         width="100%" 
                         height="100%" 
                         style="border:0;" 

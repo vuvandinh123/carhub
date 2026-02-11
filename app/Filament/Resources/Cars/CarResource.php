@@ -21,8 +21,9 @@ class CarResource extends Resource
     protected static ?string $model = Car::class;
 
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $recordTitleAttribute = 'title';
      protected static string|\BackedEnum|null $navigationIcon = Heroicon::Truck;
+     
 
     // 🔹 Đổi tên hiển thị trong sidebar
     protected static ?string $navigationLabel = 'Sản phẩm';

@@ -3,7 +3,8 @@
 
         <div class="flex justify-between flex-col py-14 gap-14 lg:gap-20 min-[1124px]:flex-row">
             <div class="block  xl:max-w-lg">
-                <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <div class="px-5 text-center">
+                    <a href="/" class="flex justify-center md:justify-start mb-3 items-center space-x-3 rtl:space-x-reverse">
                     <img src="{{ asset('/images/thacothuduclogo.png') }}" class="h-8" alt="Flowbite Logo" />
                     <span
                         class="self-center text-2xl whitespace-nowrap dark:text-white uppercase text-primary-800 font-bold">THACO
@@ -12,8 +13,9 @@
                 <p class="text-lg text-gray-500 mb-12 text-center min-[1124px]:text-left">
                     Chúng tôi cung cấp dịch vụ mua bán ô tô hàng đầu tại Việt Nam.
                 </p>
+                </div>
                 <div
-                    class="relative lg:flex-row gap-3 flex-col flex items-center justify-between max-[1124px]:max-w-2xl max-[1124px]:mx-auto ">
+                    class="relative hidden lg:flex-row gap-3 flex-col items-center justify-between max-[1124px]:max-w-2xl max-[1124px]:mx-auto ">
                     <span class="absolute left-5 top-4 lg:top-5"><svg width="22" height="18" viewBox="0 0 22 18"
                             fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -34,10 +36,10 @@
                 <div class="block">
                     <h4 class="text-lg text-main font-medium mb-7 text-center lg:text-left">Danh mục</h4>
                     <ul class="grid gap-6 text-center lg:text-left">
-                        <li><a href="javascript:;" class="text-gray-600 hover:text-primary-800 ">Trang chủ</a></li>
-                        <li><a href="javascript:;" class="text-gray-600 hover:text-primary-800 ">Giới thiệu</a></li>
-                        <li><a href="javascript:;" class="text-gray-600 hover:text-primary-800 ">Bảng giá</a></li>
-                        <li><a href="javascript:;" class="text-gray-600 hover:text-primary-800 ">Phiên bản Pro</a></li>
+                        <li><a href="/" class="text-gray-600 hover:text-primary-800 ">Trang chủ</a></li>
+                        <li><a href="{{ route("about") }}" class="text-gray-600 hover:text-primary-800 ">Giới thiệu</a></li>
+                        <li><a href="{{ route("cars.index") }}" class="text-gray-600 hover:text-primary-800 ">Sản phẩm</a></li>
+                        <li><a href="{{ route("posts.index") }}" class="text-gray-600 hover:text-primary-800 ">Bài viết</a></li>
                     </ul>
                 </div>
                 <div class="block">
@@ -53,12 +55,12 @@
                 <div class="block">
                     <h4 class="text-lg text-main font-medium mb-7 text-center lg:text-left">Hỗ Trợ</h4>
                     <ul class="grid gap-6 text-center lg:text-left">
-                        <li><a href="javascript:;" class="text-gray-600 hover:text-primary-800 ">Hỗ trợ khách hàng</a>
+                        <li><a href="{{ route("contact") }}" class="text-gray-600 hover:text-primary-800 ">Hỗ trợ khách hàng</a>
                         </li>
-                        <li><a href="javascript:;" class="text-gray-600 hover:text-primary-800 ">Chính sách bảo mật</a>
+                        <li><a href="{{ route("contact") }}" class="text-gray-600 hover:text-primary-800 ">Chính sách bảo mật</a>
                         </li>
-                        <li><a href="javascript:;" class="text-gray-600 hover:text-primary-800 ">Giấy phép</a></li>
-                        <li><a href="javascript:;" class="text-gray-600 hover:text-primary-800 ">Điều khoản & Điều
+                        <li><a href="{{ route("contact") }}" class="text-gray-600 hover:text-primary-800 ">Giấy phép</a></li>
+                        <li><a href="{{ route("contact") }}" class="text-gray-600 hover:text-primary-800 ">Điều khoản & Điều
                                 kiện</a></li>
                     </ul>
                 </div>

@@ -49,7 +49,7 @@
                 <i data-lucide="git-compare" class="text-gray-600 group-hover/btn:text-white w-4 h-4"></i>
             </button>
             <button 
-                onclick="toggleBookmark({{ $carid }}, '{{ addslashes($title) }}', {{ $price }}, {{ $year ?? 'null' }}, '{{ $fuel ?? '' }}', '{{ $mileage ?? '' }}', '{{ $bodytype ?? '' }}', '{{ $image ?? '' }}')"
+                onclick="toggleBookmark({{ $carid }},'{{ $slug }}', '{{ addslashes($title) }}', {{ $price }}, {{ $year ?? 'null' }}, '{{ $fuel ?? '' }}', '{{ $mileage ?? '' }}', '{{ $bodytype ?? '' }}', '{{ $image ?? '' }}')"
                 class="bookmark-btn bookmark-btn-{{ $carid }} bg-white/90 backdrop-blur-sm p-2 w-9 h-9 cursor-pointer flex items-center justify-center rounded-full hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-lg group/btn"
                 title="Lưu xe">
                 <i data-lucide="bookmark" class="bookmark-icon text-gray-600 group-hover/btn:text-white w-4 h-4"></i>
